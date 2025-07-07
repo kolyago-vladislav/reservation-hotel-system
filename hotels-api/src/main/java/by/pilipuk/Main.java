@@ -1,7 +1,12 @@
 package by.pilipuk;
 
-public class HotelApiApp {
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+@SpringBootApplication
+public class HotelsApiApp {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        SpringApplication.run(HotelsApiApp.class, args);
     }
 }
