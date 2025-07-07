@@ -7,6 +7,6 @@ import org.springframework.context.ApplicationContext;
 @SpringBootApplication
 public class UsersApiApp {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class, args);
+        SpringApplication.run(UsersApiApp.class, args);
     }
 }
