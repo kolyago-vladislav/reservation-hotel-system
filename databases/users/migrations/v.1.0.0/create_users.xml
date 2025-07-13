@@ -19,9 +19,18 @@
                 <constraints nullable="false"/>
             </column>
             <column name="username" type="varchar(32)">
-                <constraints unique="true" nullable="false"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_user_username"/>
             </column>
             <column name="password" type="varchar(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -33,16 +42,25 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="role" type="varchar(32)">
-                <constraints unique="true" nullable="false"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_user_role"/>
             </column>
-            <column name="user_ID" type="bigint">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addForeignKeyConstraint
                 baseTableName="roles"
-                baseColumnNames="user_ID"
+                baseColumnNames="user_id"
                 referencedTableName="users"
                 referencedColumnNames="id"
                 constraintName="fk_roles_user"/>

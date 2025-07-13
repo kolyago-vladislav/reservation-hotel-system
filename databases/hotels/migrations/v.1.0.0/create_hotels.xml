@@ -7,10 +7,19 @@
     <changeSet id="1" author="shurapilipuk@gmail.com">
         <createTable tableName="dict_countries" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="pk_dict_countries"/>
             </column>
             <column name="country" type="varchar(32)">
-                <constraints unique="true" nullable="false"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_country"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
@@ -18,19 +27,28 @@
     <changeSet id="2" author="shurapilipuk@gmail.com">
         <createTable tableName="dict_cities" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="pk_dict_cities"/>
             </column>
             <column name="city" type="varchar(32)">
-                <constraints unique="true" nullable="false"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_city"/>
             </column>
-            <column name="country_ID" type="bigint">
+            <column name="country_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addForeignKeyConstraint
                 baseTableName="dict_cities"
-                baseColumnNames="country_ID"
+                baseColumnNames="country_id"
                 referencedTableName="dict_countries"
                 referencedColumnNames="id"
                 constraintName="cities_country"/>
@@ -39,7 +57,7 @@
     <changeSet id="3" author="shurapilipuk@gmail.com">
         <createTable tableName="addresses" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="pk_dict_addresses"/>
             </column>
             <column name="street" type="varchar(32)">
                 <constraints nullable="false"/>
@@ -47,24 +65,33 @@
             <column name="house_number" type="varchar(8)">
                 <constraints nullable="false"/>
             </column>
-            <column name="country_ID" type="bigint">
+            <column name="country_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="city_ID" type="bigint">
+            <column name="city_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addForeignKeyConstraint
                 baseTableName="addresses"
-                baseColumnNames="country_ID"
+                baseColumnNames="country_id"
                 referencedTableName="dict_countries"
                 referencedColumnNames="id"
                 constraintName="fk_addresses_country"/>
 
         <addForeignKeyConstraint
                 baseTableName="addresses"
-                baseColumnNames="city_ID"
+                baseColumnNames="city_id"
                 referencedTableName="dict_cities"
                 referencedColumnNames="id"
                 constraintName="fk_hotels_city"/>
@@ -73,7 +100,7 @@
     <changeSet id="4" author="shurapilipuk@gmail.com">
         <createTable tableName="hotels" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="pk_hotels"/>
             </column>
             <column name="name" type="varchar(32)">
                 <constraints nullable="false"/>
@@ -81,14 +108,23 @@
             <column name="rating" type="smallint">
                 <constraints nullable="false"/>
             </column>
-            <column name="address_ID" type="bigint">
+            <column name="address_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addForeignKeyConstraint
                 baseTableName="hotels"
-                baseColumnNames="address_ID"
+                baseColumnNames="address_id"
                 referencedTableName="addresses"
                 referencedColumnNames="id"
                 constraintName="fk_hotels_address"/>
@@ -97,10 +133,19 @@
     <changeSet id="5" author="shurapilipuk@gmail.com">
         <createTable tableName="room_types" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="pk_room_types"/>
             </column>
             <column name="room_type" type="varchar(32)">
-                <constraints unique="true" nullable="false"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_hotel_room_type"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
@@ -108,7 +153,7 @@
     <changeSet id="6" author="shurapilipuk@gmail.com">
         <createTable tableName="rooms" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="pk_rooms"/>
             </column>
             <column name="price" type="numeric(10,2)">
                 <constraints nullable="false"/>
@@ -116,24 +161,33 @@
             <column name="description" type="varchar(264)">
                 <constraints nullable="false"/>
             </column>
-            <column name="room_type_ID" type="bigint">
+            <column name="room_type_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="hotel_ID" type="bigint">
+            <column name="hotel_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <addForeignKeyConstraint
                 baseTableName="rooms"
-                baseColumnNames="room_type_ID"
+                baseColumnNames="room_type_id"
                 referencedTableName="room_types"
                 referencedColumnNames="id"
                 constraintName="fk_rooms_room_type"/>
 
         <addForeignKeyConstraint
                 baseTableName="rooms"
-                baseColumnNames="hotel_ID"
+                baseColumnNames="hotel_id"
                 referencedTableName="hotels"
                 referencedColumnNames="id"
                 constraintName="fk_rooms_hotel"/>
