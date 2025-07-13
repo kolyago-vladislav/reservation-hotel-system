@@ -15,10 +15,10 @@
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="created" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="updated" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -38,10 +38,10 @@
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="created" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="updated" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -74,10 +74,10 @@
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="created" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="updated" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -114,10 +114,10 @@
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="created" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="updated" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -141,10 +141,10 @@
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="created" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="updated" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -170,10 +170,10 @@
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="created" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="created" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="timestamp" defaultValueComputed="(now() AT TIME ZONE 'utc')">
+            <column name="updated" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
                 <constraints nullable="false"/>
             </column>
         </createTable>
