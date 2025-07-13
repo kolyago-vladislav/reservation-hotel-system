@@ -6,6 +6,8 @@ services:
       - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
     healthcheck:
       test: [ "CMD-SHELL", "psql postgresql://postgres@:5432/postgres -c 'select 1;'" ]
       interval: 10s
@@ -19,14 +21,35 @@ services:
       postgres:
         condition: service_healthy
     volumes:
-      - ./databases/alexandro:/databases/alexandro
+      - ./databases/users:/databases/users
     command: >
       liquibase
         --logLevel=INFO
         --driver=org.postgresql.Driver
-        --classpath="/databases/alexandro/"
+        --classpath="/databases/users/"
         --changeLogFile="changelog.xml"
         --url="jdbc:postgresql://postgres:5432/postgres"
         --username=postgres
         --password=postgres
+        --defaultSchemaName=user
+      update
+
+  liquibase-hotels:
+    image: liquibase/liquibase:4.6.2
+    container_name: liquibase-hotels
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./databases/hotels:/databases/hotels
+    command: >
+      liquibase
+        --logLevel=INFO
+        --driver=org.postgresql.Driver
+        --classpath="/databases/hotels/"
+        --changeLogFile="changelog.xml"
+        --url="jdbc:postgresql://postgres:5432/postgres"
+        --username=postgres
+        --password=postgres
+        --defaultSchemaName=hotel
       update

@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
     <changeSet id="1" author="shurapilipuk@gmail.com">
-        <createTable tableName="users">
+        <createTable tableName="users" schemaName="user">
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
@@ -28,7 +28,7 @@
     </changeSet>
 
     <changeSet id="2" author="shurapilipuk@gmail.com">
-        <createTable tableName="roles">
+        <createTable tableName="roles" schemaName="user">
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
