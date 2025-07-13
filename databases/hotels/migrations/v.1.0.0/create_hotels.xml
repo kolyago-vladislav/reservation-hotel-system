@@ -7,7 +7,7 @@
     <changeSet id="1" author="shurapilipuk@gmail.com">
         <createTable tableName="dict_countries" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_dict_countries"/>
+                <constraints primaryKey="true" primaryKeyName="pk_dict_country"/>
             </column>
             <column name="country" type="varchar(32)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="uc_country"/>
@@ -27,7 +27,7 @@
     <changeSet id="2" author="shurapilipuk@gmail.com">
         <createTable tableName="dict_cities" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_dict_cities"/>
+                <constraints primaryKey="true" primaryKeyName="pk_dict_city"/>
             </column>
             <column name="city" type="varchar(32)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="uc_city"/>
@@ -57,7 +57,7 @@
     <changeSet id="3" author="shurapilipuk@gmail.com">
         <createTable tableName="addresses" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_dict_addresses"/>
+                <constraints primaryKey="true" primaryKeyName="pk_dict_address"/>
             </column>
             <column name="street" type="varchar(32)">
                 <constraints nullable="false"/>
@@ -100,7 +100,7 @@
     <changeSet id="4" author="shurapilipuk@gmail.com">
         <createTable tableName="hotels" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_hotels"/>
+                <constraints primaryKey="true" primaryKeyName="pk_hotel"/>
             </column>
             <column name="name" type="varchar(32)">
                 <constraints nullable="false"/>
@@ -133,7 +133,7 @@
     <changeSet id="5" author="shurapilipuk@gmail.com">
         <createTable tableName="room_types" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_room_types"/>
+                <constraints primaryKey="true" primaryKeyName="pk_room_type"/>
             </column>
             <column name="room_type" type="varchar(32)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="uc_hotel_room_type"/>
@@ -153,7 +153,7 @@
     <changeSet id="6" author="shurapilipuk@gmail.com">
         <createTable tableName="rooms" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_rooms"/>
+                <constraints primaryKey="true" primaryKeyName="pk_room"/>
             </column>
             <column name="price" type="numeric(10,2)">
                 <constraints nullable="false"/>

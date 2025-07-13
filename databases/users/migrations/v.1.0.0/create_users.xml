@@ -7,7 +7,7 @@
     <changeSet id="1" author="shurapilipuk@gmail.com">
         <createTable tableName="users" schemaName="user">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="pk_user"/>
             </column>
             <column name="name" type="varchar(32)">
                 <constraints nullable="false"/>
@@ -39,7 +39,7 @@
     <changeSet id="2" author="shurapilipuk@gmail.com">
         <createTable tableName="roles" schemaName="user">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" primaryKeyName="pk_user_role"/>
             </column>
             <column name="role" type="varchar(32)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="uc_user_role"/>
