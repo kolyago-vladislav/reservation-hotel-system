@@ -10,7 +10,7 @@
                 <constraints primaryKey="true" primaryKeyName="pk_dict_country"/>
             </column>
             <column name="country" type="varchar(32)">
-                <constraints unique="true" nullable="false" uniqueConstraintName="uc_country"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_countries_country"/>
             </column>
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
@@ -30,7 +30,7 @@
                 <constraints primaryKey="true" primaryKeyName="pk_dict_city"/>
             </column>
             <column name="city" type="varchar(32)">
-                <constraints unique="true" nullable="false" uniqueConstraintName="uc_city"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_cities_city"/>
             </column>
             <column name="country_id" type="bigint">
                 <constraints nullable="false"/>
@@ -136,7 +136,7 @@
                 <constraints primaryKey="true" primaryKeyName="pk_room_type"/>
             </column>
             <column name="room_type" type="varchar(32)">
-                <constraints unique="true" nullable="false" uniqueConstraintName="uc_hotel_room_type"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_room_types_room_type"/>
             </column>
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>

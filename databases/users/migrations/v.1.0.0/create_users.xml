@@ -19,7 +19,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="username" type="varchar(32)">
-                <constraints unique="true" nullable="false" uniqueConstraintName="uc_user_username"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_users_username"/>
             </column>
             <column name="password" type="varchar(32)">
                 <constraints nullable="false"/>
@@ -42,7 +42,7 @@
                 <constraints primaryKey="true" primaryKeyName="pk_user_role"/>
             </column>
             <column name="role" type="varchar(32)">
-                <constraints unique="true" nullable="false" uniqueConstraintName="uc_user_role"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_roles_role"/>
             </column>
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
