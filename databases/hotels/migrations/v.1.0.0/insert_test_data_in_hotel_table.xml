@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="test_data_hotel" author="shurapilipuk@gmail.com">
+
+        <insert tableName="dict_countries" schemaName="hotel">
+            <column name="id" valueNumeric="1"/>
+            <column name="country" value="Belarus"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="dict_countries" schemaName="hotel">
+            <column name="id" valueNumeric="2"/>
+            <column name="country" value="Russia"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="dict_cities" schemaName="hotel">
+            <column name="id" valueNumeric="1"/>
+            <column name="city" value="Minsk"/>
+            <column name="country_id" valueNumeric="1"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="dict_cities" schemaName="hotel">
+            <column name="id" valueNumeric="2"/>
+            <column name="city" value="Moscow"/>
+            <column name="country_id" valueNumeric="2"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="addresses" schemaName="hotel">
+            <column name="id" valueNumeric="1"/>
+            <column name="street" value="Zhilunovicha"/>
+            <column name="house_number" value="33"/>
+            <column name="country_id" valueNumeric="1"/>
+            <column name="city_id" valueNumeric="1"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="addresses" schemaName="hotel">
+            <column name="id" valueNumeric="2"/>
+            <column name="street" value="Apretova"/>
+            <column name="house_number" value="321"/>
+            <column name="country_id" valueNumeric="2"/>
+            <column name="city_id" valueNumeric="2"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="hotels" schemaName="hotel">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Pilipukiya"/>
+            <column name="rating" valueNumeric="5"/>
+            <column name="address_id" valueNumeric="1"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="hotels" schemaName="hotel">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Piunia"/>
+            <column name="rating" valueNumeric="4"/>
+            <column name="address_id" valueNumeric="2"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="room_types" schemaName="hotel">
+            <column name="id" valueNumeric="1"/>
+            <column name="room_type" value="Lux"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="room_types" schemaName="hotel">
+            <column name="id" valueNumeric="2"/>
+            <column name="room_type" value="Standart"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="rooms" schemaName="hotel">
+            <column name="id" valueNumeric="1"/>
+            <column name="description" value="Room 1 in hotel1"/>
+            <column name="room_type_id" valueNumeric="1"/>
+            <column name="hotel_id" valueNumeric="1"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+        <insert tableName="rooms" schemaName="hotel">
+            <column name="id" valueNumeric="2"/>
+            <column name="description" value="Room 1 in hotel2"/>
+            <column name="room_type_id" valueNumeric="2"/>
+            <column name="hotel_id" valueNumeric="2"/>
+            <column name="active" valueBoolean="true"/>
+            <column name="created" valueDate="2024-01-01T00:00:00"/>
+            <column name="updated" valueDate="2025-01-01T00:00:00"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
