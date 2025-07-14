@@ -10,7 +10,7 @@
                 <constraints primaryKey="true" primaryKeyName="pk_dict_country"/>
             </column>
             <column name="country" type="varchar(32)">
-                <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_countries_country"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_country_country"/>
             </column>
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
@@ -30,7 +30,7 @@
                 <constraints primaryKey="true" primaryKeyName="pk_dict_city"/>
             </column>
             <column name="city" type="varchar(32)">
-                <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_cities_city"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_city_city"/>
             </column>
             <column name="country_id" type="bigint">
                 <constraints nullable="false"/>
@@ -51,7 +51,7 @@
                 baseColumnNames="country_id"
                 referencedTableName="dict_countries"
                 referencedColumnNames="id"
-                constraintName="cities_country"/>
+                constraintName="fk_dict_city_dict_country_country_id"/>
     </changeSet>
 
     <changeSet id="3" author="shurapilipuk@gmail.com">
@@ -87,14 +87,14 @@
                 baseColumnNames="country_id"
                 referencedTableName="dict_countries"
                 referencedColumnNames="id"
-                constraintName="fk_addresses_country"/>
+                constraintName="fk_address_dict_country_country_id"/>
 
         <addForeignKeyConstraint
                 baseTableName="addresses"
                 baseColumnNames="city_id"
                 referencedTableName="dict_cities"
                 referencedColumnNames="id"
-                constraintName="fk_hotels_city"/>
+                constraintName="fk_address_dict_city_city_id"/>
     </changeSet>
 
     <changeSet id="4" author="shurapilipuk@gmail.com">
@@ -127,7 +127,7 @@
                 baseColumnNames="address_id"
                 referencedTableName="addresses"
                 referencedColumnNames="id"
-                constraintName="fk_hotels_address"/>
+                constraintName="fk_hotel_address_address_id"/>
     </changeSet>
 
     <changeSet id="5" author="shurapilipuk@gmail.com">
@@ -136,7 +136,7 @@
                 <constraints primaryKey="true" primaryKeyName="pk_room_type"/>
             </column>
             <column name="room_type" type="varchar(32)">
-                <constraints unique="true" nullable="false" uniqueConstraintName="uc_room_types_room_type"/>
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_room_type_room_type"/>
             </column>
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
@@ -154,9 +154,6 @@
         <createTable tableName="rooms" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_room"/>
-            </column>
-            <column name="price" type="numeric(10,2)">
-                <constraints nullable="false"/>
             </column>
             <column name="description" type="varchar(264)">
                 <constraints nullable="false"/>
@@ -183,14 +180,14 @@
                 baseColumnNames="room_type_id"
                 referencedTableName="room_types"
                 referencedColumnNames="id"
-                constraintName="fk_rooms_room_type"/>
+                constraintName="fk_room_room_type_room_type_id"/>
 
         <addForeignKeyConstraint
                 baseTableName="rooms"
                 baseColumnNames="hotel_id"
                 referencedTableName="hotels"
                 referencedColumnNames="id"
-                constraintName="fk_rooms_hotel"/>
+                constraintName="fk_room_hotel_hotel_id"/>
     </changeSet>
 
 </databaseChangeLog>
