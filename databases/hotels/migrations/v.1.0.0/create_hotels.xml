@@ -136,7 +136,7 @@
                 <constraints primaryKey="true" primaryKeyName="pk_room_type"/>
             </column>
             <column name="room_type" type="varchar(32)">
-                <constraints unique="true" nullable="false" uniqueConstraintName="uc_room_type_room_type"/>
+                <constraints nullable="false"/>
             </column>
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>

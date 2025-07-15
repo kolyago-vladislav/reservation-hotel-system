@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="test_data_user" author="shurapilipuk@gmail.com">
+        <sql>
+            INSERT INTO "user".users (id, name, surname, age, username, password, active, created, updated)
+                SELECT
+                    gs AS id,
+                    CONCAT('Name', gs) AS name,
+                    CONCAT('Surname', gs) AS surname,
+                    ROUND(random() * 100) AS age,
+                    CONCAT('User', gs) AS username,
+                    CONCAT('Qwe', gs) AS password,
+                    true AS active,
+                    NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
+                    NOW() AT TIME ZONE 'utc'
+            FROM generate_series(1, 10000) AS gs;
+        </sql>
+
+        <sql>
+            <![CDATA[
+            INSERT INTO "user".roles (id, role, user_id, active, created, updated)
+                SELECT
+                    gs AS id,
+                    CASE
+                        WHEN random() < 0.5 THEN 'USER'
+                        ELSE 'ADMIN'
+                    END AS role,
+                    gs AS user_id,
+                    true AS active,
+                    NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
+                    NOW() AT TIME ZONE 'utc'
+            FROM generate_series(1, 10000) AS gs;
+            ]]>
+        </sql>
+
+    </changeSet>
+</databaseChangeLog>
