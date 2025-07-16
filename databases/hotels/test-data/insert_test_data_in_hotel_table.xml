@@ -60,31 +60,39 @@
                 true AS active,
                 NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
                 NOW() AT TIME ZONE 'utc'
-            FROM generate_series(1, 10000) AS gs;
+            FROM generate_series(1, 1000) AS gs;
         </sql>
 
         <sql>
             INSERT INTO hotel.room_types (id, room_type, active, created, updated)
             SELECT
                 gs AS id,
-                CONCAT('Standart', gs) AS room_type,
+                CONCAT('Standard', gs) AS room_type,
                 true AS active,
                 NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
                 NOW() AT TIME ZONE 'utc'
-                FROM generate_series(1, 10000) AS gs;
+            FROM generate_series(1, 10) AS gs;
         </sql>
 
         <sql>
-            INSERT INTO hotel.Rooms (id, description, room_type_id, hotel_id, active, created, updated)
+            CREATE TEMP TABLE tmp_hotel_room_counts AS
+            SELECT id AS hotel_id,
+                FLOOR(random() * 9001 + 1000)::int AS room_count
+            FROM hotel.hotels;
+        </sql>
+
+        <sql>
+            INSERT INTO hotel.rooms (id, description, room_type_id, hotel_id, active, created, updated)
             SELECT
-                gs AS id,
-                CONCAT('Room ', gs, ' in hotel', gs) AS description,
-                gs AS room_type_id,
-                gs AS hotel_id,
+                row_number() OVER () AS id,
+                CONCAT('Room ', gs, ' in hotel ', t.hotel_id) AS description,
+                ROUND(1 + random() * 9) AS room_type_id,
+                t.hotel_id,
                 true AS active,
                 NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
                 NOW() AT TIME ZONE 'utc'
-            FROM generate_series(1, 10000) AS gs;
+            FROM tmp_hotel_room_counts t,
+            generate_series(1, t.room_count) AS gs
         </sql>
 
     </changeSet>
