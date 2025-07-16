@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="test_data_user" author="shurapilipuk@gmail.com">
+        <sql>
+            INSERT INTO "user".roles (id, role, active, created, updated)
+            SELECT
+                gs AS id,
+                CASE
+                    WHEN gs = 1
+                    THEN 'USER'
+                    ELSE 'ADMIN'
+                END AS role,
+                true AS active,
+                NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
+                NOW() AT TIME ZONE 'utc'
+            FROM generate_series(1, 2) AS gs;
+        </sql>
+
+        <sql>
+            INSERT INTO "user".users (id, name, surname, age, username, password, user_role_id, active, created, updated)
+            SELECT
+                gs AS id,
+                CONCAT('Name', gs) AS name,
+                CONCAT('Surname', gs) AS surname,
+                ROUND(random() * 100) AS age,
+                CONCAT('User', gs) AS username,
+                CONCAT('Qwe', gs) AS password,
+                CASE
+                    WHEN random() &lt; 0.5
+                    THEN 1
+                    ELSE 2
+                END AS user_role_id,
+                true AS active,
+                NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
+                NOW() AT TIME ZONE 'utc'
+            FROM generate_series(1, 10000) AS gs;
+        </sql>
+
+    </changeSet>
+</databaseChangeLog>
