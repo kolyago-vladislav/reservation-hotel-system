@@ -6,6 +6,8 @@
 
     <changeSet id="test_data_user" author="shurapilipuk@gmail.com">
 
+        <comment>Test data for user schema</comment>
+
         <sql>
             INSERT INTO "user".users (id, name, surname, age, username, password, active, created, updated)
             SELECT

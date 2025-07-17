@@ -5,6 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
     <changeSet id="1" author="shurapilipuk@gmail.com">
+        <comment>Countries dictionary</comment>
         <createTable tableName="dict_countries" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_dict_country"/>
@@ -25,6 +26,7 @@
     </changeSet>
 
     <changeSet id="2" author="shurapilipuk@gmail.com">
+        <comment>Cities dictionary</comment>
         <createTable tableName="dict_cities" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_dict_city"/>
@@ -55,6 +57,7 @@
     </changeSet>
 
     <changeSet id="3" author="shurapilipuk@gmail.com">
+        <comment>Addresses table</comment>
         <createTable tableName="addresses" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_dict_address"/>
@@ -98,6 +101,7 @@
     </changeSet>
 
     <changeSet id="4" author="shurapilipuk@gmail.com">
+        <comment>Hotels table</comment>
         <createTable tableName="hotels" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_hotel"/>
@@ -131,6 +135,7 @@
     </changeSet>
 
     <changeSet id="5" author="shurapilipuk@gmail.com">
+        <comment>Room_types table</comment>
         <createTable tableName="room_types" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_room_type"/>
@@ -151,6 +156,7 @@
     </changeSet>
 
     <changeSet id="6" author="shurapilipuk@gmail.com">
+        <comment>Rooms table</comment>
         <createTable tableName="rooms" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_room"/>

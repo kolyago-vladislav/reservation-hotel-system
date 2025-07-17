@@ -5,6 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
     <changeSet id="test_data_hotel" author="shurapilipuk@gmail.com">
+
+        <comment>Test data for hotel schema</comment>
+
         <sql>
             INSERT INTO hotel.dict_countries (id, country, active, created, updated)
             SELECT
@@ -60,7 +63,7 @@
                 true AS active,
                 NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
                 NOW() AT TIME ZONE 'utc'
-            FROM generate_series(1, 1000) AS gs;
+            FROM generate_series(1, 100) AS gs;
         </sql>
 
         <sql>
@@ -96,4 +99,5 @@
         </sql>
 
     </changeSet>
+
 </databaseChangeLog>
