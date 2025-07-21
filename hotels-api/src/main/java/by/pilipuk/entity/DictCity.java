@@ -1,6 +1,13 @@
 package by.pilipuk.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import lombok.Data;
 
 import java.time.Instant;
@@ -16,8 +23,9 @@ public class DictCity {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "country_id")
-    private Long countryId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "country_id", nullable = false)
+    private DictCountry dictCountry;
 
     @Column(name = "active")
     private boolean active;

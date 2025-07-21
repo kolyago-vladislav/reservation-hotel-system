@@ -1,6 +1,13 @@
 package by.pilipuk.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import lombok.Data;
 
 import java.time.Instant;
@@ -17,10 +24,11 @@ public class Hotel {
     private String name;
 
     @Column(name = "rating")
-    private String rating;
+    private Short rating;
 
-    @Column(name = "address_id")
-    private Long addressId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
 
     @Column(name = "active")
     private boolean active;
