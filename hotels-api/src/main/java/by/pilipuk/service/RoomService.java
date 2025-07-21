@@ -14,11 +14,7 @@ public class RoomService {
     private final RoomRepository roomRepository;
 
     public List<Room> getAllFilteredRooms(List<Long> roomTypeIds, List<Long> hotelIds, List<Long> roomIds) {
-        return roomRepository.findAll().stream()
-                .filter(room -> roomTypeIds == null || roomTypeIds.contains(room.getRoomType().getId()))
-                .filter(room -> hotelIds == null || hotelIds.contains(room.getHotel().getId()))
-                .filter(room -> roomIds == null || roomIds.contains(room.getId()))
-                .toList();
+        return this.roomRepository.getAllFilteredRooms(roomTypeIds, hotelIds, roomIds);
     }
 
     public Optional<Room> getRoomById(Long id) {
