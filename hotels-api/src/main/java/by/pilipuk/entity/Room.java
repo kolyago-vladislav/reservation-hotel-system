@@ -9,7 +9,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import lombok.Data;
-
 import java.time.Instant;
 
 @Data
@@ -39,4 +38,5 @@ public class Room {
 
     @Column(name = "updated")
     private Instant updated;
+
 }

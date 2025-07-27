@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
     @Query(value = """
@@ -17,7 +16,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
       AND (:hotelIds IS NULL OR hotel_id IN (:hotelIds))
       AND (:roomIds IS NULL OR id IN (:roomIds))
 """, nativeQuery = true)
-    List<Room> getAllFilteredRooms(
+    List<Room> findAllFilteredRooms(
             @Param("roomTypeIds") List<Long> roomTypeIds,
             @Param("hotelIds") List<Long> hotelIds,
             @Param("roomIds") List<Long> roomIds

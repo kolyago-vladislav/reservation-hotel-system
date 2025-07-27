@@ -38,5 +38,4 @@ public class Hotel {
 
     @Column(name = "updated")
     private Instant updated;
-
 }
