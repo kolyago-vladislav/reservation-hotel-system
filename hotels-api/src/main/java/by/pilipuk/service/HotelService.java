@@ -8,14 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class HotelService {
 
     private final HotelRepository hotelRepository;
-
-    public HotelService(HotelRepository hotelRepository) {
-        this.hotelRepository = hotelRepository;
-    }
 
     public List<Hotel> getAllHotels() {
         return this.hotelRepository.findAll();
