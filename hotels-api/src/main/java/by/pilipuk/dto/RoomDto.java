@@ -2,18 +2,14 @@ package by.pilipuk.dto;
 
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.RoomType;
-import lombok.Data;
 import java.time.Instant;
 
-@Data
-public class RoomDto {
-
-    private Long id;
-    private String description;
-    private RoomType roomType;
-    private Hotel hotel;
-    private boolean active;
-    private Instant created;
-    private Instant updated;
-
-}
+public record RoomDto (
+    Long id,
+    String description,
+    RoomType roomType,
+    Hotel hotel,
+    boolean active,
+    Instant created,
+    Instant updated
+) {}
