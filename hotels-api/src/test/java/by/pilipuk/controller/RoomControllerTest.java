@@ -1,6 +1,5 @@
-package by.pilipuk.service;
+package by.pilipuk.controller;
 
-import by.pilipuk.controller.RoomController;
 import by.pilipuk.entity.DictCountry;
 import by.pilipuk.entity.DictCity;
 import by.pilipuk.entity.Address;
@@ -26,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
 @SpringBootTest
-class RoomServiceTest {
+class RoomControllerTest {
 
     @Autowired
     private RoomController roomController;
