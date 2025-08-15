@@ -24,7 +24,6 @@
             SELECT
                 gs AS id,
                 CONCAT('City', gs) AS city,
-                ROUND(1 + random() * 299) AS country_id,
                 true AS active,
                 NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
                 NOW() AT TIME ZONE 'utc'

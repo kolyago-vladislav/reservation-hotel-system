@@ -5,9 +5,9 @@ import by.pilipuk.entity.RoomType;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface RoomTypeMapper {
+public abstract class RoomTypeMapper {
 
-    RoomTypeDto toDto(RoomType roomType);
+    public abstract RoomTypeDto toDto(RoomType roomType);
 
-    RoomType toEntity(RoomTypeDto roomTypeDto);
+    public abstract RoomType toEntity(RoomTypeDto roomTypeDto);
 }

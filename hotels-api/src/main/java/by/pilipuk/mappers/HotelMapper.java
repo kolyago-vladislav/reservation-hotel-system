@@ -5,10 +5,10 @@ import by.pilipuk.entity.Hotel;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface HotelMapper {
+public abstract class HotelMapper {
 
-    HotelDto toDto(Hotel hotel);
+    public abstract HotelDto toDto(Hotel hotel);
 
-    Hotel toEntity(HotelDto hotelDto);
+    public abstract Hotel toEntity(HotelDto hotelDto);
 
 }

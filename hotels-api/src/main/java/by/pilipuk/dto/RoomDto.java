@@ -2,6 +2,7 @@ package by.pilipuk.dto;
 
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.RoomType;
+
 import java.time.Instant;
 
 public record RoomDto (
