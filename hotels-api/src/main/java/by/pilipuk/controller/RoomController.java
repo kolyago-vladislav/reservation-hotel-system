@@ -28,8 +28,7 @@ public class RoomController {
             @RequestParam(value = "hotel_ids", required = false) List<Long> hotelIds,
             @RequestParam(value = "room_ids", required = false) List<Long> roomIds
     ) {
-        List<RoomDto> filteredRooms = this.roomService.findAllFilteredRooms(roomTypeIds, hotelIds, roomIds);
-        return filteredRooms;
+        return this.roomService.findAllFilteredRooms(roomTypeIds, hotelIds, roomIds);
     }
 
 }

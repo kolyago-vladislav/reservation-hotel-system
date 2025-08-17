@@ -23,10 +23,6 @@ public class DictCity {
     @Column(name = "city")
     private String city;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "country_id", nullable = false)
-    private DictCountry dictCountry;
-
     @Column(name = "active")
     private boolean active;
 

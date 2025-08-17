@@ -34,9 +34,6 @@
             <column name="city" type="varchar(32)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_city_city"/>
             </column>
-            <column name="country_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
             <column name="active" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
@@ -47,13 +44,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-
-        <addForeignKeyConstraint
-                baseTableName="dict_cities"
-                baseColumnNames="country_id"
-                referencedTableName="dict_countries"
-                referencedColumnNames="id"
-                constraintName="fk_dict_city_dict_country_country_id"/>
     </changeSet>
 
     <changeSet id="3" author="shurapilipuk@gmail.com">

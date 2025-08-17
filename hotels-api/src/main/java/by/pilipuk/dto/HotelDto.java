@@ -1,6 +1,7 @@
 package by.pilipuk.dto;
 
 import by.pilipuk.entity.Address;
+
 import java.time.Instant;
 
 public record HotelDto (
@@ -11,4 +12,5 @@ public record HotelDto (
     boolean active,
     Instant created,
     Instant updated
-) {}
+) {
+}
