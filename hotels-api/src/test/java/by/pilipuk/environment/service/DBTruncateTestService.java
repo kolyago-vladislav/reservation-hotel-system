@@ -1,4 +1,4 @@
-package by.pilipuk.service;
+package by.pilipuk.environment.service;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;

@@ -1,12 +1,14 @@
-package by.pilipuk.controller;
+package by.pilipuk.spec.controller;
 
+import by.pilipuk.controller.RoomController;
 import by.pilipuk.dto.RoomDto;
 import by.pilipuk.entity.Room;
 import by.pilipuk.mappers.RoomMapper;
-import by.pilipuk.service.CascadeRoomCreationTestService;
-import by.pilipuk.service.DBTruncateTestService;
+import by.pilipuk.environment.service.CascadeRoomCreationTestService;
+import by.pilipuk.environment.service.DBTruncateTestService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@RequiredArgsConstructor
 class RoomControllerTest {
 
     @Autowired
@@ -28,13 +31,13 @@ class RoomControllerTest {
     private DBTruncateTestService dbTestService;
 
     @Autowired
-    CascadeRoomCreationTestService creationTestService;
+    private CascadeRoomCreationTestService creationTestService;
 
     @PersistenceContext
     EntityManager entityManager;
 
     @BeforeEach
-    void cleanDatabase() {
+    void setUp() {
         dbTestService.truncateAllTables();
         entityManager.clear();
     }
@@ -56,7 +59,6 @@ class RoomControllerTest {
     void getRoomById() {
         // given
         RoomDto expectedRoomDto = creationTestService.createRoomDto();
-        Room expectedRoom = roomMapper.toEntity(expectedRoomDto);
 
         // when
         var result = roomController.getRoomById(roomMapper.toEntity(expectedRoomDto).getId());

@@ -1,4 +1,4 @@
-package by.pilipuk.data.dtoCreators;
+package by.pilipuk.environment.data.dtoCreators;
 
 import by.pilipuk.dto.DictCountryDto;
 import org.springframework.stereotype.Component;
