@@ -1,8 +1,5 @@
 package by.pilipuk.environment.data.dtoCreators;
 
-import by.pilipuk.dto.HotelDto;
-import by.pilipuk.dto.RoomDto;
-import by.pilipuk.dto.RoomTypeDto;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.RoomType;
 import org.springframework.stereotype.Component;

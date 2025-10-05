@@ -1,6 +1,5 @@
 package by.pilipuk.environment.data.dtoCreators;
 
-import by.pilipuk.dto.RoomTypeDto;
 import org.springframework.stereotype.Component;
 import java.time.Instant;
 

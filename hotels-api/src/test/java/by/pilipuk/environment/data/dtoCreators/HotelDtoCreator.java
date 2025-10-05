@@ -1,7 +1,5 @@
 package by.pilipuk.environment.data.dtoCreators;
 
-import by.pilipuk.dto.AddressDto;
-import by.pilipuk.dto.HotelDto;
 import by.pilipuk.entity.Address;
 import org.springframework.stereotype.Component;
 import java.time.Instant;

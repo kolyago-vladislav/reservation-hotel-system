@@ -1,8 +1,9 @@
 package by.pilipuk.service;
 
-import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.dto.HotelDto;
+import by.pilipuk.dto.writeDto.HotelWriteDto;
 import by.pilipuk.entity.Hotel;
-import by.pilipuk.mappers.HotelMapper;
+import by.pilipuk.mapper.HotelMapper;
 import by.pilipuk.repository.HotelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,13 @@ public class HotelService {
     private final HotelRepository hotelRepository;
 
     public List<HotelDto> getAllHotels() {
-        return this.hotelRepository.findAll().stream()
+        return hotelRepository.findAll().stream()
                 .map(hotelMapper::toDto)
                 .toList();
     }
 
-    public void createHotel(HotelDto hotelDto) {
-        Hotel hotel = hotelMapper.toEntity(hotelDto);
-        this.hotelRepository.save(hotel);
+    public void addHotel(HotelWriteDto hotelWriteDto) {
+        Hotel hotel = hotelMapper.toEntity(hotelWriteDto);
+        hotelRepository.save(hotel);
     }
 }
