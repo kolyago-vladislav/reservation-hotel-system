@@ -19,4 +19,12 @@ public abstract class RoomMapper {
     })
     public abstract RoomDto toDto(Room room);
 
+    @Named("toRoom")
+    @Mappings({
+            @Mapping(source = "roomType", target = "roomType.roomType"),
+            @Mapping(source = "hotelId", target = "hotel.id"),
+            @Mapping(source = "description", target = "description"),
+    })
+    public abstract Room toEntity(RoomDto roomDto);
+
 }

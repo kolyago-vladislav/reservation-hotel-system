@@ -23,4 +23,14 @@ public abstract class AddressMapper {
     })
     public abstract AddressDto from(Address address);
 
+    @Named("toAddress")
+    @Mappings({
+            @Mapping(source = "id", target = "id"),
+            @Mapping(source = "street", target = "street"),
+            @Mapping(source = "houseNumber", target = "houseNumber"),
+            @Mapping(source = "country", target = "dictCountry.country"),
+            @Mapping(source = "city", target = "dictCity.city")
+    })
+    public abstract Address to(AddressDto addressDto);
+
 }

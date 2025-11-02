@@ -1,9 +1,6 @@
 package by.pilipuk.environment.data;
 
-import by.pilipuk.environment.data.dtoCreators.DictCityDtoCreator;
-import by.pilipuk.environment.data.dtoCreators.DictCountryDtoCreator;
 import by.pilipuk.environment.data.dtoCreators.AddressDtoCreator;
-import by.pilipuk.environment.data.dtoCreators.RoomTypeDtoCreator;
 import by.pilipuk.environment.data.dtoCreators.HotelDtoCreator;
 import by.pilipuk.environment.data.dtoCreators.RoomDtoCreator;
 import lombok.RequiredArgsConstructor;
