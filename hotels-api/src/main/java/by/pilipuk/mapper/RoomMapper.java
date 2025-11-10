@@ -1,6 +1,7 @@
 package by.pilipuk.mapper;
 
 import by.pilipuk.dto.dto.RoomDto;
+import by.pilipuk.dto.writeDto.RoomWriteDto;
 import by.pilipuk.entity.Room;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,14 +18,14 @@ public abstract class RoomMapper {
             @Mapping(source = "roomType.roomType", target = "roomType"),
             @Mapping(source = "hotel.id", target = "hotelId"),
     })
-    public abstract RoomDto toDto(Room room);
+    public abstract RoomDto from(Room room);
 
     @Named("toRoom")
     @Mappings({
+            @Mapping(source = "description", target = "description"),
             @Mapping(source = "roomType", target = "roomType.roomType"),
             @Mapping(source = "hotelId", target = "hotel.id"),
-            @Mapping(source = "description", target = "description"),
     })
-    public abstract Room toEntity(RoomDto roomDto);
+    public abstract Room to(RoomWriteDto roomWriteDto);
 
 }

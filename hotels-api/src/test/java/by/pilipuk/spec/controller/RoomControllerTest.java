@@ -4,7 +4,7 @@ import by.pilipuk.controller.RoomController;
 import by.pilipuk.dto.dto.RoomDto;
 import by.pilipuk.entity.Room;
 import by.pilipuk.mapper.RoomMapper;
-import by.pilipuk.environment.service.CascadeRoomCreationTestService;
+import by.pilipuk.environment.service.RoomCreationTestService;
 import by.pilipuk.environment.service.DBTruncateTestService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,7 +30,7 @@ class RoomControllerTest {
     private DBTruncateTestService dbTestService;
 
     @Autowired
-    private CascadeRoomCreationTestService creationTestService;
+    private RoomCreationTestService creationTestService;
 
     @PersistenceContext
     EntityManager entityManager;
@@ -45,8 +44,8 @@ class RoomControllerTest {
     @Test
     void findAllFilteredRooms() {
         // given
-        RoomDto expectedRoomDto = creationTestService.createRoomDto();
-        Room expectedRoom = roomMapper.toEntity(expectedRoomDto);
+        Room expectedRoom = creationTestService.roomCreation();
+        RoomDto expectedRoomDto = roomMapper.from(expectedRoom);
 
         // when
         var result = roomController.getAllRooms(Collections.singletonList(expectedRoom.getRoomType().getId()), Collections.singletonList(expectedRoom.getHotel().getId()), Collections.singletonList(expectedRoom.getId()));
@@ -61,7 +60,7 @@ class RoomControllerTest {
         RoomDto expectedRoomDto = creationTestService.createRoomDto();
 
         // when
-        var result = roomController.getRoomById(roomMapper.toEntity(expectedRoomDto).getId());
+        var result = roomController.getRoomById(expectedRoomDto.id());
 
         // then
         assertEquals(expectedRoomDto, result.orElseThrow());

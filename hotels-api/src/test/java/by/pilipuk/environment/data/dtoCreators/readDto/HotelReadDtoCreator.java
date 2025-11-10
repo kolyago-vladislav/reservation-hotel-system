@@ -1,4 +1,4 @@
-package by.pilipuk.environment.data.dtoCreators;
+package by.pilipuk.environment.data.dtoCreators.readDto;
 
 import by.pilipuk.dto.dto.AddressDto;
 import by.pilipuk.dto.dto.HotelDto;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class HotelDtoCreator {
+public class HotelReadDtoCreator {
 
     public HotelDto createHotelDto(AddressDto addressDto, List<RoomTypeCountDto> roomTypeCountDto) {
         return new HotelDto(

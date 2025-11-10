@@ -18,17 +18,14 @@ public abstract class HotelMapper {
             @Mapping(source = "rating", target = "rating"),
             @Mapping(source = "address", target = "address")
     })
-    public abstract HotelDto toDto(Hotel hotel);
+    public abstract HotelDto from(Hotel hotel);
 
     @Named("toHotel")
     @Mappings({
-            @Mapping(target = "active", constant = "true"),
-            @Mapping(target = "created", expression = "java(java.time.Instant.now())"),
-            @Mapping(target = "updated", expression = "java(java.time.Instant.now())"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "rating", target = "rating"),
             @Mapping(source = "address", target = "address")
     })
-    public abstract Hotel toEntity(HotelWriteDto hotelDto);
+    public abstract Hotel to(HotelWriteDto hotelDto);
 
 }

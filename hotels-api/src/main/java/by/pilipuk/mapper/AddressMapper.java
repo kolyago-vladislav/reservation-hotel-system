@@ -1,5 +1,6 @@
 package by.pilipuk.mapper;
 
+import by.pilipuk.dto.writeDto.AddressWriteDto;
 import by.pilipuk.entity.Address;
 import by.pilipuk.dto.dto.AddressDto;
 import org.mapstruct.InjectionStrategy;
@@ -25,12 +26,11 @@ public abstract class AddressMapper {
 
     @Named("toAddress")
     @Mappings({
-            @Mapping(source = "id", target = "id"),
             @Mapping(source = "street", target = "street"),
             @Mapping(source = "houseNumber", target = "houseNumber"),
             @Mapping(source = "country", target = "dictCountry.country"),
             @Mapping(source = "city", target = "dictCity.city")
     })
-    public abstract Address to(AddressDto addressDto);
+    public abstract Address to(AddressWriteDto addressWriteDto);
 
 }

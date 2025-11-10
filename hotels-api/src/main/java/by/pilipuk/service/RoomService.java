@@ -20,13 +20,13 @@ public class RoomService {
 
     public List<RoomDto> findAllFilteredRooms(List<Long> roomTypeIds, List<Long> hotelIds, List<Long> roomIds) {
         return roomRepository.findAllFilteredRooms(roomTypeIds, hotelIds, roomIds).stream()
-                .map(roomMapper::toDto)
+                .map(roomMapper::from)
                 .toList();
     }
 
     public Optional<RoomDto> getRoomById(Long id) {
         return roomRepository.findById(id)
-                .map(roomMapper::toDto);
+                .map(roomMapper::from);
     }
 
 }

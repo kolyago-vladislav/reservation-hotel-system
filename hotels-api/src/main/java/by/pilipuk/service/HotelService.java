@@ -33,7 +33,7 @@ public class HotelService {
 
     public List<HotelDto> getAllHotels() {
         return hotelRepository.findAll().stream()
-                .map(hotelMapper::toDto)
+                .map(hotelMapper::from)
                 .toList();
     }
 
@@ -43,7 +43,7 @@ public class HotelService {
     }
 
     public void addHotel(HotelWriteDto hotelWriteDto) {
-        Hotel hotel = hotelMapper.toEntity(hotelWriteDto);
+        Hotel hotel = hotelMapper.to(hotelWriteDto);
         hotelRepository.save(hotel);
     }
 
