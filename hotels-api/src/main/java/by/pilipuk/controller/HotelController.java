@@ -1,6 +1,7 @@
 package by.pilipuk.controller;
 
-import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.dto.HotelDto;
+import by.pilipuk.dto.writeDto.HotelWriteDto;
 import by.pilipuk.service.HotelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +19,11 @@ public class HotelController {
 
     @GetMapping("/hotels")
     public List<HotelDto> getHotels() {
-        return this.hotelService.getAllHotels();
+        return hotelService.getAllHotels();
     }
 
     @PostMapping("/hotels")
-    public void addUser(@RequestBody HotelDto hotelDto) {
-        this.hotelService.createHotel(hotelDto);
+    public void addHotel(@RequestBody HotelWriteDto hotelWriteDto) {
+        hotelService.addHotel(hotelWriteDto);
     }
 }

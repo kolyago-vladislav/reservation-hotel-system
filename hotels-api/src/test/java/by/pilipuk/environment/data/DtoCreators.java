@@ -1,11 +1,9 @@
 package by.pilipuk.environment.data;
 
-import by.pilipuk.environment.data.dtoCreators.DictCityDtoCreator;
-import by.pilipuk.environment.data.dtoCreators.DictCountryDtoCreator;
-import by.pilipuk.environment.data.dtoCreators.AddressDtoCreator;
-import by.pilipuk.environment.data.dtoCreators.RoomTypeDtoCreator;
-import by.pilipuk.environment.data.dtoCreators.HotelDtoCreator;
-import by.pilipuk.environment.data.dtoCreators.RoomDtoCreator;
+import by.pilipuk.environment.data.dtoCreators.readDto.HotelReadDtoCreator;
+import by.pilipuk.environment.data.dtoCreators.readDto.RoomTypeCountReadDtoCreator;
+import by.pilipuk.environment.data.dtoCreators.writeDto.HotelWriteDtoCreator;
+import by.pilipuk.environment.data.dtoCreators.writeDto.RoomTypeCountWriteDtoCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,16 +11,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DtoCreators {
 
-    public final DictCountryDtoCreator country;
+    public final HotelReadDtoCreator readHotel;
 
-    public final DictCityDtoCreator city;
+    public final HotelWriteDtoCreator writeHotel;
 
-    public final AddressDtoCreator address;
+    public final RoomTypeCountReadDtoCreator readRoomTypeCount;
 
-    public final RoomTypeDtoCreator roomType;
-
-    public final HotelDtoCreator hotel;
-
-    public final RoomDtoCreator room;
+    public final RoomTypeCountWriteDtoCreator writeRoomTypeCount;
 
 }
