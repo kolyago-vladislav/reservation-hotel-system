@@ -15,11 +15,11 @@ public class RoomTypeCreator {
 
     public RoomType createRoomType() {
 
-        RoomType roomType = new RoomType();
-        roomType.setRoomType("Business");
-        roomType.setActive(true);
-        roomType.setCreated(Instant.parse("2025-05-14T19:47:15Z"));
-        roomType.setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
+        RoomType roomType = new RoomType()
+        .setRoomType("Business")
+        .setActive(true)
+        .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
+        .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
 
         return roomTypeRepository.save(roomType);
     }

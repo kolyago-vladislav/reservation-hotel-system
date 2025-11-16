@@ -1,33 +1,47 @@
 package by.pilipuk.controller;
 
-import by.pilipuk.dto.dto.RoomDto;
 import by.pilipuk.service.RoomService;
 import lombok.RequiredArgsConstructor;
+import org.openapitools.api.RoomsApi;
+import org.openapitools.model.RoomDto;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class RoomController {
+public class RoomController implements RoomsApi {
 
     private final RoomService roomService;
-
-    @GetMapping("/rooms/{id}")
-    public Optional<RoomDto> getRoomById(@PathVariable("id") Long id) {
-        return roomService.getRoomById(id);
+    @Override
+    public ResponseEntity<RoomDto> getRoomById(Long id) {
+        return roomService.getRoomById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/rooms")
-    public List<RoomDto> getAllRooms(
-            @RequestParam(value = "room_types", required = false) List<Long> roomTypeIds,
-            @RequestParam(value = "hotel_ids", required = false) List<Long> hotelIds,
-            @RequestParam(value = "room_ids", required = false) List<Long> roomIds
+    @Override
+    public ResponseEntity<List<RoomDto>> getAllRooms(
+            List<Long> roomTypes,
+            List<Long> hotelIds,
+            List<Long> roomIds
     ) {
-        return roomService.findAllFilteredRooms(roomTypeIds, hotelIds, roomIds);
+        List<RoomDto> rooms = roomService.findAllFilteredRooms(roomTypes, hotelIds, roomIds);
+        return ResponseEntity.ok(rooms);
     }
+
+//    @GetMapping("/rooms/{id}")
+//    public Optional<RoomDto> getRoomById(@PathVariable("id") Long id) {
+//        return roomService.getRoomById(id);
+//    }
+//
+//    @GetMapping("/rooms")
+//    public List<RoomDto> getAllRooms(
+//            @RequestParam(value = "room_types", required = false) List<Long> roomTypeIds,
+//            @RequestParam(value = "hotel_ids", required = false) List<Long> hotelIds,
+//            @RequestParam(value = "room_ids", required = false) List<Long> roomIds
+//    ) {
+//        return roomService.findAllFilteredRooms(roomTypeIds, hotelIds, roomIds);
+//    }
 
 }

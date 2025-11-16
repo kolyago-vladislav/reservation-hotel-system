@@ -17,13 +17,13 @@ public class RoomCreator {
 
     public Room createRoom(RoomType roomType, Hotel hotel) {
 
-        Room room = new Room();
-        room.setRoomType(roomType);
-        room.setDescription("My test room in test hotel");
-        room.setHotel(hotel);
-        room.setActive(true);
-        room.setCreated(Instant.parse("2025-05-14T19:47:15Z"));
-        room.setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
+        Room room = new Room()
+        .setRoomType(roomType)
+        .setDescription("My test room in test hotel")
+        .setHotel(hotel)
+        .setActive(true)
+        .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
+        .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
 
         return roomRepository.save(room);
     }

@@ -1,7 +1,6 @@
 package by.pilipuk.spec.controller;
 
 import by.pilipuk.controller.RoomController;
-import by.pilipuk.dto.dto.RoomDto;
 import by.pilipuk.entity.Room;
 import by.pilipuk.mapper.RoomMapper;
 import by.pilipuk.environment.service.RoomCreationTestService;
@@ -11,6 +10,7 @@ import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openapitools.model.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Collections;
@@ -48,7 +48,8 @@ class RoomControllerTest {
         RoomDto expectedRoomDto = roomMapper.from(expectedRoom);
 
         // when
-        var result = roomController.getAllRooms(Collections.singletonList(expectedRoom.getRoomType().getId()), Collections.singletonList(expectedRoom.getHotel().getId()), Collections.singletonList(expectedRoom.getId()));
+        var response = roomController.getAllRooms(Collections.singletonList(expectedRoom.getRoomType().getId()), Collections.singletonList(expectedRoom.getHotel().getId()), Collections.singletonList(expectedRoom.getId()));
+        var result = response.getBody();
 
         // then
         assertEquals(Collections.singletonList(expectedRoomDto), result);
@@ -60,10 +61,11 @@ class RoomControllerTest {
         RoomDto expectedRoomDto = creationTestService.createRoomDto();
 
         // when
-        var result = roomController.getRoomById(expectedRoomDto.id());
+        var response = roomController.getRoomById(expectedRoomDto.getId());
+        var result = response.getBody();
 
         // then
-        assertEquals(expectedRoomDto, result.orElseThrow());
+        assertEquals(expectedRoomDto, result);
 
     }
 }

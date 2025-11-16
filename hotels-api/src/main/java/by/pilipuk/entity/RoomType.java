@@ -6,11 +6,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.time.Instant;
 
 @Data
 @Entity(name = "room_types")
+@Accessors(chain = true)
 public class RoomType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
