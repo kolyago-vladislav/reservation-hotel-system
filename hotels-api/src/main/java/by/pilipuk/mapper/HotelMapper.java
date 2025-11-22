@@ -4,8 +4,8 @@ import by.pilipuk.entity.Hotel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-import org.openapitools.model.HotelDto;
-import org.openapitools.model.HotelWriteDto;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.HotelWriteDto;
 
 @Mapper(componentModel = "spring")
 public abstract class HotelMapper {

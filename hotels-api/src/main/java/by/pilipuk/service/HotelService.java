@@ -8,9 +8,9 @@ import by.pilipuk.repository.HotelRepository;
 import by.pilipuk.repository.RoomRepository;
 import by.pilipuk.repository.RoomTypeRepository;
 import lombok.RequiredArgsConstructor;
-import org.openapitools.model.HotelDto;
-import org.openapitools.model.HotelWriteDto;
-import org.openapitools.model.RoomTypeCountDto;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.HotelWriteDto;
+import by.pilipuk.dto.RoomTypeCountDto;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

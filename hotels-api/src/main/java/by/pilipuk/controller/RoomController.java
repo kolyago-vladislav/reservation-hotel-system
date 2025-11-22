@@ -2,8 +2,8 @@ package by.pilipuk.controller;
 
 import by.pilipuk.service.RoomService;
 import lombok.RequiredArgsConstructor;
-import org.openapitools.api.RoomsApi;
-import org.openapitools.model.RoomDto;
+import by.pilipuk.api.RoomsApi;
+import by.pilipuk.dto.RoomDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;

@@ -5,8 +5,8 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
 import org.mapstruct.Mapping;
-import org.openapitools.model.AddressDto;
-import org.openapitools.model.AddressWriteDto;
+import by.pilipuk.dto.AddressDto;
+import by.pilipuk.dto.AddressWriteDto;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 

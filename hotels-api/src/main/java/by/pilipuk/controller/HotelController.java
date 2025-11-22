@@ -2,9 +2,9 @@ package by.pilipuk.controller;
 
 import by.pilipuk.service.HotelService;
 import lombok.RequiredArgsConstructor;
-import org.openapitools.api.HotelsApi;
-import org.openapitools.model.HotelDto;
-import org.openapitools.model.HotelWriteDto;
+import by.pilipuk.api.HotelsApi;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.HotelWriteDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;

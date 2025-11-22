@@ -3,7 +3,7 @@ package by.pilipuk.service;
 import by.pilipuk.mapper.RoomMapper;
 import by.pilipuk.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
-import org.openapitools.model.RoomDto;
+import by.pilipuk.dto.RoomDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;

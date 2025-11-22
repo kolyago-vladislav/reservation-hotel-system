@@ -51,6 +51,11 @@ openApiGenerate {
     generatorName = "spring"
     inputSpec = "$projectDir/src/main/resources/reservation_api_description.yaml"
     outputDir = "$buildDir/generated"
+
+    packageName = "by.pilipuk"
+    apiPackage = "by.pilipuk.api"
+    modelPackage = "by.pilipuk.dto"
+
     skipValidateSpec = true
     additionalProperties = [
             useJakartaEe: true
