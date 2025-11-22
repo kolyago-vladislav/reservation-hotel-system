@@ -63,7 +63,8 @@ openApiGenerate {
 
     configOptions = [
             openApiNullable: "false",
-            interfaceOnly  : "true"
+            interfaceOnly  : "true",
+            useResponseEntity: "false"
     ]
 }
 

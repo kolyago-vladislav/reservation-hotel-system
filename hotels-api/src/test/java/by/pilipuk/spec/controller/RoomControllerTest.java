@@ -10,7 +10,7 @@ import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openapitools.model.RoomDto;
+import by.pilipuk.dto.RoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Collections;
@@ -48,8 +48,7 @@ class RoomControllerTest {
         RoomDto expectedRoomDto = roomMapper.from(expectedRoom);
 
         // when
-        var response = roomController.getAllRooms(Collections.singletonList(expectedRoom.getRoomType().getId()), Collections.singletonList(expectedRoom.getHotel().getId()), Collections.singletonList(expectedRoom.getId()));
-        var result = response.getBody();
+        var result = roomController.getAllRooms(Collections.singletonList(expectedRoom.getRoomType().getId()), Collections.singletonList(expectedRoom.getHotel().getId()), Collections.singletonList(expectedRoom.getId()));
 
         // then
         assertEquals(Collections.singletonList(expectedRoomDto), result);
@@ -61,8 +60,7 @@ class RoomControllerTest {
         RoomDto expectedRoomDto = creationTestService.createRoomDto();
 
         // when
-        var response = roomController.getRoomById(expectedRoomDto.getId());
-        var result = response.getBody();
+        var result = roomController.getRoomById(expectedRoomDto.getId());
 
         // then
         assertEquals(expectedRoomDto, result);

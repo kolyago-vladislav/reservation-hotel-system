@@ -1,6 +1,6 @@
 package by.pilipuk.environment.data.dtoCreators.readDto;
 
-import org.openapitools.model.RoomTypeCountDto;
+import by.pilipuk.dto.RoomTypeCountDto;
 import org.springframework.stereotype.Component;
 
 @Component

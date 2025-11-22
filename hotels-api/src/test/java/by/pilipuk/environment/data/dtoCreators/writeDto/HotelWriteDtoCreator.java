@@ -1,8 +1,8 @@
 package by.pilipuk.environment.data.dtoCreators.writeDto;
 
-import org.openapitools.model.AddressWriteDto;
-import org.openapitools.model.HotelWriteDto;
-import org.openapitools.model.RoomTypeCountWriteDto;
+import by.pilipuk.dto.AddressWriteDto;
+import by.pilipuk.dto.HotelWriteDto;
+import by.pilipuk.dto.RoomTypeCountWriteDto;
 import org.springframework.stereotype.Component;
 import java.util.List;
 

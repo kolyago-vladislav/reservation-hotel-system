@@ -1,8 +1,8 @@
 package by.pilipuk.environment.data.dtoCreators.readDto;
 
-import org.openapitools.model.AddressDto;
-import org.openapitools.model.HotelDto;
-import org.openapitools.model.RoomTypeCountDto;
+import by.pilipuk.dto.AddressDto;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.RoomTypeCountDto;
 import org.springframework.stereotype.Component;
 import java.util.List;
 

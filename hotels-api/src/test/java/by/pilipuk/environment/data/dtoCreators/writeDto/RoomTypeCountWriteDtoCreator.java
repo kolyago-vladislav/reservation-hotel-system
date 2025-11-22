@@ -1,6 +1,6 @@
 package by.pilipuk.environment.data.dtoCreators.writeDto;
 
-import org.openapitools.model.RoomTypeCountWriteDto;
+import by.pilipuk.dto.RoomTypeCountWriteDto;
 import org.springframework.stereotype.Component;
 
 @Component

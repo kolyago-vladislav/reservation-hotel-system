@@ -4,7 +4,7 @@ import by.pilipuk.entity.*;
 import by.pilipuk.environment.data.EntityCreators;
 import by.pilipuk.mapper.RoomMapper;
 import lombok.RequiredArgsConstructor;
-import org.openapitools.model.RoomDto;
+import by.pilipuk.dto.RoomDto;
 import org.springframework.stereotype.Component;
 
 @Component
