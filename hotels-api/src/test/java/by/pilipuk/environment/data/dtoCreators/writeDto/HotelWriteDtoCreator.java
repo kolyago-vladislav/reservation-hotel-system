@@ -1,8 +1,8 @@
 package by.pilipuk.environment.data.dtoCreators.writeDto;
 
-import by.pilipuk.dto.writeDto.AddressWriteDto;
-import by.pilipuk.dto.writeDto.HotelWriteDto;
-import by.pilipuk.dto.writeDto.RoomTypeCountWriteDto;
+import by.pilipuk.dto.AddressWriteDto;
+import by.pilipuk.dto.HotelWriteDto;
+import by.pilipuk.dto.RoomTypeCountWriteDto;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
@@ -10,11 +10,10 @@ import java.util.List;
 public class HotelWriteDtoCreator {
 
     public HotelWriteDto createHotelDto(AddressWriteDto addressWriteDto, List<RoomTypeCountWriteDto> roomTypeCountWriteDto) {
-        return new HotelWriteDto(
-                "My test hotel",
-                (short) 5,
-                addressWriteDto,
-                roomTypeCountWriteDto
-        );
+        return new HotelWriteDto()
+                .name("My test hotel")
+                .rating(5)
+                .address(addressWriteDto)
+                .roomTypeCountWriteDto(roomTypeCountWriteDto);
     }
 }

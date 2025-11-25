@@ -1,8 +1,5 @@
 package by.pilipuk.service;
 
-import by.pilipuk.dto.dto.HotelDto;
-import by.pilipuk.dto.dto.RoomTypeCountDto;
-import by.pilipuk.dto.writeDto.HotelWriteDto;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.RoomType;
 import by.pilipuk.mapper.AddressMapper;
@@ -11,6 +8,9 @@ import by.pilipuk.repository.HotelRepository;
 import by.pilipuk.repository.RoomRepository;
 import by.pilipuk.repository.RoomTypeRepository;
 import lombok.RequiredArgsConstructor;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.HotelWriteDto;
+import by.pilipuk.dto.RoomTypeCountDto;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -62,15 +62,18 @@ public class HotelService {
             String roomType = roomTypeRepository.findById(roomTypeId)
                     .map(RoomType::getRoomType)
                     .orElse("roomType not found by id: " + roomTypeId);
-            RoomTypeCountDto countRoomTypes = new RoomTypeCountDto(roomType, count);
+            RoomTypeCountDto countRoomTypes = new RoomTypeCountDto();
+            countRoomTypes.setRoomType(roomType);
+            countRoomTypes.setCount(count);
 
-            hotelDtos.add(new HotelDto(
-                    hotel.getId(),
-                    hotel.getName(),
-                    hotel.getRating(),
-                    addressMapper.from(hotel.getAddress()),
-                    listOf(countRoomTypes)
-            ));
+            HotelDto hotelDto = new HotelDto()
+                    .id(hotel.getId())
+                    .name(hotel.getName())
+                    .rating(Integer.valueOf(hotel.getRating()))
+                    .address(addressMapper.from(hotel.getAddress()))
+                    .roomTypeCountDto(listOf(countRoomTypes));
+
+            hotelDtos.add(hotelDto);
         }
         return hotelDtos;
     }

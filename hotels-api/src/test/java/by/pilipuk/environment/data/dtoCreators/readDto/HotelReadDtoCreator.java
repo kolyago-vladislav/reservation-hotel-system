@@ -1,8 +1,8 @@
 package by.pilipuk.environment.data.dtoCreators.readDto;
 
-import by.pilipuk.dto.dto.AddressDto;
-import by.pilipuk.dto.dto.HotelDto;
-import by.pilipuk.dto.dto.RoomTypeCountDto;
+import by.pilipuk.dto.AddressDto;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.RoomTypeCountDto;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
@@ -10,12 +10,11 @@ import java.util.List;
 public class HotelReadDtoCreator {
 
     public HotelDto createHotelDto(AddressDto addressDto, List<RoomTypeCountDto> roomTypeCountDto) {
-        return new HotelDto(
-                null,
-                "My test hotel",
-                (short) 5,
-                addressDto,
-                roomTypeCountDto
-        );
+        return new HotelDto()
+                .id(null)
+                .name("My test hotel")
+                .rating(5)
+                .address(addressDto)
+                .roomTypeCountDto(roomTypeCountDto);
     }
 }

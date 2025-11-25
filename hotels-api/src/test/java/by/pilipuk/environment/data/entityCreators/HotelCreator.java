@@ -16,13 +16,13 @@ public class HotelCreator {
 
     public Hotel createHotel(Address address) {
 
-        Hotel hotel = new Hotel();
-        hotel.setName("My test hotel");
-        hotel.setRating((short) 5);
-        hotel.setAddress(address);
-        hotel.setActive(true);
-        hotel.setCreated(Instant.parse("2025-05-14T19:47:15Z"));
-        hotel.setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
+        Hotel hotel = new Hotel()
+        .setName("My test hotel")
+        .setRating((short) 5)
+        .setAddress(address)
+        .setActive(true)
+        .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
+        .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
 
         return hotelRepository.save(hotel);
     }

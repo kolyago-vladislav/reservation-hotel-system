@@ -1,2 +1,4 @@
 rootProject.name = "hotels-api"
 
+include 'hotels-api'
+include 'users-api'

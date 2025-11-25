@@ -1,33 +1,31 @@
 package by.pilipuk.controller;
 
-import by.pilipuk.dto.dto.RoomDto;
 import by.pilipuk.service.RoomService;
 import lombok.RequiredArgsConstructor;
+import by.pilipuk.api.RoomsApi;
+import by.pilipuk.dto.RoomDto;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class RoomController {
+public class RoomController implements RoomsApi {
 
     private final RoomService roomService;
-
-    @GetMapping("/rooms/{id}")
-    public Optional<RoomDto> getRoomById(@PathVariable("id") Long id) {
-        return roomService.getRoomById(id);
+    @Override
+    public RoomDto getRoomById(Long id) {
+        return roomService.getRoomById(id)
+                .orElse(null);
     }
 
-    @GetMapping("/rooms")
+    @Override
     public List<RoomDto> getAllRooms(
-            @RequestParam(value = "room_types", required = false) List<Long> roomTypeIds,
-            @RequestParam(value = "hotel_ids", required = false) List<Long> hotelIds,
-            @RequestParam(value = "room_ids", required = false) List<Long> roomIds
+            List<Long> roomTypes,
+            List<Long> hotelIds,
+            List<Long> roomIds
     ) {
-        return roomService.findAllFilteredRooms(roomTypeIds, hotelIds, roomIds);
+        List<RoomDto> rooms = roomService.findAllFilteredRooms(roomTypes, hotelIds, roomIds);
+        return rooms;
     }
 
 }

@@ -1,9 +1,9 @@
 package by.pilipuk.service;
 
-import by.pilipuk.dto.dto.RoomDto;
 import by.pilipuk.mapper.RoomMapper;
 import by.pilipuk.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
+import by.pilipuk.dto.RoomDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;

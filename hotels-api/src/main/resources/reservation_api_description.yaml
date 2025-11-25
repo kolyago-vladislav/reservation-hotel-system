@@ -1,0 +1,204 @@
+openapi: 3.0.4
+info:
+  title: Reservation API Specification for hotels
+  description: |-
+    A reservation API for users who want to get some rooms in hotels
+  version: 1.0-SNAPSHOT
+servers:
+  - url: https://localhost:8080
+paths:
+  /hotels:
+    get:
+      tags:
+        - hotel-controller
+      summary: Get all hotels
+      description: Returns a list of all hotels
+      operationId: getHotels
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HotelDto'
+
+    post:
+      tags:
+        - hotel-controller
+      summary: Add a new hotel
+      description: Creates a new hotel with address and room type counts
+      operationId: addHotel
+      requestBody:
+        description: Hotel data to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotelWriteDto'
+      responses:
+        200:
+          description: Success
+
+  /rooms:
+    get:
+      tags:
+        - room-controller
+      summary: Get all rooms
+      description: Returns rooms filtered by room types, hotel ids or room ids
+      operationId: getAllRooms
+      parameters:
+        - name: room_types
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+
+        - name: hotel_ids
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+
+        - name: room_ids
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: integer
+              format: int64
+
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoomDto'
+
+  /rooms/{id}:
+    get:
+      tags:
+        - room-controller
+      summary: Get room by id
+      description: Returns room details by room id
+      operationId: getRoomById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomDto'
+
+components:
+  schemas:
+
+    AddressWriteDto:
+      type: object
+      properties:
+        street:
+          type: string
+        houseNumber:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+
+    HotelWriteDto:
+      type: object
+      properties:
+        name:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        address:
+          $ref: '#/components/schemas/AddressWriteDto'
+        roomTypeCountWriteDto:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomTypeCountWriteDto'
+
+    RoomTypeCountWriteDto:
+      type: object
+      properties:
+        roomType:
+          type: string
+        count:
+          type: integer
+          format: int32
+
+    RoomDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        description:
+          type: string
+        roomType:
+          type: string
+        hotelId:
+          type: integer
+          format: int64
+
+    AddressDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        street:
+          type: string
+        houseNumber:
+          type: string
+        country:
+          type: string
+        city:
+          type: string
+
+    HotelDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        rating:
+          type: integer
+          format: int32
+        address:
+          $ref: '#/components/schemas/AddressDto'
+        roomTypeCountDto:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomTypeCountDto'
+
+    RoomTypeCountDto:
+      type: object
+      properties:
+        roomType:
+          type: string
+        count:
+          type: integer
+          format: int32

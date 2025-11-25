@@ -1,29 +1,26 @@
 package by.pilipuk.controller;
 
-import by.pilipuk.dto.dto.HotelDto;
-import by.pilipuk.dto.writeDto.HotelWriteDto;
 import by.pilipuk.service.HotelService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import by.pilipuk.api.HotelsApi;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.HotelWriteDto;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class HotelController {
+public class HotelController implements HotelsApi {
 
     private final HotelService hotelService;
-
-    @GetMapping("/hotels")
+    @Override
     public List<HotelDto> getHotels() {
         return hotelService.getAllHotels();
     }
 
-    @PostMapping("/hotels")
-    public void addHotel(@RequestBody HotelWriteDto hotelWriteDto) {
+    @Override
+    public void addHotel(HotelWriteDto hotelWriteDto) {
         hotelService.addHotel(hotelWriteDto);
     }
+
 }

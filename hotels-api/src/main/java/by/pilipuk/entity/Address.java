@@ -9,11 +9,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.time.Instant;
 
 @Data
 @Entity(name = "addresses")
+@Accessors(chain = true)
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

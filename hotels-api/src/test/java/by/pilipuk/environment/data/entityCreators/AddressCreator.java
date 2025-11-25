@@ -17,14 +17,14 @@ public class AddressCreator {
 
     public Address createAddress(DictCountry country, DictCity city) {
 
-        Address address = new Address();
-        address.setDictCountry(country);
-        address.setDictCity(city);
-        address.setStreet("Mira");
-        address.setHouseNumber("7a");
-        address.setActive(true);
-        address.setCreated(Instant.parse("2025-05-14T19:47:15Z"));
-        address.setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
+        Address address = new Address()
+                .setDictCountry(country)
+                .setDictCity(city)
+                .setStreet("Mira")
+                .setHouseNumber("7a")
+                .setActive(true)
+                .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
+                .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
 
         return addressRepository.save(address);
     }

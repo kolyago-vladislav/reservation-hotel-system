@@ -1,25 +1,19 @@
 package by.pilipuk.environment.service;
 
-import by.pilipuk.dto.dto.RoomDto;
 import by.pilipuk.entity.*;
-import by.pilipuk.environment.data.DtoCreators;
 import by.pilipuk.environment.data.EntityCreators;
-import by.pilipuk.mapper.HotelMapper;
 import by.pilipuk.mapper.RoomMapper;
 import lombok.RequiredArgsConstructor;
+import by.pilipuk.dto.RoomDto;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class RoomCreationTestService {
 
-    private final DtoCreators dtoCreators;
-
     private final EntityCreators entityCreators;
 
     private final RoomMapper roomMapper;
-
-    private final HotelMapper hotelMapper;
 
     public Room roomCreation() {
 
@@ -42,11 +36,4 @@ public class RoomCreationTestService {
         return roomMapper.from(roomCreation());
     }
 
-//    public HotelDto createHotelDto() {
-//
-//        RoomTypeCountWriteDto roomTypeCountWriteDto = dtoCreators.writeRoomTypeCount.createRoomTypeCountDto();
-//
-//        return dtoCreators.writeHotel.createHotelDto(updateAddressWriteDto, new ArrayList<>(Collections.singleton(roomTypeCountWriteDto)));
-////        Hotel hotel = hotelRepository.save(hotelMapper.to(hotelWriteDto));
-//    }
 }
