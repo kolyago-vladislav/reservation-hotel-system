@@ -48,22 +48,25 @@ public class HotelService {
     }
 
     public List<HotelDto> findHotelWithRoomTypeCounts() {
-        List<Object[]> rows = roomRepository.findRoomTypeCountsByHotel();
+        List<RoomTypeCountDto> rows = roomRepository.findRoomTypeCountsByHotel();
         List<HotelDto> hotelDtos = new ArrayList<>();
 
-        for(Object[] row : rows) {
-            Long hotelId = ((Number) row[0]).longValue();
+        for(RoomTypeCountDto row : rows) {
+
+            Long hotelId = row.getHotelId();
+            Long roomTypeId = row.getRoomTypeId();
+            Integer count = row.getCount();
+
             Hotel hotel = hotelRepository.findById(hotelId)
                     .orElseThrow(() -> new RuntimeException("Hotel not found by id: " + hotelId));
-
-            Long roomTypeId = ((Number) row[1]).longValue();
-            int count = ((Number) row[2]).intValue();
 
             String roomType = roomTypeRepository.findById(roomTypeId)
                     .map(RoomType::getRoomType)
                     .orElse("roomType not found by id: " + roomTypeId);
+
             RoomTypeCountDto countRoomTypes = new RoomTypeCountDto();
-            countRoomTypes.setRoomType(roomType);
+            countRoomTypes.setHotelId(hotelId);
+            countRoomTypes.setRoomTypeId(roomTypeId);
             countRoomTypes.setCount(count);
 
             HotelDto hotelDto = new HotelDto()

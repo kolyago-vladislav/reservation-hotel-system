@@ -141,8 +141,12 @@ components:
     RoomTypeCountWriteDto:
       type: object
       properties:
-        roomType:
-          type: string
+        hotelId:
+          type: integer
+          format: int64
+        roomTypeId:
+          type: integer
+          format: int64
         count:
           type: integer
           format: int32
@@ -197,8 +201,12 @@ components:
     RoomTypeCountDto:
       type: object
       properties:
-        roomType:
-          type: string
+        hotelId:
+          type: integer
+          format: int64
+        roomTypeId:
+          type: integer
+          format: int64
         count:
           type: integer
           format: int32
