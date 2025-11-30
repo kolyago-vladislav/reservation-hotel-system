@@ -1,18 +1,24 @@
 package by.pilipuk.service;
 
-import by.pilipuk.entity.Hotel;
-import by.pilipuk.mapper.AddressMapper;
-import by.pilipuk.mapper.HotelMapper;
-import by.pilipuk.repository.HotelRepository;
-import by.pilipuk.repository.RoomRepository;
-import by.pilipuk.repository.RoomTypeRepository;
-import lombok.RequiredArgsConstructor;
 import by.pilipuk.dto.HotelDto;
 import by.pilipuk.dto.HotelWriteDto;
 import by.pilipuk.dto.RoomTypeCountDto;
-import org.springframework.stereotype.Service;
+import by.pilipuk.entity.Hotel;
+import by.pilipuk.mapper.AddressMapper;
+import by.pilipuk.mapper.HotelMapper;
+import by.pilipuk.mapper.RoomTypeMapper;
+import by.pilipuk.model.dto.RoomTypeCountAggregationDto;
+import by.pilipuk.repository.HotelRepository;
+import by.pilipuk.repository.RoomRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import java.util.*;
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +32,7 @@ public class HotelService {
 
     private final RoomRepository roomRepository;
 
-    private final RoomTypeRepository roomTypeRepository;
+    private final RoomTypeMapper roomTypeMapper;
 
     public List<HotelDto> getAllHotels() {
         return hotelRepository.findAll().stream()
@@ -47,19 +53,34 @@ public class HotelService {
     public List<HotelDto> findHotelWithRoomTypeCounts() {
         List<HotelDto> hotelDtos = new ArrayList<>();
 
-        List<Hotel> hotels = hotelRepository.findAll();
-        for (Hotel hotel:hotels) {
-            List<RoomTypeCountDto> countRoomTypes = roomRepository.findRoomTypeCountsByHotel(hotel.getId());
-            HotelDto hotelDto = new HotelDto()
+        var hotels = hotelRepository.findAll();
+        var countRoomTypes = getRoomTypeCountMap();
+
+        for (Hotel hotel : hotels) {
+            var hotelDto = new HotelDto()
                     .id(hotel.getId())
                     .name(hotel.getName())
                     .rating(Integer.valueOf(hotel.getRating()))
                     .address(addressMapper.from(hotel.getAddress()))
-                    .roomTypeCountDto(countRoomTypes);
+                    .roomTypeCountDto(countRoomTypes.get(hotel.getId()));
 
             hotelDtos.add(hotelDto);
         }
         return hotelDtos;
+    }
+
+    private Map<Long, List<RoomTypeCountDto>> getRoomTypeCountMap() {
+        return roomRepository.findRoomTypeCountsByHotel()
+            .stream()
+            .collect(
+                Collectors.groupingBy(
+                    RoomTypeCountAggregationDto::hotelId,
+                    Collectors.mapping(
+                        roomTypeMapper::from,
+                        Collectors.toList()
+                    )
+                )
+            );
     }
 
 }

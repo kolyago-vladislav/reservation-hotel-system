@@ -1,11 +1,12 @@
 package by.pilipuk.repository;
 
-import by.pilipuk.dto.RoomTypeCountDto;
 import by.pilipuk.entity.Room;
+import by.pilipuk.model.dto.RoomTypeCountAggregationDto;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import java.util.List;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
@@ -23,16 +24,14 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     @Query(value = """
         SELECT
+        	r.hotel_id AS hotelId,
             rt.room_type AS roomType,
             COUNT(r.id) AS count
         FROM rooms r
         JOIN room_types rt ON rt.id = r.room_type_id
-        WHERE r.hotel_id = :hotelId
-        GROUP BY rt.room_type
-        ORDER BY rt.room_type
+        GROUP BY r.hotel_id, rt.room_type
+        ORDER BY r.hotel_id ASC, rt.room_type ASC
     """, nativeQuery = true)
-    List<RoomTypeCountDto> findRoomTypeCountsByHotel(
-            @Param("hotelId") Long hotelId
-    );
+    List<RoomTypeCountAggregationDto> findRoomTypeCountsByHotel();
 
 }
