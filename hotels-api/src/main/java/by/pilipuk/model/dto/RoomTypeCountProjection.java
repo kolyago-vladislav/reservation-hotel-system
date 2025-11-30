@@ -1,6 +1,6 @@
 package by.pilipuk.model.dto;
 
-public record RoomTypeCountAggregationDto(
+public record RoomTypeCountProjection(
     Long hotelId,
     String roomType,
     Long count

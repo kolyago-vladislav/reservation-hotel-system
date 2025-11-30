@@ -1,7 +1,7 @@
 package by.pilipuk.repository;
 
 import by.pilipuk.entity.Room;
-import by.pilipuk.model.dto.RoomTypeCountAggregationDto;
+import by.pilipuk.model.dto.RoomTypeCountProjection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,6 +32,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
         GROUP BY r.hotel_id, rt.room_type
         ORDER BY r.hotel_id ASC, rt.room_type ASC
     """, nativeQuery = true)
-    List<RoomTypeCountAggregationDto> findRoomTypeCountsByHotel();
+    List<RoomTypeCountProjection> findRoomTypeCountsByHotel();
 
 }

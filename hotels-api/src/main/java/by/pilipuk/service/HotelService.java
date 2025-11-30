@@ -7,7 +7,7 @@ import by.pilipuk.entity.Hotel;
 import by.pilipuk.mapper.AddressMapper;
 import by.pilipuk.mapper.HotelMapper;
 import by.pilipuk.mapper.RoomTypeMapper;
-import by.pilipuk.model.dto.RoomTypeCountAggregationDto;
+import by.pilipuk.model.dto.RoomTypeCountProjection;
 import by.pilipuk.repository.HotelRepository;
 import by.pilipuk.repository.RoomRepository;
 import java.util.ArrayList;
@@ -75,7 +75,7 @@ public class HotelService {
     private Map<Long, List<RoomTypeCountDto>> getRoomTypeCountMap() {
         return roomRepository.findRoomTypeCountsByHotel()
             .stream()
-            .collect(groupingBy(RoomTypeCountAggregationDto::hotelId, mapping(roomTypeMapper::from, Collectors.toList())));
+            .collect(groupingBy(RoomTypeCountProjection::hotelId, mapping(roomTypeMapper::from, Collectors.toList())));
     }
 
 }
