@@ -1,5 +1,6 @@
 package by.pilipuk.repository;
 
+import by.pilipuk.dto.RoomTypeCountDto;
 import by.pilipuk.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,13 +23,16 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     @Query(value = """
         SELECT
-            r.hotel_id AS hotel_id,
-            r.room_type_id AS room_type_id,
+            rt.room_type AS roomType,
             COUNT(r.id) AS count
         FROM rooms r
-        GROUP BY r.hotel_id, r.room_type_id
-        ORDER BY r.hotel_id, r.room_type_id
+        JOIN room_types rt ON rt.id = r.room_type_id
+        WHERE r.hotel_id = :hotelId
+        GROUP BY rt.room_type
+        ORDER BY rt.room_type
     """, nativeQuery = true)
-    List<Object[]> findRoomTypeCountsByHotel();
+    List<RoomTypeCountDto> findRoomTypeCountsByHotel(
+            @Param("hotelId") Long hotelId
+    );
 
 }
