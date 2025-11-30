@@ -20,6 +20,9 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
+
 @Service
 @RequiredArgsConstructor
 public class HotelService {
@@ -72,15 +75,7 @@ public class HotelService {
     private Map<Long, List<RoomTypeCountDto>> getRoomTypeCountMap() {
         return roomRepository.findRoomTypeCountsByHotel()
             .stream()
-            .collect(
-                Collectors.groupingBy(
-                    RoomTypeCountAggregationDto::hotelId,
-                    Collectors.mapping(
-                        roomTypeMapper::from,
-                        Collectors.toList()
-                    )
-                )
-            );
+            .collect(groupingBy(RoomTypeCountAggregationDto::hotelId, mapping(roomTypeMapper::from, Collectors.toList())));
     }
 
 }
