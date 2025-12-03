@@ -20,7 +20,7 @@
         </sql>
 
         <sql>
-            INSERT INTO hotel.dict_cities (id, city, country_id, active, created, updated)
+            INSERT INTO hotel.dict_cities (id, city, active, created, updated)
             SELECT
                 gs AS id,
                 CONCAT('City', gs) AS city,
