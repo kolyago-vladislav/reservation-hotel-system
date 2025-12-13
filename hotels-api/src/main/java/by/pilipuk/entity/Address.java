@@ -1,15 +1,10 @@
 package by.pilipuk.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
@@ -28,11 +23,11 @@ public class Address {
     @Column(name = "house_number")
     private String houseNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(/*cascade = CascadeType.PERSIST, */fetch = FetchType.EAGER)
     @JoinColumn(name = "country_id", nullable = false)
     private DictCountry dictCountry;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(/*cascade = CascadeType.PERSIST, */fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id", nullable = false)
     private DictCity dictCity;
 
@@ -40,8 +35,11 @@ public class Address {
     private boolean active;
 
     @Column(name = "created")
+    @CreationTimestamp
     private Instant created;
 
     @Column(name = "updated")
+    @UpdateTimestamp
     private Instant updated;
+
 }

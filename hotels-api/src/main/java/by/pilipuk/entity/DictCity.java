@@ -1,12 +1,10 @@
 package by.pilipuk.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
@@ -26,8 +24,11 @@ public class DictCity {
     private boolean active;
 
     @Column(name = "created")
+    @CreationTimestamp
     private Instant created;
 
     @Column(name = "updated")
+    @UpdateTimestamp
     private Instant updated;
+
 }

@@ -1,5 +1,6 @@
 package by.pilipuk.controller;
 
+import by.pilipuk.dto.PageHotelDto;
 import by.pilipuk.service.HotelService;
 import lombok.RequiredArgsConstructor;
 import by.pilipuk.api.HotelsApi;
@@ -23,4 +24,8 @@ public class HotelController implements HotelsApi {
         hotelService.addHotel(hotelWriteDto);
     }
 
+    @Override
+    public PageHotelDto getHotelsWithRoomCounts(Integer offset, Integer limit) {
+        return hotelService.findHotelsWithRoomTypeCounts(offset, limit);
+    }
 }

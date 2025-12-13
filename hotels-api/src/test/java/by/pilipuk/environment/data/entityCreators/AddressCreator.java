@@ -20,8 +20,8 @@ public class AddressCreator {
         Address address = new Address()
                 .setDictCountry(country)
                 .setDictCity(city)
-                .setStreet("Mira")
-                .setHouseNumber("7a")
+                .setStreet("Lira")
+                .setHouseNumber("9a")
                 .setActive(true)
                 .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
                 .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));

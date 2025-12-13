@@ -15,7 +15,7 @@ public class DictCityCreator {
 
     public DictCity createDictCity() {
         DictCity dictCity = new DictCity()
-        .setCity("Minsk")
+        .setCity("Praga")
         .setActive(true)
         .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
         .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));

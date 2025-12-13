@@ -41,6 +41,34 @@ paths:
         200:
           description: Success
 
+  /hotels/with-room-counts:
+    get:
+      tags:
+        - hotel-controller
+      summary: Get hotels with room type counts (pagination)
+      description: Returns a list of hotels with aggregated room type counts (pagination)
+      operationId: getHotelsWithRoomCounts
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/PageHotelDto'
+
   /rooms:
     get:
       tags:
@@ -193,6 +221,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RoomTypeCountDto'
+
+    PageHotelDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotelDto'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
 
     RoomTypeCountDto:
       type: object

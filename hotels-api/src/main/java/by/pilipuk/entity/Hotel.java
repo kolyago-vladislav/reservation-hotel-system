@@ -1,13 +1,6 @@
 package by.pilipuk.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -28,7 +21,7 @@ public class Hotel {
     @Column(name = "rating")
     private Short rating;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(/*cascade = CascadeType.PERSIST, */fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
