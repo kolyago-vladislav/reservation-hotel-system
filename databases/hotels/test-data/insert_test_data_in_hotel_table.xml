@@ -4,14 +4,15 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
+    //toDO разбить ченжсет по малеким ченжсетам
+    //toDO добавь по 10 нормальных стран и город
     <changeSet id="test_data_hotel" author="shurapilipuk@gmail.com">
 
         <comment>Test data for hotel schema</comment>
 
         <sql>
-            INSERT INTO hotel.dict_countries (id, country, active, created, updated)
+            INSERT INTO hotel.dict_countries (country, active, created, updated)
             SELECT
-                gs AS id,
                 CONCAT('Country', gs) AS country,
                 true AS active,
                 NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
@@ -20,9 +21,8 @@
         </sql>
 
         <sql>
-            INSERT INTO hotel.dict_cities (id, city, active, created, updated)
+            INSERT INTO hotel.dict_cities (city, active, created, updated)
             SELECT
-                gs AS id,
                 CONCAT('City', gs) AS city,
                 true AS active,
                 NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
@@ -31,9 +31,8 @@
         </sql>
 
         <sql>
-            INSERT INTO hotel.addresses (id, street, house_number, country_id, city_id, active, created, updated)
+            INSERT INTO hotel.addresses (street, house_number, country_id, city_id, active, created, updated)
             SELECT
-                gs AS id,
                 CASE
                     WHEN random() &lt; 0.5
                     THEN 'Zhilunovicha'
@@ -49,9 +48,8 @@
         </sql>
 
         <sql>
-            INSERT INTO hotel.hotels (id, name, rating, address_id, active, created, updated)
+            INSERT INTO hotel.hotels (name, rating, address_id, active, created, updated)
             SELECT
-                gs AS id,
                 CONCAT('Hotel', gs) AS name,
                 CASE
                     WHEN random() &lt; 0.5
@@ -66,9 +64,8 @@
         </sql>
 
         <sql>
-            INSERT INTO hotel.room_types (id, room_type, active, created, updated)
+            INSERT INTO hotel.room_types (room_type, active, created, updated)
             SELECT
-                gs AS id,
                 CONCAT('Standard', gs) AS room_type,
                 true AS active,
                 NOW() AT TIME ZONE 'utc' - (random() * interval '365 days'),
@@ -84,9 +81,8 @@
         </sql>
 
         <sql>
-            INSERT INTO hotel.rooms (id, description, room_type_id, hotel_id, active, created, updated)
+            INSERT INTO hotel.rooms (description, room_type_id, hotel_id, active, created, updated)
             SELECT
-                row_number() OVER () AS id,
                 CONCAT('Room ', gs, ' in hotel ', t.hotel_id) AS description,
                 ROUND(1 + random() * 9) AS room_type_id,
                 t.hotel_id,

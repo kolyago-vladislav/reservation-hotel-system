@@ -1,13 +1,17 @@
 package by.pilipuk.mapper;
 
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.HotelWriteDto;
 import by.pilipuk.entity.Hotel;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-import by.pilipuk.dto.HotelDto;
-import by.pilipuk.dto.HotelWriteDto;
 
-@Mapper(componentModel = "spring")
+@Mapper(
+    componentModel = "spring",
+    uses = {AddressMapper.class}
+)
 public abstract class HotelMapper {
 
     @Mappings({

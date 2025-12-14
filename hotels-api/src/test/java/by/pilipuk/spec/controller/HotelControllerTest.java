@@ -1,7 +1,11 @@
 package by.pilipuk.spec.controller;
 
 import by.pilipuk.controller.HotelController;
-import by.pilipuk.dto.*;
+import by.pilipuk.dto.AddressWriteDto;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.HotelWriteDto;
+import by.pilipuk.dto.RoomTypeCountDto;
+import by.pilipuk.dto.RoomTypeCountWriteDto;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.Room;
 import by.pilipuk.environment.data.EntityCreators;
@@ -12,24 +16,22 @@ import by.pilipuk.mapper.HotelMapper;
 import by.pilipuk.mapper.RoomTypeMapper;
 import by.pilipuk.model.dto.RoomTypeCountProjection;
 import by.pilipuk.repository.RoomRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @RequiredArgsConstructor
-@Transactional
 class HotelControllerTest {
 
     @Autowired
@@ -56,13 +58,9 @@ class HotelControllerTest {
     @Autowired
     private HotelCreationTestService creationHotelTestService;
 
-    @PersistenceContext
-    EntityManager entityManager;
-
     @BeforeEach
     void setUp() {
         dbTestService.truncateAllTables();
-        entityManager.clear();
     }
 
     @Test

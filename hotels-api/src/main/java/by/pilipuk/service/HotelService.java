@@ -22,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
@@ -51,6 +52,7 @@ public class HotelService {
 
     }
 
+    @Transactional
     public void addHotel(HotelWriteDto hotelWriteDto) {
         Hotel hotel = hotelMapper.to(hotelWriteDto);
         hotelRepository.save(hotel);
@@ -59,7 +61,7 @@ public class HotelService {
     public PageHotelDto findHotelsWithRoomTypeCounts(Integer offset, Integer limit) {
         Pageable pageable = PageRequest.of(offset, limit);
 
-        Page<Hotel> hotelsPage = (Page<Hotel>) hotelRepository.findAll(pageable);
+        Page<Hotel> hotelsPage = hotelRepository.findAll(pageable);
         Map<Long, List<RoomTypeCountDto>> countRoomTypes = getRoomTypeCountMap();
 
         List<HotelDto> hotelDtoList = hotelsPage.getContent().stream()

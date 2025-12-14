@@ -12,20 +12,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class AddressWriteDtoCreator {
 
-    private final AddressMapper addressMapper;
-
-    private final AddressRepository addressRepository;
-
     public AddressWriteDto createAddressWriteDto() {
-        AddressWriteDto addressWriteDto = new AddressWriteDto()
-                .city("Minsk")
-                .country("Belarus")
-                .street("Mira")
-                .houseNumber("7a");
-
-        addressRepository.save(addressMapper.to(addressWriteDto));
-
-        return addressWriteDto;
+        return new AddressWriteDto()
+            .city("Minsk")
+            .country("Belarus")
+            .street("Mira")
+            .houseNumber("7a");
     }
 
 }

@@ -1,16 +1,24 @@
 package by.pilipuk.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import java.time.Instant;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.Instant;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Data
 @Entity(name = "dict_countries")
 @Accessors(chain = true)
+@EntityListeners(AuditingEntityListener.class)
 public class DictCountry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +32,11 @@ public class DictCountry {
     private boolean active;
 
     @Column(name = "created")
-    @CreationTimestamp
+    @CreatedDate
     private Instant created;
 
     @Column(name = "updated")
-    @UpdateTimestamp
+    @LastModifiedDate
     private Instant updated;
 
 }
