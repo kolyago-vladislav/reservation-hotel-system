@@ -1,45 +1,26 @@
 package by.pilipuk.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.time.Instant;
-
-@Data
-@Entity(name = "rooms")
+@Getter
+@Setter
+@Entity
+@Table(name = "rooms", schema = "hotel")
 @Accessors(chain = true)
-public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Room extends BaseEntity {
 
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "room_type_id", nullable = false)
     private RoomType roomType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
-
-    @Column(name = "active")
-    private boolean active;
-
-    @Column(name = "created")
-    private Instant created;
-
-    @Column(name = "updated")
-    private Instant updated;
 
 }

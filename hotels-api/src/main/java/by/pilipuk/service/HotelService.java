@@ -1,21 +1,29 @@
 package by.pilipuk.service;
 
-import by.pilipuk.entity.Hotel;
-import by.pilipuk.entity.RoomType;
-import by.pilipuk.mapper.AddressMapper;
-import by.pilipuk.mapper.HotelMapper;
-import by.pilipuk.repository.HotelRepository;
-import by.pilipuk.repository.RoomRepository;
-import by.pilipuk.repository.RoomTypeRepository;
-import lombok.RequiredArgsConstructor;
 import by.pilipuk.dto.HotelDto;
 import by.pilipuk.dto.HotelWriteDto;
 import by.pilipuk.dto.RoomTypeCountDto;
+import by.pilipuk.entity.Hotel;
+import by.pilipuk.entity.Room;
+import by.pilipuk.mapper.AddressMapper;
+import by.pilipuk.mapper.HotelMapper;
+import by.pilipuk.mapper.RoomTypeMapper;
+import by.pilipuk.model.dto.RoomTypeCountProjection;
+import by.pilipuk.repository.HotelRepository;
+import by.pilipuk.repository.RoomRepository;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-
-import static org.hibernate.internal.util.collections.CollectionHelper.listOf;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
 
 @Service
 @RequiredArgsConstructor
@@ -29,12 +37,19 @@ public class HotelService {
 
     private final RoomRepository roomRepository;
 
-    private final RoomTypeRepository roomTypeRepository;
+    private final RoomTypeMapper roomTypeMapper;
 
     public List<HotelDto> getAllHotels() {
-        return hotelRepository.findAll().stream()
-                .map(hotelMapper::from)
-                .toList();
+        var hotels = hotelRepository.findAll()
+            .stream()
+            .map(hotelMapper::from)
+            .toList();
+
+        var countRoomTypes = getRoomTypeCountMap();
+
+        hotels.forEach(hotel -> hotel.setRoomTypeCountDto(countRoomTypes.get(hotel.getId())));
+
+        return hotels;
     }
 
     public Optional<Hotel> getHotelById(Long hotelId) {
@@ -42,40 +57,24 @@ public class HotelService {
 
     }
 
+    @Transactional
     public void addHotel(HotelWriteDto hotelWriteDto) {
         Hotel hotel = hotelMapper.to(hotelWriteDto);
+
+        Set<Room> rooms = hotel.getRooms();
+        if (rooms != null) {
+            for (Room room : rooms) {
+                room.setHotel(hotel);
+            }
+        }
+
         hotelRepository.save(hotel);
     }
 
-    public List<HotelDto> findHotelWithRoomTypeCounts() {
-        List<Object[]> rows = roomRepository.findRoomTypeCountsByHotel();
-        List<HotelDto> hotelDtos = new ArrayList<>();
-
-        for(Object[] row : rows) {
-            Long hotelId = ((Number) row[0]).longValue();
-            Hotel hotel = hotelRepository.findById(hotelId)
-                    .orElseThrow(() -> new RuntimeException("Hotel not found by id: " + hotelId));
-
-            Long roomTypeId = ((Number) row[1]).longValue();
-            int count = ((Number) row[2]).intValue();
-
-            String roomType = roomTypeRepository.findById(roomTypeId)
-                    .map(RoomType::getRoomType)
-                    .orElse("roomType not found by id: " + roomTypeId);
-            RoomTypeCountDto countRoomTypes = new RoomTypeCountDto();
-            countRoomTypes.setRoomType(roomType);
-            countRoomTypes.setCount(count);
-
-            HotelDto hotelDto = new HotelDto()
-                    .id(hotel.getId())
-                    .name(hotel.getName())
-                    .rating(Integer.valueOf(hotel.getRating()))
-                    .address(addressMapper.from(hotel.getAddress()))
-                    .roomTypeCountDto(listOf(countRoomTypes));
-
-            hotelDtos.add(hotelDto);
-        }
-        return hotelDtos;
+    private Map<Long, List<RoomTypeCountDto>> getRoomTypeCountMap() {
+        return roomRepository.findRoomTypeCountsByHotel()
+            .stream()
+            .collect(groupingBy(RoomTypeCountProjection::hotelId, mapping(roomTypeMapper::from, Collectors.toList())));
     }
 
 }

@@ -1,26 +1,23 @@
 package by.pilipuk.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import lombok.Data;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.time.Instant;
-
-@Data
-@Entity(name = "addresses")
+@Getter
+@Setter
+@Entity
+@Table(name = "addresses", schema = "hotel")
 @Accessors(chain = true)
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Address extends BaseEntity {
 
     @Column(name = "street")
     private String street;
@@ -28,20 +25,12 @@ public class Address {
     @Column(name = "house_number")
     private String houseNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "country_id", nullable = false)
     private DictCountry dictCountry;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "city_id", nullable = false)
     private DictCity dictCity;
 
-    @Column(name = "active")
-    private boolean active;
-
-    @Column(name = "created")
-    private Instant created;
-
-    @Column(name = "updated")
-    private Instant updated;
 }

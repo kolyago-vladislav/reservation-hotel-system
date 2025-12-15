@@ -1,20 +1,18 @@
 package by.pilipuk.mapper;
 
+import by.pilipuk.dto.RoomDto;
 import by.pilipuk.entity.Room;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-import by.pilipuk.dto.RoomDto;
 
 @Mapper(componentModel = "spring")
 public abstract class RoomMapper {
 
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "description", target = "description"),
-            @Mapping(source = "roomType.roomType", target = "roomType"),
-            @Mapping(source = "hotel.id", target = "hotelId"),
-    })
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "description", source = "description")
+    @Mapping(target = "roomType", source = "roomType.roomType")
+    @Mapping(target = "hotelId", source = "hotel.id")
     public abstract RoomDto from(Room room);
 
 }

@@ -1,5 +1,6 @@
 package by.pilipuk.controller;
 
+import by.pilipuk.dto.PageHotelDto;
 import by.pilipuk.service.HotelService;
 import lombok.RequiredArgsConstructor;
 import by.pilipuk.api.HotelsApi;

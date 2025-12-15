@@ -1,33 +1,61 @@
 package by.pilipuk.mapper;
 
-import by.pilipuk.entity.Address;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mappings;
-import org.mapstruct.Mapping;
 import by.pilipuk.dto.AddressDto;
 import by.pilipuk.dto.AddressWriteDto;
+import by.pilipuk.entity.Address;
+import by.pilipuk.entity.DictCity;
+import by.pilipuk.entity.DictCountry;
+import by.pilipuk.repository.DictCityRepository;
+import by.pilipuk.repository.DictCountryRepository;
+
+import lombok.Setter;
+
+import org.mapstruct.InjectionStrategy;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
-@Mapper(componentModel = SPRING, injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+@Mapper(
+    componentModel = SPRING,
+    injectionStrategy = InjectionStrategy.CONSTRUCTOR
+)
+@Setter(onMethod_ = @Autowired)
 public abstract class AddressMapper {
 
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "street", target = "street"),
-            @Mapping(source = "houseNumber", target = "houseNumber"),
-            @Mapping(source = "dictCountry.country", target = "country"),
-            @Mapping(source = "dictCity.city", target = "city")
-    })
+
+    private DictCityRepository dictCityRepository;
+    private DictCountryRepository dictCountryRepository;
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "street", source = "street")
+    @Mapping(target = "houseNumber", source = "houseNumber")
+    @Mapping(target = "country", source = "dictCountry.country")
+    @Mapping(target = "city", source = "dictCity.city")
     public abstract AddressDto from(Address address);
 
-    @Mappings({
-            @Mapping(source = "street", target = "street"),
-            @Mapping(source = "houseNumber", target = "houseNumber"),
-            @Mapping(source = "country", target = "dictCountry.country"),
-            @Mapping(source = "city", target = "dictCity.city")
-    })
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "street", source = "street")
+    @Mapping(target = "houseNumber", source = "houseNumber")
+    @Mapping(target = "dictCountry", source = "country")
+    @Mapping(target = "dictCity", source = "city")
     public abstract Address to(AddressWriteDto addressWriteDto);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    public abstract DictCity toCity(String city);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    public abstract DictCountry toCountry(String country);
 
 }

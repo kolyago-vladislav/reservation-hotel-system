@@ -1,26 +1,24 @@
 package by.pilipuk.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import lombok.Data;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import java.util.Set;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.time.Instant;
-
-@Data
-@Entity(name = "hotels")
+@Getter
+@Setter
+@Entity
+@Table(name = "hotels", schema = "hotel")
 @Accessors(chain = true)
-public class Hotel {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class Hotel extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -28,16 +26,11 @@ public class Hotel {
     @Column(name = "rating")
     private Short rating;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
-    @Column(name = "active")
-    private boolean active;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Set<Room> rooms;
 
-    @Column(name = "created")
-    private Instant created;
-
-    @Column(name = "updated")
-    private Instant updated;
 }

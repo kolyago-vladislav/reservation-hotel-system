@@ -194,6 +194,23 @@ components:
           items:
             $ref: '#/components/schemas/RoomTypeCountDto'
 
+    PageHotelDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotelDto'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+
     RoomTypeCountDto:
       type: object
       properties:
