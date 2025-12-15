@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
@@ -27,8 +28,8 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
         	r.hotel_id AS hotelId,
             rt.room_type AS roomType,
             COUNT(r.id) AS count
-        FROM rooms r
-        JOIN room_types rt ON rt.id = r.room_type_id
+        FROM hotel.rooms r
+        JOIN hotel.room_types rt ON rt.id = r.room_type_id
         GROUP BY r.hotel_id, rt.room_type
         ORDER BY r.hotel_id ASC, rt.room_type ASC
     """, nativeQuery = true)

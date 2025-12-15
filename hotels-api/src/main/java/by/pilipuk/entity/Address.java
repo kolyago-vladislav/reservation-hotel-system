@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -15,7 +14,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Entity(name = "addresses")
 @Accessors(chain = true)
-public class Address extends BaseEntity {
+public class Address extends BaseEntity<Address> {
 
     @Column(name = "street")
     private String street;
@@ -30,7 +29,5 @@ public class Address extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "city_id", nullable = false)
     private DictCity dictCity;
-
-
 
 }

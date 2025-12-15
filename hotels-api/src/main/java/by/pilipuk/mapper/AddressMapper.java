@@ -45,14 +45,4 @@ public abstract class AddressMapper {
     public abstract DictCity toCity(String city);
     public abstract DictCountry toCountry(String country);
 
-
-//    @Named("toCountry")
-//    public DictCountry toCountry(String country) {
-//        return dictCountryRepository.findByCountryOrThrow(country);
-//    }
-//
-//    @Named("toCity")
-//    public DictCity toCity(String city) {
-//        return dictCityRepository.findByCityOrThrow(city);
-//    }
 }

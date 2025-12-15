@@ -10,33 +10,54 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import lombok.Getter;
-import lombok.Setter;
 
+import lombok.experimental.Accessors;
 import org.hibernate.proxy.HibernateProxy;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
-@Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity {
+@Accessors(chain = true)
+public class BaseEntity<T extends BaseEntity<T>> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "active")
-    private boolean active;
+    private boolean active = true;
 
-    @Column(name = "createdAt")
+    @Column(name = "created_at", updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;
 
-    @Column(name = "updatedAt")
-    @CreatedDate
+    @Column(name = "updated_at")
+    @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    @SuppressWarnings("unchecked")
+    protected T self() {
+        return (T) this;
+    }
+
+    public T setActive(boolean active) {
+        this.active = active;
+        return self();
+    }
+
+    public T setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return self();
+    }
+
+    public T setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return self();
+    }
 
     @Override
     public final boolean equals(Object o) {
@@ -65,4 +86,5 @@ public class BaseEntity {
             ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode()
             : getClass().hashCode();
     }
+
 }

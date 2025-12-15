@@ -5,6 +5,7 @@ import by.pilipuk.dto.HotelWriteDto;
 import by.pilipuk.dto.PageHotelDto;
 import by.pilipuk.dto.RoomTypeCountDto;
 import by.pilipuk.entity.Hotel;
+import by.pilipuk.entity.Room;
 import by.pilipuk.mapper.AddressMapper;
 import by.pilipuk.mapper.HotelMapper;
 import by.pilipuk.mapper.RoomTypeMapper;
@@ -14,6 +15,7 @@ import by.pilipuk.repository.RoomRepository;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -55,9 +57,18 @@ public class HotelService {
     @Transactional
     public void addHotel(HotelWriteDto hotelWriteDto) {
         Hotel hotel = hotelMapper.to(hotelWriteDto);
+
+        Set<Room> rooms = hotel.getRooms();
+        if (rooms != null) {
+            for (Room room : rooms) {
+                room.setHotel(hotel);
+            }
+        }
+
         hotelRepository.save(hotel);
     }
 
+    @Transactional
     public PageHotelDto findHotelsWithRoomTypeCounts(Integer offset, Integer limit) {
         Pageable pageable = PageRequest.of(offset, limit);
 
@@ -83,6 +94,7 @@ public class HotelService {
         return pageHotelDto;
     }
 
+    @Transactional
     private Map<Long, List<RoomTypeCountDto>> getRoomTypeCountMap() {
         return roomRepository.findRoomTypeCountsByHotel()
             .stream()

@@ -5,8 +5,6 @@ import by.pilipuk.repository.DictCityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-
 @Component
 @RequiredArgsConstructor
 public class DictCityCreator {
@@ -15,10 +13,7 @@ public class DictCityCreator {
 
     public DictCity createDictCity() {
         DictCity dictCity = new DictCity()
-        .setCity("Praga")
-        .setActive(true)
-        .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
-        .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
+        .setCity("Praga");
 
         return dictCityRepository.save(dictCity);
     }

@@ -7,8 +7,6 @@ import by.pilipuk.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-
 @Component
 @RequiredArgsConstructor
 public class AddressCreator {
@@ -21,10 +19,7 @@ public class AddressCreator {
                 .setDictCountry(country)
                 .setDictCity(city)
                 .setStreet("Lira")
-                .setHouseNumber("9a")
-                .setActive(true)
-                .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
-                .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
+                .setHouseNumber("9a");
 
         return addressRepository.save(address);
     }

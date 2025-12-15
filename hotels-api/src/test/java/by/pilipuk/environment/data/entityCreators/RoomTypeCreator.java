@@ -4,8 +4,7 @@ import by.pilipuk.entity.RoomType;
 import by.pilipuk.repository.RoomTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.time.Instant;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -13,13 +12,11 @@ public class RoomTypeCreator {
 
     private final RoomTypeRepository roomTypeRepository;
 
+    @Transactional
     public RoomType createRoomType() {
 
         RoomType roomType = new RoomType()
-        .setRoomType("Business")
-        .setActive(true)
-        .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
-        .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
+        .setRoomType("Business");
 
         return roomTypeRepository.save(roomType);
     }

@@ -7,8 +7,6 @@ import by.pilipuk.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
-
 @Component
 @RequiredArgsConstructor
 public class RoomCreator {
@@ -20,10 +18,7 @@ public class RoomCreator {
         Room room = new Room()
         .setRoomType(roomType)
         .setDescription("My test room in test hotel")
-        .setHotel(hotel)
-        .setActive(true)
-        .setCreated(Instant.parse("2025-05-14T19:47:15Z"))
-        .setUpdated(Instant.parse("2025-05-14T19:47:15.000Z"));
+        .setHotel(hotel);
 
         return roomRepository.save(room);
     }
