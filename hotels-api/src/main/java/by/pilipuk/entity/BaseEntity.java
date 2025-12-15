@@ -11,6 +11,7 @@ import java.util.Objects;
 
 import lombok.Getter;
 
+import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -18,11 +19,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+@Setter
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @Accessors(chain = true)
-public class BaseEntity<T extends BaseEntity<T>> {
+public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -38,26 +40,6 @@ public class BaseEntity<T extends BaseEntity<T>> {
     @Column(name = "updated_at")
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    @SuppressWarnings("unchecked")
-    protected T self() {
-        return (T) this;
-    }
-
-    public T setActive(boolean active) {
-        this.active = active;
-        return self();
-    }
-
-    public T setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-        return self();
-    }
-
-    public T setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-        return self();
-    }
 
     @Override
     public final boolean equals(Object o) {

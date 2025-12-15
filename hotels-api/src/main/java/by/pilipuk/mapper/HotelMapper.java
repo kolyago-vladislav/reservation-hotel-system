@@ -8,15 +8,18 @@ import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.Room;
 import by.pilipuk.entity.RoomType;
 import by.pilipuk.repository.RoomTypeRepository;
-import lombok.Setter;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import lombok.Setter;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(
     componentModel = "spring",
@@ -49,6 +52,10 @@ public abstract class HotelMapper {
                 .toList();
     }
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "name", source = "name")
     @Mapping(target = "rating", source = "rating")
     @Mapping(target = "address", source = "address")

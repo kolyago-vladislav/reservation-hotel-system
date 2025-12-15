@@ -2,15 +2,18 @@ package by.pilipuk.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Getter
 @Setter
-@Entity(name = "dict_countries")
+@Entity
+@Table(name = "dict_countries", schema = "hotel")
 @Accessors(chain = true)
-public class DictCountry extends BaseEntity<DictCountry> {
+public class DictCountry extends BaseEntity {
 
     @Column(name = "country")
     private String country;

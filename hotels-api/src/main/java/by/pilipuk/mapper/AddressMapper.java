@@ -36,13 +36,26 @@ public abstract class AddressMapper {
     @Mapping(target = "city", source = "dictCity.city")
     public abstract AddressDto from(Address address);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "street", source = "street")
     @Mapping(target = "houseNumber", source = "houseNumber")
     @Mapping(target = "dictCountry", source = "country")
     @Mapping(target = "dictCity", source = "city")
     public abstract Address to(AddressWriteDto addressWriteDto);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     public abstract DictCity toCity(String city);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     public abstract DictCountry toCountry(String country);
 
 }

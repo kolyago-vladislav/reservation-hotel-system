@@ -7,9 +7,10 @@ import lombok.experimental.Accessors;
 
 @Getter
 @Setter
-@Entity(name = "rooms")
+@Entity
+@Table(name = "rooms", schema = "hotel")
 @Accessors(chain = true)
-public class Room extends BaseEntity<Room> {
+public class Room extends BaseEntity {
 
     @Column(name = "description")
     private String description;

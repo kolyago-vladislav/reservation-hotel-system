@@ -1,9 +1,10 @@
 package by.pilipuk.mapper;
 
+import by.pilipuk.dto.RoomDto;
 import by.pilipuk.entity.Room;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import by.pilipuk.dto.RoomDto;
 
 @Mapper(componentModel = "spring")
 public abstract class RoomMapper {
