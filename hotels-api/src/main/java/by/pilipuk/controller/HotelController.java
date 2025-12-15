@@ -24,8 +24,4 @@ public class HotelController implements HotelsApi {
         hotelService.addHotel(hotelWriteDto);
     }
 
-    @Override
-    public PageHotelDto getHotelsWithRoomCounts(Integer offset, Integer limit) {
-        return hotelService.findHotelsWithRoomTypeCounts(offset, limit);
-    }
 }

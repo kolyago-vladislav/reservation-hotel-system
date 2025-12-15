@@ -2,7 +2,6 @@ package by.pilipuk.service;
 
 import by.pilipuk.dto.HotelDto;
 import by.pilipuk.dto.HotelWriteDto;
-import by.pilipuk.dto.PageHotelDto;
 import by.pilipuk.dto.RoomTypeCountDto;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.Room;
@@ -20,9 +19,6 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,9 +40,16 @@ public class HotelService {
     private final RoomTypeMapper roomTypeMapper;
 
     public List<HotelDto> getAllHotels() {
-        return hotelRepository.findAll().stream()
-                .map(hotelMapper::from)
-                .toList();
+        var hotels = hotelRepository.findAll()
+            .stream()
+            .map(hotelMapper::from)
+            .toList();
+
+        var countRoomTypes = getRoomTypeCountMap();
+
+        hotels.forEach(hotel -> hotel.setRoomTypeCountDto(countRoomTypes.get(hotel.getId())));
+
+        return hotels;
     }
 
     public Optional<Hotel> getHotelById(Long hotelId) {
@@ -68,33 +71,6 @@ public class HotelService {
         hotelRepository.save(hotel);
     }
 
-    @Transactional
-    public PageHotelDto findHotelsWithRoomTypeCounts(Integer offset, Integer limit) {
-        Pageable pageable = PageRequest.of(offset, limit);
-
-        Page<Hotel> hotelsPage = hotelRepository.findAll(pageable);
-        Map<Long, List<RoomTypeCountDto>> countRoomTypes = getRoomTypeCountMap();
-
-        List<HotelDto> hotelDtoList = hotelsPage.getContent().stream()
-                .map(hotel -> new HotelDto()
-                    .id(hotel.getId())
-                    .name(hotel.getName())
-                    .rating(Integer.valueOf(hotel.getRating()))
-                    .address(addressMapper.from(hotel.getAddress()))
-                    .roomTypeCountDto(countRoomTypes.get(hotel.getId()))
-                )
-                .toList();
-
-        PageHotelDto pageHotelDto = new PageHotelDto();
-        pageHotelDto.setContent(hotelDtoList);
-        pageHotelDto.setTotalElements(hotelsPage.getTotalElements());
-        pageHotelDto.setTotalPages(hotelsPage.getTotalPages());
-        pageHotelDto.setSize(limit);
-        pageHotelDto.setNumber(offset);
-        return pageHotelDto;
-    }
-
-    @Transactional
     private Map<Long, List<RoomTypeCountDto>> getRoomTypeCountMap() {
         return roomRepository.findRoomTypeCountsByHotel()
             .stream()
