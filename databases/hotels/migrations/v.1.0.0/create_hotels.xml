@@ -3,6 +3,15 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    //bigSerial изменить на BIGINT
+    //все варчары заменить на text
+    // если нужно ограничить длинну на уровне базы, тогда можно варчар, в других случаях смысла нет
+    // country -> name
+    // defaultValueComputed - не проставляем
+    // все типы написать капсом
+    //updated_at убрать нот налл
+    //отдельная таблица в отдельный файл кроме many_to_many таблиц, их куда-нибудь в один из файлов
+    //создать dict_country_to_city  в файл где создаётся сити таблица вставить создание dict_country_to_city
 
     <changeSet id="1" author="shurapilipuk@gmail.com">
         <comment>Countries dictionary</comment>
@@ -13,7 +22,7 @@
             <column name="country" type="varchar(32)">
                 <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_country_country"/>
             </column>
-            <column name="active" type="boolean" defaultValueBoolean="true">
+            <column name="active" type="BOOLEAN" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
             <column name="created_at" type="timestamp without timezone" defaultValueComputed="(now() AT TIME ZONE 'utc')">
@@ -25,6 +34,7 @@
         </createTable>
     </changeSet>
 
+    // city -> name
     <changeSet id="2" author="shurapilipuk@gmail.com">
         <comment>Cities dictionary</comment>
         <createTable tableName="dict_cities" schemaName="hotel">
@@ -46,11 +56,16 @@
         </createTable>
     </changeSet>
 
+    // pk_dict_address_id - pk<table>id
+
+<!--    <column name="city_id" type="BIGINT">-->
+<!--        <constraints nullable="false" foreignKeyName="fk_addresses_country_id" references="hotel.dict_countries(id)"/>-->
+<!--    </column>-->
     <changeSet id="3" author="shurapilipuk@gmail.com">
         <comment>Addresses table</comment>
         <createTable tableName="addresses" schemaName="hotel">
             <column name="id" type="bigSerial" autoIncrement="true">
-                <constraints primaryKey="true" primaryKeyName="pk_dict_address"/>
+                <constraints primaryKey="true" primaryKeyName="pk_dict_address_id"/>
             </column>
             <column name="street" type="varchar(32)">
                 <constraints nullable="false"/>
@@ -75,19 +90,19 @@
             </column>
         </createTable>
 
-        <addForeignKeyConstraint
-                baseTableName="addresses"
-                baseColumnNames="country_id"
-                referencedTableName="dict_countries"
-                referencedColumnNames="id"
-                constraintName="fk_address_dict_country_country_id"/>
+<!--        <addForeignKeyConstraint-->
+<!--                baseTableName="addresses"-->
+<!--                baseColumnNames="country_id"-->
+<!--                referencedTableName="dict_countries"-->
+<!--                referencedColumnNames="id"-->
+<!--                constraintName="fk_address_dict_country_country_id"/>-->
 
-        <addForeignKeyConstraint
-                baseTableName="addresses"
-                baseColumnNames="city_id"
-                referencedTableName="dict_cities"
-                referencedColumnNames="id"
-                constraintName="fk_address_dict_city_city_id"/>
+<!--        <addForeignKeyConstraint-->
+<!--                baseTableName="addresses"-->
+<!--                baseColumnNames="city_id"-->
+<!--                referencedTableName="dict_cities"-->
+<!--                referencedColumnNames="id"-->
+<!--                constraintName="fk_address_dict_city_city_id"/>-->
     </changeSet>
 
     <changeSet id="4" author="shurapilipuk@gmail.com">
@@ -116,12 +131,12 @@
             </column>
         </createTable>
 
-        <addForeignKeyConstraint
-                baseTableName="hotels"
-                baseColumnNames="address_id"
-                referencedTableName="addresses"
-                referencedColumnNames="id"
-                constraintName="fk_hotel_address_address_id"/>
+<!--        <addForeignKeyConstraint-->
+<!--                baseTableName="hotels"-->
+<!--                baseColumnNames="address_id"-->
+<!--                referencedTableName="addresses"-->
+<!--                referencedColumnNames="id"-->
+<!--                constraintName="fk_hotel_address_address_id"/>-->
     </changeSet>
 
     <changeSet id="5" author="shurapilipuk@gmail.com">
@@ -151,9 +166,7 @@
             <column name="id" type="bigSerial" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="pk_room"/>
             </column>
-            <column name="description" type="varchar(264)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="description" type="varchar(264)"/>
             <column name="room_type_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
@@ -171,19 +184,19 @@
             </column>
         </createTable>
 
-        <addForeignKeyConstraint
-                baseTableName="rooms"
-                baseColumnNames="room_type_id"
-                referencedTableName="room_types"
-                referencedColumnNames="id"
-                constraintName="fk_room_room_type_room_type_id"/>
+<!--        <addForeignKeyConstraint-->
+<!--                baseTableName="rooms"-->
+<!--                baseColumnNames="room_type_id"-->
+<!--                referencedTableName="room_types"-->
+<!--                referencedColumnNames="id"-->
+<!--                constraintName="fk_room_room_type_room_type_id"/>-->
 
-        <addForeignKeyConstraint
-                baseTableName="rooms"
-                baseColumnNames="hotel_id"
-                referencedTableName="hotels"
-                referencedColumnNames="id"
-                constraintName="fk_room_hotel_hotel_id"/>
+<!--        <addForeignKeyConstraint-->
+<!--                baseTableName="rooms"-->
+<!--                baseColumnNames="hotel_id"-->
+<!--                referencedTableName="hotels"-->
+<!--                referencedColumnNames="id"-->
+<!--                constraintName="fk_room_hotel_hotel_id"/>-->
     </changeSet>
 
 </databaseChangeLog>

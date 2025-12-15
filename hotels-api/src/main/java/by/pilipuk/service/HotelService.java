@@ -52,6 +52,7 @@ public class HotelService {
         return hotels;
     }
 
+    //добавить контроллер
     public Optional<Hotel> getHotelById(Long hotelId) {
         return hotelRepository.findById(hotelId);
 

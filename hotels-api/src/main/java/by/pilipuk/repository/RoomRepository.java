@@ -7,10 +7,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
+    //переделать через Specification
     @Query(value = """
         SELECT * FROM hotel.rooms
         WHERE (:roomTypeIds IS NULL OR room_type_id IN (:roomTypeIds))
@@ -19,6 +19,15 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     """, nativeQuery = true)
     List<Room> findAllFilteredRooms(
             @Param("roomTypeIds") List<Long> roomTypeIds,
+            @Param("hotelIds") List<Long> hotelIds,
+            @Param("roomIds") List<Long> roomIds
+                       @Param("roomTypeIds") List<Long> roomTypeIds,
+            @Param("hotelIds") List<Long> hotelIds,
+            @Param("roomIds") List<Long> roomIds
+                       @Param("roomTypeIds") List<Long> roomTypeIds,
+            @Param("hotelIds") List<Long> hotelIds,
+            @Param("roomIds") List<Long> roomIds
+                       @Param("roomTypeIds") List<Long> roomTypeIds,
             @Param("hotelIds") List<Long> hotelIds,
             @Param("roomIds") List<Long> roomIds
     );

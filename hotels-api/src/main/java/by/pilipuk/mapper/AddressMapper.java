@@ -5,8 +5,6 @@ import by.pilipuk.dto.AddressWriteDto;
 import by.pilipuk.entity.Address;
 import by.pilipuk.entity.DictCity;
 import by.pilipuk.entity.DictCountry;
-import by.pilipuk.repository.DictCityRepository;
-import by.pilipuk.repository.DictCountryRepository;
 
 import lombok.Setter;
 
@@ -25,10 +23,6 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 @Setter(onMethod_ = @Autowired)
 public abstract class AddressMapper {
 
-
-    private DictCityRepository dictCityRepository;
-    private DictCountryRepository dictCountryRepository;
-
     @Mapping(target = "id", source = "id")
     @Mapping(target = "street", source = "street")
     @Mapping(target = "houseNumber", source = "houseNumber")
@@ -46,11 +40,15 @@ public abstract class AddressMapper {
     @Mapping(target = "dictCity", source = "city")
     public abstract Address to(AddressWriteDto addressWriteDto);
 
+    //вынести в отдельный маппер
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     public abstract DictCity toCity(String city);
+
+    //вынести в отдельный маппер
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "active", ignore = true)

@@ -6,11 +6,15 @@ info:
   version: 1.0-SNAPSHOT
 servers:
   - url: https://localhost:8080
+#    ///v1 - добавить на каждый эндпоинт
+#
+#    //в findAll докинь page, size
+# переделать findAll на POST запрос с боди пример урла /v1/hotels/search
 paths:
-  /hotels:
+  /v1/hotels:
     get:
       tags:
-        - hotel-controller
+        - hotel
       summary: Get all hotels
       description: Returns a list of all hotels
       operationId: getHotels
@@ -23,10 +27,9 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/HotelDto'
-
     post:
       tags:
-        - hotel-controller
+        - hotel
       summary: Add a new hotel
       description: Creates a new hotel with address and room type counts
       operationId: addHotel
@@ -49,7 +52,7 @@ paths:
       description: Returns rooms filtered by room types, hotel ids or room ids
       operationId: getAllRooms
       parameters:
-        - name: room_types
+        - name: roomTypes
           in: query
           required: false
           schema:
@@ -107,20 +110,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RoomDto'
-
+# сделать эндпоинты для получения справочников
+# передавать айдишки вместо названий
 components:
   schemas:
 
     AddressWriteDto:
       type: object
       properties:
-        street:
-          type: string
+        streetId:
+          type: int64
         houseNumber:
           type: string
-        country:
+        countryId:
           type: string
-        city:
+        cityId:
           type: string
 
     HotelWriteDto:
@@ -137,11 +141,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/RoomTypeCountWriteDto'
-
+#room_types -> в dict_room_types
     RoomTypeCountWriteDto:
       type: object
       properties:
-        roomType:
+        roomTypeId:
           type: string
         count:
           type: integer
@@ -155,7 +159,7 @@ components:
           format: int64
         description:
           type: string
-        roomType:
+        roomTypeId:
           type: string
         hotelId:
           type: integer
@@ -167,13 +171,13 @@ components:
         id:
           type: integer
           format: int64
-        street:
+        streetId:
           type: string
         houseNumber:
           type: string
-        country:
+        countryId:
           type: string
-        city:
+        cityId:
           type: string
 
     HotelDto:
@@ -194,27 +198,10 @@ components:
           items:
             $ref: '#/components/schemas/RoomTypeCountDto'
 
-    PageHotelDto:
-      type: object
-      properties:
-        content:
-          type: array
-          items:
-            $ref: '#/components/schemas/HotelDto'
-        totalElements:
-          type: integer
-          format: int64
-        totalPages:
-          type: integer
-        size:
-          type: integer
-        number:
-          type: integer
-
     RoomTypeCountDto:
       type: object
       properties:
-        roomType:
+        roomTypeId:
           type: string
         count:
           type: integer

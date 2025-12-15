@@ -3,13 +3,14 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
-
+//разбить на файлы
+    // dict_country_to_city сделать нормальный маппинг
     <changeSet id="test_data_dict_countries" author="shurapilipuk@gmail.com">
 
         <comment>Test data for dict_countries from hotel schema</comment>
 
         <sql>
-            INSERT INTO hotel.dict_countries (country, active, created_at, updated_at) VALUES
+            INSERT INTO hotel.dict_countries (name, created_at) VALUES
             ('Belarus', true, NOW() AT TIME ZONE 'utc', NOW() AT TIME ZONE 'utc'),
             ('Poland', true, NOW() AT TIME ZONE 'utc', NOW() AT TIME ZONE 'utc'),
             ('Germany', true, NOW() AT TIME ZONE 'utc', NOW() AT TIME ZONE 'utc'),
