@@ -1,15 +1,18 @@
 package by.pilipuk.repository;
 
-import by.pilipuk.entity.DictCity;
+import by.pilipuk.entity.City;
 import by.pilipuk.exeption.ValidationException;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface DictCityRepository extends JpaRepository<DictCity, Long> {
+import static by.pilipuk.model.enums.ValidationCode.NOT_FOUND_BY_ID;
 
-    default DictCity findByIdOrThrow(Long id) {
+@Repository
+public interface DictCityRepository extends JpaRepository<City, Long> {
+
+    default City findByIdOrThrow(Long id) {
         return findById(id)
-                .orElseThrow(() -> new ValidationException("City not found: " + id));
+                .orElseThrow(() -> ValidationException.create(NOT_FOUND_BY_ID, id));
     }
 }

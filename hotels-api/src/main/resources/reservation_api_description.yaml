@@ -43,12 +43,12 @@ paths:
             application/json:
               schema:
                   $ref: '#/components/schemas/PageHotelDto'
-
+#createHotel
   /v1/hotels:
     post:
       tags:
         - hotel
-      summary: Add a new hotel
+      summary: Create a new hotel
       description: Creates a new hotel with address and room type counts
       operationId: addHotel
       requestBody:
@@ -84,6 +84,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/HotelDto'
 
+#Post/v1/rooms/search
+#roomTypesIds
   /v1/rooms:
     get:
       tags:
@@ -148,6 +150,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/RoomDto'
 
+#getCountries
+#country
   /v1/dictionaries/countries:
     get:
       tags:
@@ -164,6 +168,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/DictCountryDto'
 
+  #getCities
+  #city
   /v1/dictionaries/cities:
     get:
       tags:
@@ -200,6 +206,7 @@ paths:
 components:
   schemas:
 
+#Long cityId
     AddressWriteDto:
       type: object
       properties:
@@ -207,11 +214,9 @@ components:
           type: string
         houseNumber:
           type: string
-        country:
+        cityId:
           type: string
-        city:
-          type: string
-
+#RoomTypeCountWriteDto
     HotelWriteDto:
       type: object
       properties:
@@ -227,6 +232,7 @@ components:
           items:
             $ref: '#/components/schemas/DictRoomTypeCountWriteDto'
 
+#roomTypeId
     DictRoomTypeCountWriteDto:
       type: object
       properties:
@@ -236,6 +242,7 @@ components:
           type: integer
           format: int64
 
+#hotelId
     RoomDto:
       type: object
       properties:
@@ -244,7 +251,7 @@ components:
           format: int64
         description:
           type: string
-        dictRoomType:
+        roomTypeId:
           type: string
         hotel:
           type: string
@@ -259,9 +266,7 @@ components:
           type: string
         houseNumber:
           type: string
-        country:
-          type: string
-        city:
+        cityId:
           type: string
 
     HotelDto:
@@ -277,55 +282,58 @@ components:
           format: int32
         address:
           $ref: '#/components/schemas/AddressDto'
-        dictRoomTypeCountDto:
+        roomTypeCountDto:
           type: array
           items:
             $ref: '#/components/schemas/DictRoomTypeCountDto'
 
+#HotelRequestDto
     HotelSearchCriteria:
       description: The search criteria provided in the request body to filter hotels
       type: object
       properties:
-        hotelName:
-          type: string
-          description: filter by hotel name
+        names:
+          type: array
+          description: Filter by hotel name
           nullable: true
-        minRating:
+          items:
+            type: string
+        ratingFrom:
           type: integer
           description: filter by minimum rating of hotel (from 1 to 5).
           minimum: 1
           maximum: 5
           nullable: true
-        cityId:
+        ratingTo:
+          type: integer
+          description: filter by minimum rating of hotel (from 1 to 5).
+          minimum: 1
+          maximum: 5
+          nullable: true
+        cityIds:
           type: integer
           description: filter by city id
           nullable: true
-        countryId:
-          type: integer
-          description: filter by country id
-          nullable: true
+#HotelPageDto
 
     PageHotelDto:
       type: object
       properties:
-        content:
+        items:
           type: array
           items:
             $ref: '#/components/schemas/HotelDto'
-        totalElements:
+        totalCount:
           type: integer
           format: int64
         totalPages:
           type: integer
-        size:
-          type: integer
-        numberOfPage:
-          type: integer
+
 
     DictRoomTypeCountDto:
       type: object
       properties:
-        dictRoomType:
+        id:
           type: string
         count:
           type: integer

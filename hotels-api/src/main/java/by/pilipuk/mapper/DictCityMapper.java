@@ -1,11 +1,8 @@
 package by.pilipuk.mapper;
 
-import by.pilipuk.dto.AddressDto;
-import by.pilipuk.dto.AddressWriteDto;
 import by.pilipuk.dto.DictCityDto;
-import by.pilipuk.entity.Address;
-import by.pilipuk.entity.DictCity;
-import by.pilipuk.entity.DictCountry;
+import by.pilipuk.entity.City;
+
 import lombok.Setter;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
@@ -25,11 +22,11 @@ public abstract class DictCityMapper {
     @Mapping(target = "active", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    public abstract DictCity toCity(String city);
+    public abstract City toCity(String city);
 
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "city", source = "name")
-    public abstract DictCityDto from(DictCity dictCity);
+    public abstract DictCityDto from(City city);
 
 }

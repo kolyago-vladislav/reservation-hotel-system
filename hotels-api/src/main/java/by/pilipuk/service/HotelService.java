@@ -1,6 +1,12 @@
 package by.pilipuk.service;
 
-import by.pilipuk.dto.*;
+import by.pilipuk.dto.DictCityDto;
+import by.pilipuk.dto.DictCountryDto;
+import by.pilipuk.dto.DictRoomTypeCountDto;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.HotelSearchCriteria;
+import by.pilipuk.dto.HotelWriteDto;
+import by.pilipuk.dto.PageHotelDto;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.Room;
 import by.pilipuk.mapper.DictCityMapper;
@@ -12,74 +18,78 @@ import by.pilipuk.repository.DictCityRepository;
 import by.pilipuk.repository.DictCountryRepository;
 import by.pilipuk.repository.HotelRepository;
 import by.pilipuk.repository.RoomRepository;
-import java.util.*;
-import java.util.stream.Collectors;
 import jakarta.persistence.criteria.Predicate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
+
+import org.mapstruct.AfterMapping;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
+
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 @Service
 @RequiredArgsConstructor
 public class HotelService {
 
     private final HotelMapper hotelMapper;
-
-    private final HotelRepository hotelRepository;
-
-    private final RoomRepository roomRepository;
-
-    private final DictCityRepository dictCityRepository;
-
     private final DictCityMapper dictCityMapper;
-
-    private final DictCountryRepository dictCountryRepository;
-
     private final DictCountryMapper dictCountryMapper;
-
     private final RoomTypeMapper roomTypeMapper;
 
+    private final HotelRepository hotelRepository;
+    private final RoomRepository roomRepository;
+    private final DictCityRepository dictCityRepository;
+    private final DictCountryRepository dictCountryRepository;
+
+    //Перепиши на var
     public PageHotelDto getAllHotels(HotelSearchCriteria filterCriteria, Pageable pageable) {
+        var spec = buildSpecification(filterCriteria);
 
-        Specification<Hotel> spec = filterSpecificationForHotel(filterCriteria);
+//        всё в маппер
+//        var countRoomTypes = getRoomTypeCountMap();
+//
+//        hotelDtos.forEach(hotelDto -> hotelDto.setDictRoomTypeCountDto(countRoomTypes.get(hotelDto.getId())));
+//
+//        //в маппер
+//        PageHotelDto pageHotelDto = new PageHotelDto();
+//        pageHotelDto.setContent(hotelDtos.getContent());
+//        pageHotelDto.setTotalElements(hotelDtos.getTotalElements());
+//        pageHotelDto.setTotalPages(hotelDtos.getTotalPages());
+//        pageHotelDto.setSize(hotelDtos.getSize());
 
-        var hotelDtos = hotelRepository.findAll(spec, pageable)
+        return hotelRepository.findAll(spec, pageable)
             .map(hotelMapper::from);
-
-        var countRoomTypes = getRoomTypeCountMap();
-
-        hotelDtos.forEach(hotelDto -> hotelDto.setDictRoomTypeCountDto(countRoomTypes.get(hotelDto.getId())));
-
-        PageHotelDto pageHotelDto = new PageHotelDto();
-        pageHotelDto.setContent(hotelDtos.getContent());
-        pageHotelDto.setTotalElements(hotelDtos.getTotalElements());
-        pageHotelDto.setTotalPages(hotelDtos.getTotalPages());
-        pageHotelDto.setSize(hotelDtos.getSize());
-        pageHotelDto.setNumberOfPage(hotelDtos.getNumber());
-
-        return pageHotelDto;
     }
 
     public HotelDto getHotelById(Long hotelId) {
-        var hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new IllegalArgumentException("Hotel not found: " + hotelId));
+        var hotel = hotelRepository.findByIdOrThrow(hotelId);
         return hotelMapper.from(hotel);
 
     }
 
     @Transactional
-    public void addHotel(HotelWriteDto hotelWriteDto) {
-        Hotel hotel = hotelMapper.to(hotelWriteDto);
+    public void createHotel(HotelWriteDto hotelWriteDto) {
+        var hotel = hotelMapper.to(hotelWriteDto);
 
-        Set<Room> rooms = hotel.getRooms();
-        if (rooms != null) {
-            for (Room room : rooms) {
-                room.setHotel(hotel);
-            }
-        }
+//        @AfterMapping в маппере RooomMapper
+//        Set<Room> rooms = hotel.getRooms();
+//        if (rooms != null) {
+//            for (Room room : rooms) {
+//                room.setHotel(hotel);
+//            }
+//        }
 
         hotelRepository.save(hotel);
     }
@@ -90,11 +100,15 @@ public class HotelService {
             .collect(groupingBy(RoomTypeCountProjection::hotelId, mapping(roomTypeMapper::from, Collectors.toList())));
     }
 
-    private Specification<Hotel> filterSpecificationForHotel(HotelSearchCriteria criteria) {
+
+    //Сделай HotelSpecificationMapper
+    private Specification<Hotel> buildSpecification(HotelSearchCriteria criteria) {
         return (root, query, builder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (criteria.getHotelName() != null && !criteria.getHotelName().isBlank()) {
+
+            //если size = 1, то через LIKE, иначе по полному соответсвию
+            if (isNotBlank(criteria.getHotelName())) {
                 predicates.add(builder.like(builder.lower(root.get("name")),
                         "%" + criteria.getHotelName().toLowerCase() + "%"));
             }
@@ -106,6 +120,20 @@ public class HotelService {
             }
             if (criteria.getCountryId() != null) {
                 predicates.add(builder.equal(root.get("address").get("dictCountry").get("id"), criteria.getCountryId()));
+            }
+
+            return builder.and(predicates.toArray(new Predicate[0]));
+        };
+    }
+
+    //Сделай HotelSpecificationMapper
+    private Specification<Hotel> minRating(HotelSearchCriteria criteria) {
+        return (root, query, builder) -> {
+
+            //если size = 1, то через LIKE, иначе по полному соответсвию
+            if (isNotBlank(criteria.getHotelName())) {
+                predicates.add(builder.like(builder.lower(root.get("name")),
+                    "%" + criteria.getHotelName().toLowerCase() + "%"));
             }
 
             return builder.and(predicates.toArray(new Predicate[0]));

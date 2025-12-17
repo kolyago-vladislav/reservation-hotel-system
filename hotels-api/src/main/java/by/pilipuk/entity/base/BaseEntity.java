@@ -1,4 +1,4 @@
-package by.pilipuk.entity;
+package by.pilipuk.entity.base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

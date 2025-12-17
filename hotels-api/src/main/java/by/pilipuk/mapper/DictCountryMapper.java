@@ -1,11 +1,6 @@
 package by.pilipuk.mapper;
 
-import by.pilipuk.dto.AddressDto;
-import by.pilipuk.dto.AddressWriteDto;
-import by.pilipuk.dto.DictCityDto;
 import by.pilipuk.dto.DictCountryDto;
-import by.pilipuk.entity.Address;
-import by.pilipuk.entity.DictCity;
 import by.pilipuk.entity.DictCountry;
 import lombok.Setter;
 import org.mapstruct.InjectionStrategy;

@@ -1,5 +1,6 @@
 package by.pilipuk.entity;
 
+import by.pilipuk.entity.base.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,11 +27,7 @@ public class Address extends BaseEntity {
     private String houseNumber;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "country_id", nullable = false)
-    private DictCountry dictCountry;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "city_id", nullable = false)
-    private DictCity dictCity;
+    private City city;
 
 }

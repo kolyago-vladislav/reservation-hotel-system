@@ -1,6 +1,6 @@
 package by.pilipuk.environment.data.entityCreators;
 
-import by.pilipuk.entity.DictCity;
+import by.pilipuk.entity.City;
 import by.pilipuk.repository.DictCityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,10 +11,10 @@ public class DictCityCreator {
 
     private final DictCityRepository dictCityRepository;
 
-    public DictCity createDictCity() {
-        DictCity dictCity = new DictCity()
+    public City createDictCity() {
+        City city = new City()
         .setName("Praga");
 
-        return dictCityRepository.save(dictCity);
+        return dictCityRepository.save(city);
     }
 }

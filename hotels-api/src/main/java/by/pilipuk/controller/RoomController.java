@@ -2,23 +2,26 @@ package by.pilipuk.controller;
 
 import by.pilipuk.api.RoomApi;
 import by.pilipuk.dto.DictRoomTypeDto;
-import by.pilipuk.service.RoomService;
-import lombok.RequiredArgsConstructor;
 import by.pilipuk.dto.RoomDto;
-import org.springframework.web.bind.annotation.RestController;
+import by.pilipuk.service.RoomService;
 import java.util.List;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 public class RoomController implements RoomApi {
 
     private final RoomService roomService;
+
     @Override
     public RoomDto getRoomById(Long id) {
-        return roomService.getRoomById(id)
-                .orElse(null);
+        return roomService.getRoomById(id);
     }
 
+    //RoomRequestDto
     @Override
     public List<RoomDto> getAllRooms(
             List<Long> roomTypeIds,
@@ -28,6 +31,7 @@ public class RoomController implements RoomApi {
         return roomService.findAllFilteredRooms(roomTypeIds, hotelIds, roomIds);
     }
 
+    //отдельный контроллер
     @Override
     public List<DictRoomTypeDto> getAllDictRoomTypes() {
         return roomService.getAllDictRoomTypes();

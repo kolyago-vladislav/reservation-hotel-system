@@ -3,12 +3,18 @@ package by.pilipuk.repository;
 import by.pilipuk.entity.Room;
 import by.pilipuk.model.dto.RoomTypeCountProjection;
 import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 public interface RoomRepository extends JpaRepository<Room, Long>, JpaSpecificationExecutor<Room> {
+
+
+    default Room findByIdOrThrow(Long id) {
+        return findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Room not found: " + id));
+    }
 
     @Query(value = """
         SELECT

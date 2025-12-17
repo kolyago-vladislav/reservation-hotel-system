@@ -2,7 +2,7 @@ package by.pilipuk.environment.service;
 
 import by.pilipuk.dto.RoomDto;
 import by.pilipuk.entity.Address;
-import by.pilipuk.entity.DictCity;
+import by.pilipuk.entity.City;
 import by.pilipuk.entity.DictCountry;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.Room;
@@ -26,13 +26,13 @@ public class RoomCreationTestService {
     @Transactional
     public Room roomCreation() {
 
-        DictCity dictCity = entityCreators.dictCityCreator.createDictCity();
+        City city = entityCreators.dictCityCreator.createDictCity();
 
         DictCountry dictCountry = entityCreators.dictCountryCreator.createDictCountry();
 
         DictRoomType roomType = entityCreators.roomTypeCreator.createRoomType();
 
-        Address address = entityCreators.addressCreator.createAddress(dictCountry, dictCity);
+        Address address = entityCreators.addressCreator.createAddress(dictCountry, city);
 
         Hotel hotel = entityCreators.hotelCreator.createHotel(address);
 

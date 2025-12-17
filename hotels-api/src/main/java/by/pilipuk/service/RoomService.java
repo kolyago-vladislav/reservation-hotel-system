@@ -1,21 +1,21 @@
 package by.pilipuk.service;
 
 import by.pilipuk.dto.DictRoomTypeDto;
+import by.pilipuk.dto.RoomDto;
 import by.pilipuk.entity.Room;
 import by.pilipuk.mapper.RoomMapper;
 import by.pilipuk.mapper.RoomTypeMapper;
 import by.pilipuk.repository.DictRoomTypeRepository;
 import by.pilipuk.repository.RoomRepository;
 import jakarta.persistence.criteria.Predicate;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
-import by.pilipuk.dto.RoomDto;
+
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -59,9 +59,10 @@ public class RoomService {
         };
     }
 
-    public Optional<RoomDto> getRoomById(Long id) {
-        return roomRepository.findById(id)
-                .map(roomMapper::from);
+    public RoomDto getRoomById(Long id) {
+        var room = roomRepository.findByIdOrThrow(id);
+
+        return roomMapper.from(room);
     }
 
     public List<DictRoomTypeDto> getAllDictRoomTypes() {
