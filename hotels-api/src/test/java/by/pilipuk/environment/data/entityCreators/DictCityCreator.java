@@ -13,7 +13,7 @@ public class DictCityCreator {
 
     public DictCity createDictCity() {
         DictCity dictCity = new DictCity()
-        .setCity("Praga");
+        .setName("Praga");
 
         return dictCityRepository.save(dictCity);
     }

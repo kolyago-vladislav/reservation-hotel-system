@@ -11,11 +11,11 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Entity
-@Table(name = "room_types", schema = "hotel")
+@Table(name = "dict_room_types", schema = "hotel")
 @Accessors(chain = true)
-public class RoomType extends BaseEntity {
+public class DictRoomType extends BaseEntity {
 
-    @Column(name = "room_type")
-    private String roomType;
+    @Column(name = "name")
+    private String name;
 
 }

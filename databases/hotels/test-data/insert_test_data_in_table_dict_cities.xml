@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="test_data_dict_cities" author="shurapilipuk@gmail.com">
+        <comment>Test data for dict_cities from hotel schema</comment>
+        <sql>
+            INSERT INTO hotel.dict_cities (name, created_at) VALUES
+            ('Minsk', NOW() AT TIME ZONE 'utc'),
+            ('Warsaw', NOW() AT TIME ZONE 'utc'),
+            ('Berlin', NOW() AT TIME ZONE 'utc'),
+            ('Paris', NOW() AT TIME ZONE 'utc'),
+            ('New York', NOW() AT TIME ZONE 'utc'),
+            ('Madrid', NOW() AT TIME ZONE 'utc'),
+            ('Rome', NOW() AT TIME ZONE 'utc'),
+            ('Shanghai', NOW() AT TIME ZONE 'utc'),
+            ('Rio de Janeiro', NOW() AT TIME ZONE 'utc'),
+            ('Mexico City', NOW() AT TIME ZONE 'utc'),
+            ('Tokyo', NOW() AT TIME ZONE 'utc'),
+            ('Toronto', NOW() AT TIME ZONE 'utc'),
+            ('Sydney', NOW() AT TIME ZONE 'utc'),
+            ('Mumbai', NOW() AT TIME ZONE 'utc'),
+            ('Moscow', NOW() AT TIME ZONE 'utc'),
+            ('London', NOW() AT TIME ZONE 'utc'),
+            ('Cairo', NOW() AT TIME ZONE 'utc'),
+            ('Istanbul', NOW() AT TIME ZONE 'utc'),
+            ('Buenos Aires', NOW() AT TIME ZONE 'utc'),
+            ('Seoul', NOW() AT TIME ZONE 'utc');
+        </sql>
+    </changeSet>
+
+    <changeSet id="test_data_dict_countries_to_dict_cities" author="shurapilipuk@gmail.com">
+        <comment>Mapping between countries and cities</comment>
+        <sql>
+            INSERT INTO hotel.dict_countries_to_dict_cities (country_id, city_id) VALUES
+            (1, 1),
+            (2, 2),
+            (3, 3),
+            (4, 4),
+            (5, 5),
+            (6, 6),
+            (7, 7),
+            (8, 8),
+            (9, 9),
+            (10, 10),
+            (11, 11),
+            (12, 12),
+            (13, 13),
+            (14, 14),
+            (15, 15),
+            (16, 16),
+            (17, 17),
+            (18, 18),
+            (19, 19),
+            (20, 20);
+        </sql>
+    </changeSet>
+</databaseChangeLog>

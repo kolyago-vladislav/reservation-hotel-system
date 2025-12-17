@@ -1,12 +1,10 @@
 package by.pilipuk.mapper;
 
+import by.pilipuk.dto.DictRoomTypeCountWriteDto;
 import by.pilipuk.dto.HotelDto;
 import by.pilipuk.dto.HotelWriteDto;
-import by.pilipuk.dto.RoomTypeCountWriteDto;
-import by.pilipuk.entity.Hotel;
-import by.pilipuk.entity.Room;
-import by.pilipuk.entity.RoomType;
-import by.pilipuk.repository.RoomTypeRepository;
+import by.pilipuk.entity.*;
+import by.pilipuk.repository.DictRoomTypeRepository;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,9 +23,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Setter(onMethod_ = @Autowired)
 public abstract class HotelMapper {
 
-    private RoomTypeRepository roomTypeRepository;
+    private DictRoomTypeRepository roomTypeRepository;
 
-    @Mapping(target = "roomTypeCountDto", ignore = true)
+    @Mapping(target = "dictRoomTypeCountDto", ignore = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
     @Mapping(target = "rating", source = "rating")
@@ -41,38 +39,39 @@ public abstract class HotelMapper {
     @Mapping(target = "name", source = "name")
     @Mapping(target = "rating", source = "rating")
     @Mapping(target = "address", source = "address")
-    @Mapping(target = "rooms", source = "roomTypeCountWriteDto")
+    @Mapping(target = "rooms", source = "dictRoomTypeCountWriteDto")
     public abstract Hotel to(HotelWriteDto hotelWriteDto);
 
-    protected Set<Room> toSet(List<RoomTypeCountWriteDto> listRoomTypeCountWriteDto) {
+    protected Set<Room> toSet(List<DictRoomTypeCountWriteDto> listRoomTypeCountWriteDto) {
         if (listRoomTypeCountWriteDto == null || listRoomTypeCountWriteDto.isEmpty()) {
             return null;
-        }
+        } else {
 
-        var rooms = new HashSet<Room>();
+            var rooms = new HashSet<Room>();
 
-        for (var countDto : listRoomTypeCountWriteDto) {
-            String roomType = countDto.getRoomType();
-            Integer count = countDto.getCount();
+            for (var countDto : listRoomTypeCountWriteDto) {
+                String roomType = countDto.getDictRoomType();
+                Long count = countDto.getCount();
 
-            if (roomType != null && count != null && count > 0) {
-                for (int i = 0; i < count; i++) {
-                    Room newRoom = new Room()
-                            .setRoomType(toRoomType(roomType))
-                            .setDescription("Autogenerate");
+                if (roomType != null && count != null && count > 0) {
+                    for (int i = 0; i < count; i++) {
+                        Room newRoom = new Room()
+                                .setDictRoomType(toRoomType(roomType))
+                                .setDescription("Autogenerate");
 
-                    rooms.add(newRoom);
+                        rooms.add(newRoom);
+                    }
                 }
             }
+            return rooms;
         }
-        return rooms;
     }
 
-    protected RoomType toRoomType(String roomTypeName) {
-        return roomTypeRepository.findByRoomType(roomTypeName)
+    protected DictRoomType toRoomType(String roomTypeName) {
+        return roomTypeRepository.findByName(roomTypeName)
                 .orElseGet(() -> {
-                    RoomType newRoomType = new RoomType()
-                            .setRoomType(roomTypeName);
+                    DictRoomType newRoomType = new DictRoomType()
+                            .setName(roomTypeName);
                     return roomTypeRepository.saveAndFlush(newRoomType);
                 });
     }

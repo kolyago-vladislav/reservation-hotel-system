@@ -19,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class DictCity extends BaseEntity {
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "name")
+    private String name;
 
 }

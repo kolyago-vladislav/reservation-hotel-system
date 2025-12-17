@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="test_data_rooms" author="shurapilipuk@gmail.com">
+        <comment>Test data for rooms from hotel schema</comment>
+        <sql>
+            INSERT INTO hotel.rooms (description, dict_room_type_id, hotel_id, created_at)
+            SELECT
+                CONCAT('Room ', gs, ' in hotel ', t.hotel_id) AS description,
+                ROUND(1 + random() * 9) AS dict_room_type_id,
+                t.hotel_id,
+                NOW() AT TIME ZONE 'utc'
+            FROM tmp_hotel_room_counts t,
+            generate_series(1, t.room_count) AS gs
+        </sql>
+    </changeSet>
+</databaseChangeLog>

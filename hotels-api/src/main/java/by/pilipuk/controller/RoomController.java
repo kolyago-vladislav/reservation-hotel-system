@@ -1,13 +1,12 @@
 package by.pilipuk.controller;
 
-import by.pilipuk.api.RoomControllerApi;
-import by.pilipuk.dto.RoomDto;
+import by.pilipuk.api.RoomApi;
+import by.pilipuk.dto.DictRoomTypeDto;
 import by.pilipuk.service.RoomService;
-import java.util.List;
-
 import lombok.RequiredArgsConstructor;
-
+import by.pilipuk.dto.RoomDto;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,16 +19,17 @@ public class RoomController implements RoomApi {
                 .orElse(null);
     }
 
-    //findAll переделать на POST + body
-    //так же обернуть
     @Override
     public List<RoomDto> getAllRooms(
-            List<Long> roomTypes,
+            List<Long> roomTypeIds,
             List<Long> hotelIds,
             List<Long> roomIds
     ) {
-        List<RoomDto> rooms = roomService.findAllFilteredRooms(roomTypes, hotelIds, roomIds);
-        return rooms;
+        return roomService.findAllFilteredRooms(roomTypeIds, hotelIds, roomIds);
     }
 
+    @Override
+    public List<DictRoomTypeDto> getAllDictRoomTypes() {
+        return roomService.getAllDictRoomTypes();
+    }
 }

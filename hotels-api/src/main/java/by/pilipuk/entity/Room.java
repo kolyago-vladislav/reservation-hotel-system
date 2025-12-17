@@ -16,8 +16,8 @@ public class Room extends BaseEntity {
     private String description;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinColumn(name = "room_type_id", nullable = false)
-    private RoomType roomType;
+    @JoinColumn(name = "dict_room_type_id", nullable = false)
+    private DictRoomType dictRoomType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "hotel_id", nullable = false)

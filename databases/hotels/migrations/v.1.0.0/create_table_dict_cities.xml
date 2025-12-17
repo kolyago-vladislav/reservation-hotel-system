@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create_table_dict_cities" author="shurapilipuk@gmail.com">
+        <comment>Cities dictionary</comment>
+        <createTable tableName="dict_cities" schemaName="hotel">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_dict_city_id"/>
+            </column>
+            <column name="name" type="TEXT">
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_city_name"/>
+            </column>
+            <column name="active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIMEZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIMEZONE">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create_table_dict_country_to_dict_city" author="shurapilipuk@gmail.com">
+    <comment>Many-to-many link between dict_countries and dict_cities</comment>
+    <createTable tableName="dict_countries_to_dict_cities" schemaName="hotel">
+    <column name="country_id" type="BIGINT">
+        <constraints nullable="false" foreignKeyName="fk_dict_countries_to_dict_cities_country_id" references="hotel.dict_countries(id)"/>
+    </column>
+    <column name="city_id" type="BIGINT">
+        <constraints nullable="false" foreignKeyName="fk_dict_countries_to_dict_cities_city_id" references="hotel.dict_cities(id)"/>
+        </column>
+    </createTable>
+    <addPrimaryKey tableName="dict_countries_to_dict_cities"
+                   schemaName="hotel"
+                   columnNames="country_id, city_id"
+                   constraintName="pk_dict_countries_to_dict_cities_id"/>
+    </changeSet>
+</databaseChangeLog>

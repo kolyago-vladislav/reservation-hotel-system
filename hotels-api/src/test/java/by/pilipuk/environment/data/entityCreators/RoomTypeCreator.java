@@ -1,7 +1,7 @@
 package by.pilipuk.environment.data.entityCreators;
 
-import by.pilipuk.entity.RoomType;
-import by.pilipuk.repository.RoomTypeRepository;
+import by.pilipuk.entity.DictRoomType;
+import by.pilipuk.repository.DictRoomTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class RoomTypeCreator {
 
-    private final RoomTypeRepository roomTypeRepository;
+    private final DictRoomTypeRepository roomTypeRepository;
 
     @Transactional
-    public RoomType createRoomType() {
+    public DictRoomType createRoomType() {
 
-        RoomType roomType = new RoomType()
-        .setRoomType("Business");
+        DictRoomType roomType = new DictRoomType()
+        .setName("Business");
 
         return roomTypeRepository.save(roomType);
     }

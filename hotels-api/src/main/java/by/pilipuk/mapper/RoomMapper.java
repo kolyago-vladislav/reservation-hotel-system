@@ -11,8 +11,8 @@ public abstract class RoomMapper {
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "description", source = "description")
-    @Mapping(target = "roomType", source = "roomType.roomType")
-    @Mapping(target = "hotelId", source = "hotel.id")
+    @Mapping(target = "dictRoomType", source = "dictRoomType.name")
+    @Mapping(target = "hotel", source = "hotel.name")
     public abstract RoomDto from(Room room);
 
 }

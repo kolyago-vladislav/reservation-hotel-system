@@ -6,7 +6,7 @@ import by.pilipuk.entity.DictCity;
 import by.pilipuk.entity.DictCountry;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.Room;
-import by.pilipuk.entity.RoomType;
+import by.pilipuk.entity.DictRoomType;
 import by.pilipuk.environment.data.EntityCreators;
 import by.pilipuk.mapper.RoomMapper;
 
@@ -30,7 +30,7 @@ public class RoomCreationTestService {
 
         DictCountry dictCountry = entityCreators.dictCountryCreator.createDictCountry();
 
-        RoomType roomType = entityCreators.roomTypeCreator.createRoomType();
+        DictRoomType roomType = entityCreators.roomTypeCreator.createRoomType();
 
         Address address = entityCreators.addressCreator.createAddress(dictCountry, dictCity);
 

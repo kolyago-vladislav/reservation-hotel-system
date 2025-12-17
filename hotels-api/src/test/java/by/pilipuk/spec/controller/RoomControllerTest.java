@@ -48,7 +48,7 @@ class RoomControllerTest {
         RoomDto expectedRoomDto = roomMapper.from(expectedRoom);
 
         // when
-        var result = roomController.getAllRooms(Collections.singletonList(expectedRoom.getRoomType().getId()), Collections.singletonList(expectedRoom.getHotel().getId()), Collections.singletonList(expectedRoom.getId()));
+        var result = roomController.getAllRooms(Collections.singletonList(expectedRoom.getDictRoomType().getId()), Collections.singletonList(expectedRoom.getHotel().getId()), Collections.singletonList(expectedRoom.getId()));
 
         // then
         assertEquals(Collections.singletonList(expectedRoomDto), result);

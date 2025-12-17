@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="test_data_dict_countries" author="shurapilipuk@gmail.com">
+        <comment>Test data for dict_countries from hotel schema</comment>
+        <sql>
+            INSERT INTO hotel.dict_countries (name, created_at) VALUES
+            ('Belarus', NOW() AT TIME ZONE 'utc'),
+            ('Poland', NOW() AT TIME ZONE 'utc'),
+            ('Germany', NOW() AT TIME ZONE 'utc'),
+            ('France', NOW() AT TIME ZONE 'utc'),
+            ('USA', NOW() AT TIME ZONE 'utc'),
+            ('Spain', NOW() AT TIME ZONE 'utc'),
+            ('Italy', NOW() AT TIME ZONE 'utc'),
+            ('China', NOW() AT TIME ZONE 'utc'),
+            ('Brazil', NOW() AT TIME ZONE 'utc'),
+            ('Mexico', NOW() AT TIME ZONE 'utc'),
+            ('Japan', NOW() AT TIME ZONE 'utc'),
+            ('Canada', NOW() AT TIME ZONE 'utc'),
+            ('Australia', NOW() AT TIME ZONE 'utc'),
+            ('India', NOW() AT TIME ZONE 'utc'),
+            ('Russia', NOW() AT TIME ZONE 'utc'),
+            ('UK', NOW() AT TIME ZONE 'utc'),
+            ('Egypt', NOW() AT TIME ZONE 'utc'),
+            ('Turkey', NOW() AT TIME ZONE 'utc'),
+            ('Argentina', NOW() AT TIME ZONE 'utc'),
+            ('South Korea', NOW() AT TIME ZONE 'utc');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

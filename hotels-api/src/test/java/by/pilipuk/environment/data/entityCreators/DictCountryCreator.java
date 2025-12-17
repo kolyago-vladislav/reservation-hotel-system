@@ -13,7 +13,7 @@ public class DictCountryCreator {
 
     public DictCountry createDictCountry() {
         DictCountry dictCountry = new DictCountry()
-        .setCountry("Czech Republic");
+        .setName("Czech Republic");
 
         return dictCountryRepository.save(dictCountry);
     }
