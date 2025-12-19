@@ -1,8 +1,7 @@
 package by.pilipuk.exeption.base;
 
 import by.pilipuk.model.dto.ExceptionContext;
-
-import org.slf4j.event.Level;
+import org.apache.logging.log4j.spi.StandardLevel;
 
 /**
  * Exception thrown when a business validation rule is violated.
@@ -17,7 +16,7 @@ public class BaseValidationException extends BaseApplicationException {
     private static final String CODE = "APPLICATION_VALIDATION_EXCEPTION";
 
     public BaseValidationException(
-        Level level,
+        StandardLevel level,
         ExceptionContext context
     ) {
         super(CODE, level, context, null);

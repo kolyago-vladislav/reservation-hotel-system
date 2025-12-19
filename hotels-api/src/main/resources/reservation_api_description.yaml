@@ -35,22 +35,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/HotelSearchCriteria'
+              $ref: '#/components/schemas/HotelRequestDto'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/PageHotelDto'
-#createHotel
+                  $ref: '#/components/schemas/HotelPageDto'
+
   /v1/hotels:
     post:
       tags:
         - hotel
       summary: Create a new hotel
       description: Creates a new hotel with address and room type counts
-      operationId: addHotel
+      operationId: createHotel
       requestBody:
         description: Hotel data to create
         required: true
@@ -84,49 +84,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/HotelDto'
 
-#Post/v1/rooms/search
-#roomTypesIds
-  /v1/rooms:
-    get:
+  /v1/rooms/search:
+    post:
       tags:
         - room
-      summary: Get all rooms
-      description: Returns rooms filtered by room types, hotel ids or room ids
-      operationId: getAllRooms
+      summary: Get rooms by pagination with filter
+      description: Returns a list of all rooms in pages matching the search filter provided in the request body
+      operationId: getRooms
       parameters:
-        - name: dictRoomTypeIds
-          in: query
-          required: false
+        - in: query
+          name: page
+          description: The number of page (starts from 0)
           schema:
-            type: array
-            items:
-              type: integer
-              format: int64
-        - name: hotelIds
-          in: query
-          required: false
+            type: integer
+            format: int32
+            default: 0
+        - in: query
+          name: size
+          description: The number of rooms in one page
           schema:
-            type: array
-            items:
-              type: integer
-              format: int64
-        - name: roomIds
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-              format: int64
+            type: integer
+            format: int32
+            default: 20
+      requestBody:
+        description: The search filter
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomRequestDto'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RoomDto'
+                $ref: '#/components/schemas/RoomPageDto'
 
   /v1/rooms/{id}:
     get:
@@ -150,14 +143,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/RoomDto'
 
-#getCountries
-#country
   /v1/dictionaries/countries:
     get:
       tags:
-        - hotel
-      summary: get list of dict countries
-      operationId: getAllDictCountries
+        - dictionary
+      summary: get list of countries
+      operationId: getCountries
       responses:
         200:
           description: OK
@@ -166,17 +157,15 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DictCountryDto'
+                  $ref: '#/components/schemas/CountryDto'
 
-  #getCities
-  #city
   /v1/dictionaries/cities:
     get:
       tags:
-        - hotel
+        - dictionary
       summary: get list of cities
-      description: get list of dict cities
-      operationId: getAllDictCities
+      description: get list of cities
+      operationId: getCities
       responses:
         200:
           description: OK
@@ -185,14 +174,14 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DictCityDto'
+                  $ref: '#/components/schemas/CityDto'
 
   /v1/dictionaries/roomTypes:
     get:
       tags:
-        - room
-      summary: get list of dict roomTypes
-      operationId: getAllDictRoomTypes
+        - dictionary
+      summary: get list of roomTypes
+      operationId: getRoomTypes
       responses:
         200:
           description: OK
@@ -201,12 +190,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/DictRoomTypeDto'
+                  $ref: '#/components/schemas/RoomTypeDto'
 
 components:
   schemas:
 
-#Long cityId
     AddressWriteDto:
       type: object
       properties:
@@ -215,8 +203,9 @@ components:
         houseNumber:
           type: string
         cityId:
-          type: string
-#RoomTypeCountWriteDto
+          type: integer
+          format: int64
+
     HotelWriteDto:
       type: object
       properties:
@@ -227,22 +216,21 @@ components:
           format: int64
         address:
           $ref: '#/components/schemas/AddressWriteDto'
-        dictRoomTypeCountWriteDto:
+        RoomTypeCountWriteDto:
           type: array
           items:
-            $ref: '#/components/schemas/DictRoomTypeCountWriteDto'
+            $ref: '#/components/schemas/RoomTypeCountWriteDto'
 
-#roomTypeId
-    DictRoomTypeCountWriteDto:
+    RoomTypeCountWriteDto:
       type: object
       properties:
-        dictRoomType:
-          type: string
+        RoomTypeId:
+          type: integer
+          format: int64
         count:
           type: integer
           format: int64
 
-#hotelId
     RoomDto:
       type: object
       properties:
@@ -252,9 +240,11 @@ components:
         description:
           type: string
         roomTypeId:
-          type: string
-        hotel:
-          type: string
+          type: integer
+          format: int64
+        hotelId:
+          type: integer
+          format: int64
 
     AddressDto:
       type: object
@@ -267,7 +257,8 @@ components:
         houseNumber:
           type: string
         cityId:
-          type: string
+          type: integer
+          format: int64
 
     HotelDto:
       type: object
@@ -285,11 +276,36 @@ components:
         roomTypeCountDto:
           type: array
           items:
-            $ref: '#/components/schemas/DictRoomTypeCountDto'
+            $ref: '#/components/schemas/RoomTypeCountDto'
 
-#HotelRequestDto
-    HotelSearchCriteria:
-      description: The search criteria provided in the request body to filter hotels
+    RoomRequestDto:
+      description: Request dto provided in the request body to filter rooms
+      type: object
+      properties:
+        roomTypeIds:
+          type: array
+          description: Filter by roomTypeIds
+          nullable: true
+          items:
+            type: integer
+            format: int64
+        hotelIds:
+          type: array
+          description: Filter by hotelIds
+          nullable: true
+          items:
+            type: integer
+            format: int64
+        roomIds:
+          type: array
+          description: Filter by roomIds
+          nullable: true
+          items:
+            type: integer
+            format: int64
+
+    HotelRequestDto:
+      description: Request dto provided in the request body to filter hotels
       type: object
       properties:
         names:
@@ -300,23 +316,40 @@ components:
             type: string
         ratingFrom:
           type: integer
+          format: int32
           description: filter by minimum rating of hotel (from 1 to 5).
           minimum: 1
           maximum: 5
           nullable: true
         ratingTo:
           type: integer
+          format: int32
           description: filter by minimum rating of hotel (from 1 to 5).
           minimum: 1
           maximum: 5
           nullable: true
         cityIds:
-          type: integer
+          type: array
           description: filter by city id
           nullable: true
-#HotelPageDto
+          items:
+            type: integer
+            format: int64
 
-    PageHotelDto:
+    RoomPageDto:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoomDto'
+        totalCount:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+
+    HotelPageDto:
       type: object
       properties:
         items:
@@ -329,17 +362,17 @@ components:
         totalPages:
           type: integer
 
-
-    DictRoomTypeCountDto:
+    RoomTypeCountDto:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          format: int64
         count:
           type: integer
           format: int32
 
-    DictCountryDto:
+    CountryDto:
       type: object
       properties:
         id:
@@ -348,7 +381,7 @@ components:
         country:
           type: string
 
-    DictCityDto:
+    CityDto:
       type: object
       properties:
         id:
@@ -357,7 +390,17 @@ components:
         city:
           type: string
 
-    DictRoomTypeDto:
+    CountriesToCitiesDto:
+      type: object
+      properties:
+        countryId:
+          type: integer
+          format: int64
+        cityId:
+          type: integer
+          format: int64
+
+    RoomTypeDto:
       type: object
       properties:
         id:

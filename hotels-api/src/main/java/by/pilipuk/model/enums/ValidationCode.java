@@ -2,21 +2,21 @@ package by.pilipuk.model.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.spi.StandardLevel;
 
-import org.slf4j.event.Level;
+import static org.apache.logging.log4j.spi.StandardLevel.DEBUG;
 
-import static org.slf4j.event.Level.DEBUG;
 
 @Getter
 @RequiredArgsConstructor
 public enum ValidationCode {
     NOT_FOUND_BY_ID(DEBUG, "id");
 
-    private final Level level;
+    private final StandardLevel level;
     private String key;
 
     ValidationCode(
-        Level level,
+        StandardLevel level,
         String key
     ) {
         this.level = level;

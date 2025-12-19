@@ -3,14 +3,13 @@ package by.pilipuk.exeption;
 import by.pilipuk.exeption.base.BaseValidationException;
 import by.pilipuk.model.dto.ExceptionContext;
 import by.pilipuk.model.enums.ValidationCode;
+import org.apache.logging.log4j.spi.StandardLevel;
 import java.util.List;
-
-import org.slf4j.event.Level;
 
 public class ValidationException extends BaseValidationException {
 
     private ValidationException(
-        Level level,
+        StandardLevel level,
         ExceptionContext context
     ) {
         super(level, context);
@@ -24,7 +23,7 @@ public class ValidationException extends BaseValidationException {
     }
 
     public static ValidationException create(
-        Level level,
+        StandardLevel level,
         ExceptionContext context
     ) {
         return new ValidationException(level, context);

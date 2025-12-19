@@ -4,10 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="test_data_addresses" author="shurapilipuk@gmail.com">
+    <changeSet id="1" author="shurapilipuk@gmail.com">
         <comment>Test data for addresses from hotel schema</comment>
         <sql>
-            INSERT INTO hotel.addresses (street, house_number, country_id, city_id, created_at)
+            INSERT INTO hotel.addresses (street, house_number, city_id, created_at)
             SELECT
                 CASE
                     WHEN random() &lt; 0.5
@@ -15,7 +15,6 @@
                     ELSE 'Polessia'
                 END AS street,
                 CONCAT(gs, 'a') AS house_number,
-                gs AS country_id,
                 gs AS city_id,
                 NOW() AT TIME ZONE 'utc'
             FROM generate_series(1, 20) AS gs;

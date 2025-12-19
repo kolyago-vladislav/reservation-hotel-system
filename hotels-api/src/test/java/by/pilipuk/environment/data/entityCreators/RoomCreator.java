@@ -1,6 +1,6 @@
 package by.pilipuk.environment.data.entityCreators;
 
-import by.pilipuk.entity.DictRoomType;
+import by.pilipuk.entity.RoomType;
 import by.pilipuk.entity.Room;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.repository.RoomRepository;
@@ -13,10 +13,10 @@ public class RoomCreator {
 
     private final RoomRepository roomRepository;
 
-    public Room createRoom(DictRoomType roomType, Hotel hotel) {
+    public Room createRoom(RoomType roomType, Hotel hotel) {
 
         Room room = new Room()
-        .setDictRoomType(roomType)
+        .setRoomType(roomType)
         .setDescription("My test room in test hotel")
         .setHotel(hotel);
 

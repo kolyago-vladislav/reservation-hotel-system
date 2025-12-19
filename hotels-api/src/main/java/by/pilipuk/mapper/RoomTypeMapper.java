@@ -1,22 +1,30 @@
 package by.pilipuk.mapper;
 
-import by.pilipuk.dto.DictCountryDto;
-import by.pilipuk.dto.DictRoomTypeCountDto;
-import by.pilipuk.dto.DictRoomTypeDto;
-import by.pilipuk.entity.DictCountry;
-import by.pilipuk.entity.DictRoomType;
+import by.pilipuk.dto.RoomTypeCountDto;
+import by.pilipuk.dto.RoomTypeDto;
+import by.pilipuk.entity.RoomType;
 import by.pilipuk.model.dto.RoomTypeCountProjection;
-
+import by.pilipuk.repository.RoomTypeRepository;
+import lombok.Setter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
+@Setter(onMethod_ = @Autowired)
 public abstract class RoomTypeMapper {
 
-    public abstract DictRoomTypeCountDto from(RoomTypeCountProjection room);
+    private RoomTypeRepository roomTypeRepository;
+
+    @Mapping(target = "id", source = "roomTypeId")
+    public abstract RoomTypeCountDto fromProjection(RoomTypeCountProjection room);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "roomType", source = "name")
-    public abstract DictRoomTypeDto from(DictRoomType dictRoomType);
+    public abstract RoomTypeDto from(RoomType RoomType);
+
+    protected RoomType toRoomType(Long roomTypeId) {
+        return roomTypeRepository.findByIdOrThrow(roomTypeId);
+    }
 
 }

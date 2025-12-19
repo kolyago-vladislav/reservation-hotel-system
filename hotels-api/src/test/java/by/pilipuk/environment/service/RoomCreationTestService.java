@@ -3,10 +3,10 @@ package by.pilipuk.environment.service;
 import by.pilipuk.dto.RoomDto;
 import by.pilipuk.entity.Address;
 import by.pilipuk.entity.City;
-import by.pilipuk.entity.DictCountry;
+import by.pilipuk.entity.Country;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.entity.Room;
-import by.pilipuk.entity.DictRoomType;
+import by.pilipuk.entity.RoomType;
 import by.pilipuk.environment.data.EntityCreators;
 import by.pilipuk.mapper.RoomMapper;
 
@@ -28,9 +28,9 @@ public class RoomCreationTestService {
 
         City city = entityCreators.dictCityCreator.createDictCity();
 
-        DictCountry dictCountry = entityCreators.dictCountryCreator.createDictCountry();
+        Country dictCountry = entityCreators.dictCountryCreator.createDictCountry();
 
-        DictRoomType roomType = entityCreators.roomTypeCreator.createRoomType();
+        RoomType roomType = entityCreators.roomTypeCreator.createRoomType();
 
         Address address = entityCreators.addressCreator.createAddress(dictCountry, city);
 

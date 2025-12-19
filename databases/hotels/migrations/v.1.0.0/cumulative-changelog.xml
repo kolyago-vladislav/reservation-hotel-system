@@ -4,11 +4,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <include file="create_table_dict_countries.xml" relativeToChangelogFile="true"/>
-    <include file="create_table_dict_cities.xml" relativeToChangelogFile="true"/>
-    <include file="create_table_dict_room_types.xml" relativeToChangelogFile="true"/>
-    <include file="create_table_addresses.xml" relativeToChangelogFile="true"/>
-    <include file="create_table_hotels.xml" relativeToChangelogFile="true"/>
-    <include file="create_table_rooms.xml" relativeToChangelogFile="true"/>
+    <include file="createCountries.xml" relativeToChangelogFile="true"/>
+    <include file="createCities.xml" relativeToChangelogFile="true"/>
+    <include file="createRoomTypes.xml" relativeToChangelogFile="true"/>
+    <include file="createAddresses.xml" relativeToChangelogFile="true"/>
+    <include file="createHotels.xml" relativeToChangelogFile="true"/>
+    <include file="createRooms.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

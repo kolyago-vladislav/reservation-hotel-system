@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="test_data_hotels" author="shurapilipuk@gmail.com">
+    <changeSet id="1" author="shurapilipuk@gmail.com">
         <comment>Test data for hotels from hotel schema</comment>
         <sql>
             INSERT INTO hotel.hotels (name, rating, address_id, created_at)
@@ -21,7 +21,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="test_data_tmp_hotel_room_counts" author="shurapilipuk@gmail.com">
+    <changeSet id="2" author="shurapilipuk@gmail.com">
         <comment>Test data for tmp_hotel_room_counts from hotel schema</comment>
         <sql>
             CREATE TEMP TABLE tmp_hotel_room_counts AS

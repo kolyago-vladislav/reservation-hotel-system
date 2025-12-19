@@ -1,7 +1,7 @@
 package by.pilipuk.environment.data.entityCreators;
 
 import by.pilipuk.entity.City;
-import by.pilipuk.repository.DictCityRepository;
+import by.pilipuk.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DictCityCreator {
 
-    private final DictCityRepository dictCityRepository;
+    private final CityRepository dictCityRepository;
 
     public City createDictCity() {
         City city = new City()

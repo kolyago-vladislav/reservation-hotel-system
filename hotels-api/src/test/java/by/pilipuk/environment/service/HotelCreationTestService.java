@@ -5,7 +5,7 @@ import by.pilipuk.dto.HotelWriteDto;
 import by.pilipuk.dto.RoomTypeCountDto;
 import by.pilipuk.entity.Address;
 import by.pilipuk.entity.City;
-import by.pilipuk.entity.DictCountry;
+import by.pilipuk.entity.Country;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.environment.data.DtoCreators;
 import by.pilipuk.environment.data.EntityCreators;
@@ -32,7 +32,7 @@ public class HotelCreationTestService {
 
         City city = entityCreators.dictCityCreator.createDictCity();
 
-        DictCountry dictCountry = entityCreators.dictCountryCreator.createDictCountry();
+        Country dictCountry = entityCreators.dictCountryCreator.createDictCountry();
 
         Address address = entityCreators.addressCreator.createAddress(dictCountry, city);
 

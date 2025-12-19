@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="test_data_dict_cities" author="shurapilipuk@gmail.com">
+    <changeSet id="1" author="shurapilipuk@gmail.com">
         <comment>Test data for dict_cities from hotel schema</comment>
         <sql>
             INSERT INTO hotel.dict_cities (name, created_at) VALUES
@@ -31,10 +31,10 @@
         </sql>
     </changeSet>
 
-    <changeSet id="test_data_dict_countries_to_dict_cities" author="shurapilipuk@gmail.com">
+    <changeSet id="2" author="shurapilipuk@gmail.com">
         <comment>Mapping between countries and cities</comment>
         <sql>
-            INSERT INTO hotel.dict_countries_to_dict_cities (country_id, city_id) VALUES
+            INSERT INTO hotel.dict_countries_to_dict_cities (dict_country_id, dict_city_id) VALUES
             (1, 1),
             (2, 2),
             (3, 3),

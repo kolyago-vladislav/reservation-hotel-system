@@ -3,8 +3,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
-<!--createAddresses-->
-<!--test-data/addresses-->
+
     <changeSet id="1" author="shurapilipuk@gmail.com">
         <comment>Addresses table</comment>
         <createTable tableName="addresses" schemaName="hotel">
@@ -16,9 +15,6 @@
             </column>
             <column name="house_number" type="TEXT">
                 <constraints nullable="false"/>
-            </column>
-            <column name="country_id" type="BIGINT">
-                <constraints nullable="false" foreignKeyName="fk_addresses_country_id" references="hotel.dict_countries(id)"/>
             </column>
             <column name="city_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_addresses_city_id" references="hotel.dict_cities(id)"/>

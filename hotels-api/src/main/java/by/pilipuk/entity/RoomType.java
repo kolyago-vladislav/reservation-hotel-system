@@ -4,7 +4,6 @@ import by.pilipuk.entity.base.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -14,7 +13,7 @@ import lombok.experimental.Accessors;
 @Entity
 @Table(name = "dict_room_types", schema = "hotel")
 @Accessors(chain = true)
-public class DictRoomType extends BaseEntity {
+public class RoomType extends BaseEntity {
 
     @Column(name = "name")
     private String name;
