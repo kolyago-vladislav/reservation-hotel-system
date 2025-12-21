@@ -216,7 +216,7 @@ components:
           format: int64
         address:
           $ref: '#/components/schemas/AddressWriteDto'
-        RoomTypeCountWriteDto:
+        roomTypeCountWriteDto:
           type: array
           items:
             $ref: '#/components/schemas/RoomTypeCountWriteDto'
@@ -224,7 +224,7 @@ components:
     RoomTypeCountWriteDto:
       type: object
       properties:
-        RoomTypeId:
+        roomTypeId:
           type: integer
           format: int64
         count:
@@ -378,7 +378,7 @@ components:
         id:
           type: integer
           format: int64
-        country:
+        name:
           type: string
 
     CityDto:
@@ -387,18 +387,8 @@ components:
         id:
           type: integer
           format: int64
-        city:
+        name:
           type: string
-
-    CountriesToCitiesDto:
-      type: object
-      properties:
-        countryId:
-          type: integer
-          format: int64
-        cityId:
-          type: integer
-          format: int64
 
     RoomTypeDto:
       type: object
@@ -406,5 +396,5 @@ components:
         id:
           type: integer
           format: int64
-        RoomType:
+        name:
           type: string

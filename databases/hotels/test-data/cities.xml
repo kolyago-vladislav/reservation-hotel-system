@@ -7,54 +7,27 @@
     <changeSet id="1" author="shurapilipuk@gmail.com">
         <comment>Test data for dict_cities from hotel schema</comment>
         <sql>
-            INSERT INTO hotel.dict_cities (name, created_at) VALUES
-            ('Minsk', NOW() AT TIME ZONE 'utc'),
-            ('Warsaw', NOW() AT TIME ZONE 'utc'),
-            ('Berlin', NOW() AT TIME ZONE 'utc'),
-            ('Paris', NOW() AT TIME ZONE 'utc'),
-            ('New York', NOW() AT TIME ZONE 'utc'),
-            ('Madrid', NOW() AT TIME ZONE 'utc'),
-            ('Rome', NOW() AT TIME ZONE 'utc'),
-            ('Shanghai', NOW() AT TIME ZONE 'utc'),
-            ('Rio de Janeiro', NOW() AT TIME ZONE 'utc'),
-            ('Mexico City', NOW() AT TIME ZONE 'utc'),
-            ('Tokyo', NOW() AT TIME ZONE 'utc'),
-            ('Toronto', NOW() AT TIME ZONE 'utc'),
-            ('Sydney', NOW() AT TIME ZONE 'utc'),
-            ('Mumbai', NOW() AT TIME ZONE 'utc'),
-            ('Moscow', NOW() AT TIME ZONE 'utc'),
-            ('London', NOW() AT TIME ZONE 'utc'),
-            ('Cairo', NOW() AT TIME ZONE 'utc'),
-            ('Istanbul', NOW() AT TIME ZONE 'utc'),
-            ('Buenos Aires', NOW() AT TIME ZONE 'utc'),
-            ('Seoul', NOW() AT TIME ZONE 'utc');
-        </sql>
-    </changeSet>
-
-    <changeSet id="2" author="shurapilipuk@gmail.com">
-        <comment>Mapping between countries and cities</comment>
-        <sql>
-            INSERT INTO hotel.dict_countries_to_dict_cities (dict_country_id, dict_city_id) VALUES
-            (1, 1),
-            (2, 2),
-            (3, 3),
-            (4, 4),
-            (5, 5),
-            (6, 6),
-            (7, 7),
-            (8, 8),
-            (9, 9),
-            (10, 10),
-            (11, 11),
-            (12, 12),
-            (13, 13),
-            (14, 14),
-            (15, 15),
-            (16, 16),
-            (17, 17),
-            (18, 18),
-            (19, 19),
-            (20, 20);
+            INSERT INTO hotel.dict_cities (name, dict_country_id, created_at) VALUES
+            ('Minsk', 1, NOW() AT TIME ZONE 'utc'),
+            ('Warsaw', 2, NOW() AT TIME ZONE 'utc'),
+            ('Berlin', 3, NOW() AT TIME ZONE 'utc'),
+            ('Paris', 4, NOW() AT TIME ZONE 'utc'),
+            ('New York', 5, NOW() AT TIME ZONE 'utc'),
+            ('Madrid', 6, NOW() AT TIME ZONE 'utc'),
+            ('Rome', 7, NOW() AT TIME ZONE 'utc'),
+            ('Shanghai', 8, NOW() AT TIME ZONE 'utc'),
+            ('Rio de Janeiro', 9, NOW() AT TIME ZONE 'utc'),
+            ('Mexico City', 10, NOW() AT TIME ZONE 'utc'),
+            ('Tokyo', 11, NOW() AT TIME ZONE 'utc'),
+            ('Toronto', 12, NOW() AT TIME ZONE 'utc'),
+            ('Sydney', 13, NOW() AT TIME ZONE 'utc'),
+            ('Mumbai', 14, NOW() AT TIME ZONE 'utc'),
+            ('Moscow', 15, NOW() AT TIME ZONE 'utc'),
+            ('London', 16, NOW() AT TIME ZONE 'utc'),
+            ('Cairo', 17, NOW() AT TIME ZONE 'utc'),
+            ('Istanbul', 18, NOW() AT TIME ZONE 'utc'),
+            ('Buenos Aires', 19, NOW() AT TIME ZONE 'utc'),
+            ('Seoul', 20, NOW() AT TIME ZONE 'utc');
         </sql>
     </changeSet>
 </databaseChangeLog>

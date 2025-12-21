@@ -23,7 +23,7 @@ public abstract class CountryMapper {
     public abstract Country toCountry(String country);
 
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "country", source = "name")
+    @Mapping(target = "name", source = "name")
     public abstract CountryDto from(Country dictCountry);
 
 }

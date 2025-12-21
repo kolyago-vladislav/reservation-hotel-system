@@ -8,12 +8,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class EntityCreators {
 
-    public final DictCityCreator dictCityCreator;
-
-    public final DictCountryCreator dictCountryCreator;
-
-    public final RoomTypeCreator roomTypeCreator;
-
     public final AddressCreator addressCreator;
 
     public final HotelCreator hotelCreator;

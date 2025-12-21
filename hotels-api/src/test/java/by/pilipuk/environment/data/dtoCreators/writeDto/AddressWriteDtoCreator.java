@@ -10,8 +10,7 @@ public class AddressWriteDtoCreator {
 
     public AddressWriteDto createAddressWriteDto() {
         return new AddressWriteDto()
-            .city("Minsk")
-            .country("Belarus")
+            .cityId(1L)
             .street("Mira")
             .houseNumber("7a");
     }

@@ -13,6 +13,9 @@
             <column name="name" type="TEXT">
                 <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_city_name"/>
             </column>
+            <column name="dict_country_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_dict_cities_dict_country_id" references="hotel.dict_countries(id)"/>
+            </column>
             <column name="active" type="BOOLEAN" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
@@ -21,21 +24,5 @@
             </column>
             <column name="updated_at" type="TIMESTAMP WITHOUT TIMEZONE"/>
         </createTable>
-    </changeSet>
-
-    <changeSet id="2" author="shurapilipuk@gmail.com">
-    <comment>Link between dict_countries and dict_cities</comment>
-    <createTable tableName="dict_countries_to_dict_cities" schemaName="hotel">
-    <column name="dict_country_id" type="BIGINT">
-        <constraints nullable="false" foreignKeyName="fk_dict_countries_to_dict_cities_dict_country_id" references="hotel.dict_countries(id)"/>
-    </column>
-    <column name="dict_city_id" type="BIGINT">
-        <constraints nullable="false" foreignKeyName="fk_dict_countries_to_dict_cities_dict_city_id" references="hotel.dict_cities(id)"/>
-        </column>
-    </createTable>
-    <addPrimaryKey tableName="dict_countries_to_dict_cities"
-                   schemaName="hotel"
-                   columnNames="dict_country_id, dict_city_id"
-                   constraintName="pk_dict_countries_to_dict_cities_id"/>
     </changeSet>
 </databaseChangeLog>

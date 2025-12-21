@@ -20,7 +20,7 @@ public abstract class RoomTypeMapper {
     public abstract RoomTypeCountDto fromProjection(RoomTypeCountProjection room);
 
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "roomType", source = "name")
+    @Mapping(target = "name", source = "name")
     public abstract RoomTypeDto from(RoomType RoomType);
 
     protected RoomType toRoomType(Long roomTypeId) {

@@ -5,15 +5,13 @@ import by.pilipuk.dto.HotelWriteDto;
 import by.pilipuk.dto.RoomTypeCountDto;
 import by.pilipuk.entity.Address;
 import by.pilipuk.entity.City;
-import by.pilipuk.entity.Country;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.environment.data.DtoCreators;
 import by.pilipuk.environment.data.EntityCreators;
 import by.pilipuk.mapper.HotelMapper;
 import java.util.Collections;
-
+import by.pilipuk.repository.CityRepository;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,20 +19,19 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class HotelCreationTestService {
 
-    private final EntityCreators entityCreators;
-
     private final HotelMapper hotelMapper;
 
+    private final EntityCreators entityCreators;
     private final DtoCreators dtoCreators;
+
+    private final CityRepository cityRepository;
 
     @Transactional
     public Hotel hotelCreation() {
 
-        City city = entityCreators.dictCityCreator.createDictCity();
+        City city = cityRepository.findByIdOrThrow(1L);
 
-        Country dictCountry = entityCreators.dictCountryCreator.createDictCountry();
-
-        Address address = entityCreators.addressCreator.createAddress(dictCountry, city);
+        Address address = entityCreators.addressCreator.createAddress(city);
 
         return entityCreators.hotelCreator.createHotel(address);
 
@@ -51,12 +48,6 @@ public class HotelCreationTestService {
 
         return dtoCreators.writeHotel.createHotelDto(dtoCreators.addressWriteDto.createAddressWriteDto(),
                 Collections.singletonList(dtoCreators.writeRoomTypeCount.createRoomTypeCountDto()));
-    }
-
-    @Transactional
-    public RoomTypeCountDto roomTypeCountDtoCreation() {
-
-        return dtoCreators.readRoomTypeCount.createRoomTypeCountDto();
     }
 
 }

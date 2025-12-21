@@ -16,7 +16,7 @@
             <column name="house_number" type="TEXT">
                 <constraints nullable="false"/>
             </column>
-            <column name="city_id" type="BIGINT">
+            <column name="dict_city_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_addresses_city_id" references="hotel.dict_cities(id)"/>
             </column>
             <column name="active" type="BOOLEAN" defaultValueBoolean="true">

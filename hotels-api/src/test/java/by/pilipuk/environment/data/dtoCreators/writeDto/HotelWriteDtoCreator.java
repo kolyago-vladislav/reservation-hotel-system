@@ -12,7 +12,7 @@ public class HotelWriteDtoCreator {
     public HotelWriteDto createHotelDto(AddressWriteDto addressWriteDto, List<RoomTypeCountWriteDto> roomTypeCountWriteDto) {
         return new HotelWriteDto()
                 .name("My test hotel")
-                .rating(5)
+                .rating(5L)
                 .address(addressWriteDto)
                 .roomTypeCountWriteDto(roomTypeCountWriteDto);
     }

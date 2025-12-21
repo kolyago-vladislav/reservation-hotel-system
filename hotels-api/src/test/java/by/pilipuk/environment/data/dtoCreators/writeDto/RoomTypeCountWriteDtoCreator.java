@@ -10,7 +10,7 @@ public class RoomTypeCountWriteDtoCreator {
     @Transactional
     public RoomTypeCountWriteDto createRoomTypeCountDto() {
         return new RoomTypeCountWriteDto()
-                .roomType("Business")
-                .count(50);
+                .roomTypeId(1L)
+                .count(50L);
     }
 }

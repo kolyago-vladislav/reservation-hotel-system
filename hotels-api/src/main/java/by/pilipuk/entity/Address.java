@@ -11,12 +11,14 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import lombok.experimental.FieldNameConstants;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "addresses", schema = "hotel")
 @Accessors(chain = true)
+@FieldNameConstants
 public class Address extends BaseEntity {
 
     @Column(name = "street")
@@ -26,7 +28,7 @@ public class Address extends BaseEntity {
     private String houseNumber;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "city_id", nullable = false)
+    @JoinColumn(name = "dict_city_id", nullable = false)
     private City city;
 
 }

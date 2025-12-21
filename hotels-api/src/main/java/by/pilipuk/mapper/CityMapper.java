@@ -24,7 +24,7 @@ public abstract class CityMapper {
 
 
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "city", source = "name")
+    @Mapping(target = "name", source = "name")
     public abstract CityDto from(City city);
 
 }

@@ -26,9 +26,6 @@ public class DBTruncateTestService {
     public static final List<String> TABLES_NAMES = List.of(
             "hotel.rooms",
             "hotel.hotels",
-            "hotel.addresses",
-            "hotel.dict_cities",
-            "hotel.dict_countries",
-            "hotel.room_types"
+            "hotel.addresses"
     );
 }
