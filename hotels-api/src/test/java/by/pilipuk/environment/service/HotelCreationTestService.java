@@ -2,7 +2,6 @@ package by.pilipuk.environment.service;
 
 import by.pilipuk.dto.HotelDto;
 import by.pilipuk.dto.HotelWriteDto;
-import by.pilipuk.dto.RoomTypeCountDto;
 import by.pilipuk.entity.Address;
 import by.pilipuk.entity.City;
 import by.pilipuk.entity.Hotel;
