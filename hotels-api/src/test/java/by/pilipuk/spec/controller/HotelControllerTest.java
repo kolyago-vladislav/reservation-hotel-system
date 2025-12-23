@@ -41,7 +41,8 @@ class HotelControllerTest {
     @Test
     void getHotels() throws Exception {
         // given
-        creationHotelTestService.createHotelDto();
+        var expectedHotelPageDto = creationHotelTestService.createHotelPageDto();
+        var expectedJson = new ObjectMapper().writeValueAsString(expectedHotelPageDto);
 
         var hotelRequestDto = new HotelRequestDto();
         hotelRequestDto.setNames(Collections.singletonList("My test hotel"));
@@ -63,10 +64,7 @@ class HotelControllerTest {
         // then
                 .andExpectAll(status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$.totalCount").value(1),
-                        jsonPath("$.totalPages").value(1),
-                        jsonPath("$.items[*].id").value(1),
-                        jsonPath("$.items[*].name").value("My test hotel")
+                        content().json(expectedJson)
                 );
     }
 
@@ -89,7 +87,7 @@ class HotelControllerTest {
     @Test
     void getHotelById() throws Exception {
         // given
-        creationHotelTestService.createHotelDto();
+        var expectedJson = new ObjectMapper().writeValueAsString(creationHotelTestService.createHotelDto());
 
         var requestBuilder = MockMvcRequestBuilders.get("/v1/hotels/{id}", 1);
 
@@ -99,8 +97,7 @@ class HotelControllerTest {
         // then
                 .andExpectAll(status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$.id").value(1),
-                        jsonPath("$.name").value("My test hotel")
+                        content().json(expectedJson)
                 );
     }
 }

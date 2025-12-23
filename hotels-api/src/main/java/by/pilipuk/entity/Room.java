@@ -18,7 +18,7 @@ public class Room extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "dict_room_type_id", nullable = false)
     private RoomType roomType;
 

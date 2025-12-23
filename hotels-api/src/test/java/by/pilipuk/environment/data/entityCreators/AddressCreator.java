@@ -19,6 +19,7 @@ public class AddressCreator {
                 .setStreet("Lira")
                 .setHouseNumber("9a");
 
-        return addressRepository.save(address);
+//        return addressRepository.save(address);
+        return address;
     }
 }

@@ -5,7 +5,6 @@ import by.pilipuk.mapper.HotelMapper;
 import by.pilipuk.mapper.HotelSpecificationMapper;
 import by.pilipuk.repository.HotelRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class HotelService {
 
     private final HotelMapper hotelMapper;
@@ -35,7 +33,6 @@ public class HotelService {
     @Transactional
     public void createHotel(HotelWriteDto hotelWriteDto) {
         var hotel = hotelMapper.to(hotelWriteDto);
-
         hotelRepository.save(hotel);
     }
 

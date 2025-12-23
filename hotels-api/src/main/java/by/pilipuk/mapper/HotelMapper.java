@@ -16,6 +16,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.util.CollectionUtils;
+
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
 
@@ -39,7 +41,7 @@ public abstract class HotelMapper {
 
     @AfterMapping
     protected void fillRoomTypeCounts(Hotel hotel, @MappingTarget HotelDto dto) {
-        if (hotel.getRooms() == null || hotel.getRooms().isEmpty()) {
+        if (CollectionUtils.isEmpty(hotel.getRooms())) {
             return;
         }
 

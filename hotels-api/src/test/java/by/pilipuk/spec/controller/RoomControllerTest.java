@@ -41,7 +41,8 @@ class RoomControllerTest {
     @Test
     void getRooms() throws Exception {
         // given
-        creationTestService.createRoomDto();
+        var expectedRoomPageDto = creationTestService.createRoomPageDto();
+        var expectedJson = new ObjectMapper().writeValueAsString(expectedRoomPageDto);
 
         var roomRequestDto = new RoomRequestDto();
         roomRequestDto.setRoomIds(List.of(1L));
@@ -62,18 +63,14 @@ class RoomControllerTest {
                 // then
                 .andExpectAll(status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$.totalCount").value(1),
-                        jsonPath("$.totalPages").value(1),
-                        jsonPath("$.items[*].id").value(1),
-                        jsonPath("$.items[*].roomTypeId").value(1),
-                        jsonPath("$.items[*].description").value("My test room in test hotel")
+                        content().json(expectedJson)
                 );
     }
 
     @Test
     void getRoomById() throws Exception {
         // given
-        creationTestService.createRoomDto();
+        var expectedJson = new ObjectMapper().writeValueAsString(creationTestService.createRoomDto());
 
         var requestBuilder = MockMvcRequestBuilders.get("/v1/rooms/{id}", 1);
 
@@ -83,9 +80,7 @@ class RoomControllerTest {
         // then
                 .andExpectAll(status().isOk(),
                         content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$.id").value(1),
-                        jsonPath("$.roomTypeId").value(1),
-                        jsonPath("$.description").value("My test room in test hotel")
+                        content().json(expectedJson)
                 );
     }
 }
