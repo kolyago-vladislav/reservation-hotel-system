@@ -8,17 +8,12 @@ import by.pilipuk.entity.City;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.environment.data.DtoCreators;
 import by.pilipuk.environment.data.EntityCreators;
-import by.pilipuk.environment.data.entityCreators.RoomCreator;
 import by.pilipuk.mapper.HotelMapper;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
-import by.pilipuk.model.dto.RoomTypeCountProjection;
 import by.pilipuk.repository.CityRepository;
-import by.pilipuk.repository.RoomRepository;
 import by.pilipuk.repository.RoomTypeRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +21,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.mapping;
 
 @Component
 @RequiredArgsConstructor

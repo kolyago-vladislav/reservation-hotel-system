@@ -1,6 +1,5 @@
 package by.pilipuk.mapper;
 
-import by.pilipuk.dto.CityDto;
 import by.pilipuk.entity.City;
 import lombok.Setter;
 import org.mapstruct.InjectionStrategy;
@@ -25,6 +24,6 @@ public abstract class CityMapper {
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
-    public abstract CityDto from(City city);
+    public abstract by.pilipuk.dto.CityDto from(City city);
 
 }

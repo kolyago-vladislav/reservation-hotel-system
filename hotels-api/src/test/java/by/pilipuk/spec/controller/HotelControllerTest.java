@@ -5,6 +5,7 @@ import by.pilipuk.environment.service.DBTruncateTestService;
 import by.pilipuk.environment.service.HotelCreationTestService;
 import java.util.Collections;
 import java.util.List;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import static org.assertj.core.api.Assertions.fail;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -39,10 +41,9 @@ class HotelControllerTest {
     }
 
     @Test
-    void getHotels() throws Exception {
+    void getHotels() {
         // given
         var expectedHotelPageDto = creationHotelTestService.createHotelPageDto();
-        var expectedJson = new ObjectMapper().writeValueAsString(expectedHotelPageDto);
 
         var hotelRequestDto = new HotelRequestDto();
         hotelRequestDto.setNames(Collections.singletonList("My test hotel"));
@@ -50,7 +51,16 @@ class HotelControllerTest {
         hotelRequestDto.setRatingFrom(1);
         hotelRequestDto.setRatingTo(5);
 
-        var jsonHotelRequestDto = new ObjectMapper().writeValueAsString(hotelRequestDto);
+        String jsonHotelRequestDto;
+        String expectedJsonHotelPageDto;
+        try {
+            var objectMapper = new ObjectMapper();
+            jsonHotelRequestDto = objectMapper.writeValueAsString(hotelRequestDto);
+            expectedJsonHotelPageDto = objectMapper.writeValueAsString(expectedHotelPageDto);
+        } catch (JsonProcessingException e) {
+            fail("Failed to prepare expected JSON: " + e.getMessage());
+            return;
+        }
 
         var requestBuilder = MockMvcRequestBuilders.post("/v1/hotels/search")
                 .queryParam("page", "0")
@@ -59,45 +69,69 @@ class HotelControllerTest {
                 .content(jsonHotelRequestDto);
 
         // when
-        mockMvc.perform(requestBuilder)
+        try {
+            mockMvc.perform(requestBuilder)
 
         // then
-                .andExpectAll(status().isOk(),
-                        content().contentType(MediaType.APPLICATION_JSON),
-                        content().json(expectedJson)
-                );
+                    .andExpectAll(status().isOk(),
+                            content().contentType(MediaType.APPLICATION_JSON),
+                            content().json(expectedJsonHotelPageDto)
+                    );
+        } catch (Exception e) {
+            fail("Error executing request perform by mockMvc: " + e.getMessage());
+        }
     }
 
     @Test
-    void addHotel() throws Exception {
+    void addHotel() {
         // given
-        String jsonHotelWriteDto = new ObjectMapper().writeValueAsString(creationHotelTestService.createHotelWriteDto());
+        String jsonHotelWriteDto;
+        try {
+            jsonHotelWriteDto = new ObjectMapper().writeValueAsString(creationHotelTestService.createHotelWriteDto());
+        } catch (JsonProcessingException e) {
+            fail("Failed to prepare expected JSON: " + e.getMessage());
+            return;
+        }
 
         var requestBuilder = MockMvcRequestBuilders.post("/v1/hotels")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonHotelWriteDto);
 
         // when
-        mockMvc.perform(requestBuilder)
+        try {
+            mockMvc.perform(requestBuilder)
 
         // then
-                .andExpectAll(status().isCreated());
+                    .andExpectAll(status().isCreated());
+        } catch (Exception e) {
+            fail("Error executing request perform by mockMvc: " + e.getMessage());
+        }
     }
 
     @Test
-    void getHotelById() throws Exception {
+    void getHotelById() {
         // given
-        var expectedJson = new ObjectMapper().writeValueAsString(creationHotelTestService.createHotelDto());
+        String expectedJson;
+        try {
+            expectedJson = new ObjectMapper().writeValueAsString(creationHotelTestService.createHotelDto());
+        } catch (JsonProcessingException e) {
+            fail("Failed to prepare expected JSON: " + e.getMessage());
+            return;
+        }
 
         var requestBuilder = MockMvcRequestBuilders.get("/v1/hotels/{id}", 1);
 
         // when
-        mockMvc.perform(requestBuilder)
+        try {
+            mockMvc.perform(requestBuilder)
 
         // then
-                .andExpectAll(status().isOk(),
-                        content().contentType(MediaType.APPLICATION_JSON),
-                        content().json(expectedJson)
-                );
+                    .andExpectAll(status().isOk(),
+                            content().contentType(MediaType.APPLICATION_JSON),
+                            content().json(expectedJson)
+                    );
+        } catch (Exception e) {
+            fail("Error executing request perform by mockMvc: " + e.getMessage());
+        }
     }
 }

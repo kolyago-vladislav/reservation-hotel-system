@@ -1,6 +1,5 @@
 package by.pilipuk.mapper;
 
-import by.pilipuk.dto.CountryDto;
 import by.pilipuk.entity.Country;
 import lombok.Setter;
 import org.mapstruct.InjectionStrategy;
@@ -24,6 +23,6 @@ public abstract class CountryMapper {
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
-    public abstract CountryDto from(Country dictCountry);
+    public abstract by.pilipuk.dto.CountryDto from(Country dictCountry);
 
 }

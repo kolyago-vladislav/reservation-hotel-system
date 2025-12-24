@@ -1,5 +1,8 @@
 package by.pilipuk.spec.controller;
 
+import by.pilipuk.environment.service.DictionaryCreationTestService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,9 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import static org.hamcrest.core.IsIterableContaining.hasItems;
+import static org.assertj.core.api.Assertions.fail;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -22,54 +24,84 @@ public class DictionaryControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private DictionaryCreationTestService dictionaryCreationTestService;
+
     @Test
-    void getCities() throws Exception {
+    void getCities() {
         // given
+        String expectedJson;
+        try {
+            expectedJson = new ObjectMapper().writeValueAsString(dictionaryCreationTestService.createCityDtosList());
+        } catch (JsonProcessingException e) {
+            fail("Failed to prepare expected JSON: " + e.getMessage());
+            return;
+        }
         var requestBuilder = MockMvcRequestBuilders.get("/v1/dictionaries/cities");
 
         // when
-        mockMvc.perform(requestBuilder)
+        try {
+            mockMvc.perform(requestBuilder)
 
-                // then
-                .andExpectAll(status().isOk(),
-                        content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$.length()").value(20),
-                        jsonPath("$[*].name", hasItems("Minsk", "Warsaw", "Berlin", "Paris", "New York", "Madrid", "Rome", "Shanghai", "Rio de Janeiro", "Mexico City", "Tokyo", "Toronto", "Sydney", "Mumbai", "Moscow", "London", "Cairo", "Istanbul", "Buenos Aires", "Seoul")),
-                        jsonPath("$[*].id", hasItems(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20))
-                );
+        // then
+                    .andExpectAll(status().isOk(),
+                            content().contentType(MediaType.APPLICATION_JSON),
+                            content().json(expectedJson)
+                            );
+        } catch (Exception e) {
+            fail("Error executing request perform by mockMvc: " + e.getMessage());
+        }
     }
 
     @Test
-    void getCountries() throws Exception {
+    void getCountries() {
         // given
+        String expectedJson;
+        try {
+            expectedJson = new ObjectMapper().writeValueAsString(dictionaryCreationTestService.createCountryDtosList());
+        } catch (JsonProcessingException e) {
+            fail("Failed to prepare expected JSON: " + e.getMessage());
+            return;
+        }
         var requestBuilder = MockMvcRequestBuilders.get("/v1/dictionaries/countries");
 
         // when
-        mockMvc.perform(requestBuilder)
+        try {
+            mockMvc.perform(requestBuilder)
 
-                // then
-                .andExpectAll(status().isOk(),
-                        content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$.length()").value(20),
-                        jsonPath("$[*].name", hasItems("Belarus", "Poland", "Germany", "France", "USA", "Spain", "Italy", "China", "Brazil", "Mexico", "Japan", "Canada", "Australia", "India", "Russia", "UK", "Egypt", "Turkey", "Argentina", "South Korea")),
-                        jsonPath("$[*].id", hasItems(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20))
-                );
+        // then
+                    .andExpectAll(status().isOk(),
+                            content().contentType(MediaType.APPLICATION_JSON),
+                            content().json(expectedJson)
+                    );
+        } catch (Exception e) {
+            fail("Error executing request perform by mockMvc: " + e.getMessage());
+        }
     }
 
     @Test
-    void getRoomTypes() throws Exception {
+    void getRoomTypes() {
         // given
+        String expectedJson;
+        try {
+            expectedJson = new ObjectMapper().writeValueAsString(dictionaryCreationTestService.createRoomTypesList());
+        } catch (JsonProcessingException e) {
+            fail("Failed to prepare expected JSON: " + e.getMessage());
+            return;
+        }
         var requestBuilder = MockMvcRequestBuilders.get("/v1/dictionaries/roomTypes");
 
         // when
-        mockMvc.perform(requestBuilder)
+        try {
+            mockMvc.perform(requestBuilder)
 
-                // then
-                .andExpectAll(status().isOk(),
-                        content().contentType(MediaType.APPLICATION_JSON),
-                        jsonPath("$.length()").value(4),
-                        jsonPath("$[*].name", hasItems("President", "Lux", "Standard", "Economy")),
-                        jsonPath("$[*].id", hasItems(1, 2, 3, 4))
-                );
+        // then
+                    .andExpectAll(status().isOk(),
+                            content().contentType(MediaType.APPLICATION_JSON),
+                            content().json(expectedJson)
+                    );
+        } catch (Exception e) {
+            fail("Error executing request perform by mockMvc: " + e.getMessage());
+        }
     }
 }

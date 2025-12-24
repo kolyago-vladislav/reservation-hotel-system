@@ -2,11 +2,8 @@ package by.pilipuk.environment.service;
 
 import by.pilipuk.dto.RoomDto;
 import by.pilipuk.dto.RoomPageDto;
-import by.pilipuk.entity.Address;
+import by.pilipuk.entity.*;
 import by.pilipuk.entity.City;
-import by.pilipuk.entity.Hotel;
-import by.pilipuk.entity.Room;
-import by.pilipuk.entity.RoomType;
 import by.pilipuk.environment.data.EntityCreators;
 import by.pilipuk.mapper.RoomMapper;
 import by.pilipuk.repository.CityRepository;
