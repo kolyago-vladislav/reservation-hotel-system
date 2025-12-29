@@ -2,6 +2,7 @@ package by.pilipuk.environment.service;
 
 import by.pilipuk.dto.HotelDto;
 import by.pilipuk.dto.HotelPageDto;
+import by.pilipuk.dto.HotelRequestDto;
 import by.pilipuk.dto.HotelWriteDto;
 import by.pilipuk.entity.Address;
 import by.pilipuk.entity.City;
@@ -10,6 +11,7 @@ import by.pilipuk.environment.data.DtoCreators;
 import by.pilipuk.environment.data.EntityCreators;
 import by.pilipuk.mapper.HotelMapper;
 import java.util.Collections;
+import java.util.List;
 
 import by.pilipuk.repository.CityRepository;
 import by.pilipuk.repository.RoomTypeRepository;
@@ -58,6 +60,7 @@ public class HotelCreationTestService {
                 Collections.singletonList(dtoCreators.writeRoomTypeCount.createRoomTypeCountDto()));
     }
 
+    @Transactional
     public HotelPageDto createHotelPageDto() {
 
         var newHotel = createHotel();
@@ -71,4 +74,13 @@ public class HotelCreationTestService {
         return hotelMapper.toHotelPageDto(pageHotels);
     }
 
+    @Transactional
+    public HotelRequestDto createHotelRequestDto() {
+        var hotelRequestDto = new HotelRequestDto();
+        hotelRequestDto.setNames(Collections.singletonList("My test hotel"));
+        hotelRequestDto.setCityIds(List.of(1L));
+        hotelRequestDto.setRatingFrom(1);
+        hotelRequestDto.setRatingTo(5);
+        return hotelRequestDto;
+    }
 }

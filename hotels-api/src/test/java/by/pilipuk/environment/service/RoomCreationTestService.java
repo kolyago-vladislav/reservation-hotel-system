@@ -2,6 +2,7 @@ package by.pilipuk.environment.service;
 
 import by.pilipuk.dto.RoomDto;
 import by.pilipuk.dto.RoomPageDto;
+import by.pilipuk.dto.RoomRequestDto;
 import by.pilipuk.entity.*;
 import by.pilipuk.entity.City;
 import by.pilipuk.environment.data.EntityCreators;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -57,6 +59,15 @@ public class RoomCreationTestService {
         var pageRooms = new PageImpl<>(roomList, pageable, roomList.size());
 
         return roomMapper.toRoomPageDto(pageRooms);
+    }
+
+    @Transactional
+    public RoomRequestDto createRoomRequestDto() {
+        var roomRequestDto = new RoomRequestDto();
+        roomRequestDto.setRoomIds(List.of(1L));
+        roomRequestDto.setRoomTypeIds(List.of(1L));
+        roomRequestDto.setHotelIds(List.of(1L));
+        return roomRequestDto;
     }
 
 }
