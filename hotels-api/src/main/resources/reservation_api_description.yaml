@@ -7,29 +7,50 @@ info:
 servers:
   - url: https://localhost:8080
 paths:
-  /hotels:
-    get:
+  /v1/hotels/search:
+    post:
       tags:
-        - hotel-controller
-      summary: Get all hotels
-      description: Returns a list of all hotels
+        - hotel
+      summary: Get hotels by pagination with filter criteria
+      description: Returns a list of all hotels in pages matching the search criteria provided in the request body
       operationId: getHotels
+      parameters:
+        - in: query
+          name: page
+          description: The number of page (starts from 0)
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - in: query
+          name: size
+          description: The number of hotels in one page
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      requestBody:
+        description: The search criteria
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HotelRequestDto'
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/HotelDto'
+                  $ref: '#/components/schemas/HotelPageDto'
 
+  /v1/hotels:
     post:
       tags:
-        - hotel-controller
-      summary: Add a new hotel
+        - hotel
+      summary: Create a new hotel
       description: Creates a new hotel with address and room type counts
-      operationId: addHotel
+      operationId: createHotel
       requestBody:
         description: Hotel data to create
         required: true
@@ -38,58 +59,72 @@ paths:
             schema:
               $ref: '#/components/schemas/HotelWriteDto'
       responses:
-        200:
+        201:
           description: Success
 
-  /rooms:
+  /v1/hotels/{id}:
     get:
       tags:
-        - room-controller
-      summary: Get all rooms
-      description: Returns rooms filtered by room types, hotel ids or room ids
-      operationId: getAllRooms
+        - hotel
+      summary: Get hotel by id
+      description: Returns hotel details by hotel id
+      operationId: getHotelById
       parameters:
-        - name: room_types
-          in: query
-          required: false
+        - name: id
+          in: path
+          required: true
           schema:
-            type: array
-            items:
-              type: integer
-              format: int64
-
-        - name: hotel_ids
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-              format: int64
-
-        - name: room_ids
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: integer
-              format: int64
-
+            type: integer
+            format: int64
       responses:
         200:
           description: Success
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/RoomDto'
+                $ref: '#/components/schemas/HotelDto'
 
-  /rooms/{id}:
+  /v1/rooms/search:
+    post:
+      tags:
+        - room
+      summary: Get rooms by pagination with filter
+      description: Returns a list of all rooms in pages matching the search filter provided in the request body
+      operationId: getRooms
+      parameters:
+        - in: query
+          name: page
+          description: The number of page (starts from 0)
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - in: query
+          name: size
+          description: The number of rooms in one page
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      requestBody:
+        description: The search filter
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoomRequestDto'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoomPageDto'
+
+  /v1/rooms/{id}:
     get:
       tags:
-        - room-controller
+        - room
       summary: Get room by id
       description: Returns room details by room id
       operationId: getRoomById
@@ -108,6 +143,55 @@ paths:
               schema:
                 $ref: '#/components/schemas/RoomDto'
 
+  /v1/dictionaries/countries:
+    get:
+      tags:
+        - dictionary
+      summary: get list of countries
+      operationId: getCountries
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CountryDto'
+
+  /v1/dictionaries/cities:
+    get:
+      tags:
+        - dictionary
+      summary: get list of cities
+      description: get list of cities
+      operationId: getCities
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CityDto'
+
+  /v1/dictionaries/roomTypes:
+    get:
+      tags:
+        - dictionary
+      summary: get list of roomTypes
+      operationId: getRoomTypes
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoomTypeDto'
+
 components:
   schemas:
 
@@ -118,10 +202,9 @@ components:
           type: string
         houseNumber:
           type: string
-        country:
-          type: string
-        city:
-          type: string
+        cityId:
+          type: integer
+          format: int64
 
     HotelWriteDto:
       type: object
@@ -130,7 +213,7 @@ components:
           type: string
         rating:
           type: integer
-          format: int32
+          format: int64
         address:
           $ref: '#/components/schemas/AddressWriteDto'
         roomTypeCountWriteDto:
@@ -141,11 +224,12 @@ components:
     RoomTypeCountWriteDto:
       type: object
       properties:
-        roomType:
-          type: string
+        roomTypeId:
+          type: integer
+          format: int64
         count:
           type: integer
-          format: int32
+          format: int64
 
     RoomDto:
       type: object
@@ -155,8 +239,9 @@ components:
           format: int64
         description:
           type: string
-        roomType:
-          type: string
+        roomTypeId:
+          type: integer
+          format: int64
         hotelId:
           type: integer
           format: int64
@@ -171,10 +256,9 @@ components:
           type: string
         houseNumber:
           type: string
-        country:
-          type: string
-        city:
-          type: string
+        cityId:
+          type: integer
+          format: int64
 
     HotelDto:
       type: object
@@ -194,28 +278,123 @@ components:
           items:
             $ref: '#/components/schemas/RoomTypeCountDto'
 
-    PageHotelDto:
+    RoomRequestDto:
+      description: Request dto provided in the request body to filter rooms
       type: object
       properties:
-        content:
+        roomTypeIds:
+          type: array
+          description: Filter by roomTypeIds
+          nullable: true
+          items:
+            type: integer
+            format: int64
+        hotelIds:
+          type: array
+          description: Filter by hotelIds
+          nullable: true
+          items:
+            type: integer
+            format: int64
+        roomIds:
+          type: array
+          description: Filter by roomIds
+          nullable: true
+          items:
+            type: integer
+            format: int64
+
+    HotelRequestDto:
+      description: Request dto provided in the request body to filter hotels
+      type: object
+      properties:
+        names:
+          type: array
+          description: Filter by hotel name
+          nullable: true
+          items:
+            type: string
+        ratingFrom:
+          type: integer
+          format: int32
+          description: filter by minimum rating of hotel (from 1 to 5).
+          minimum: 1
+          maximum: 5
+          nullable: true
+        ratingTo:
+          type: integer
+          format: int32
+          description: filter by minimum rating of hotel (from 1 to 5).
+          minimum: 1
+          maximum: 5
+          nullable: true
+        cityIds:
+          type: array
+          description: filter by city id
+          nullable: true
+          items:
+            type: integer
+            format: int64
+
+    RoomPageDto:
+      type: object
+      properties:
+        items:
           type: array
           items:
-            $ref: '#/components/schemas/HotelDto'
-        totalElements:
+            $ref: '#/components/schemas/RoomDto'
+        totalCount:
           type: integer
           format: int64
         totalPages:
           type: integer
-        size:
+
+    HotelPageDto:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HotelDto'
+        totalCount:
           type: integer
-        number:
+          format: int64
+        totalPages:
           type: integer
 
     RoomTypeCountDto:
       type: object
       properties:
-        roomType:
-          type: string
+        id:
+          type: integer
+          format: int64
         count:
           type: integer
           format: int32
+
+    CountryDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+
+    CityDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+
+    RoomTypeDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string

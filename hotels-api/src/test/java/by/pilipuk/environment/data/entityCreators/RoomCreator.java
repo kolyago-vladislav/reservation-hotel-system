@@ -1,7 +1,7 @@
 package by.pilipuk.environment.data.entityCreators;
 
-import by.pilipuk.entity.Room;
 import by.pilipuk.entity.RoomType;
+import by.pilipuk.entity.Room;
 import by.pilipuk.entity.Hotel;
 import by.pilipuk.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="1" author="shurapilipuk@gmail.com">
+        <comment>Test data for dict_cities from hotel schema</comment>
+        <sql>
+            INSERT INTO hotel.dict_cities (name, dict_country_id, created_at) VALUES
+            ('Minsk', 1, NOW() AT TIME ZONE 'utc'),
+            ('Warsaw', 2, NOW() AT TIME ZONE 'utc'),
+            ('Berlin', 3, NOW() AT TIME ZONE 'utc'),
+            ('Paris', 4, NOW() AT TIME ZONE 'utc'),
+            ('New York', 5, NOW() AT TIME ZONE 'utc'),
+            ('Madrid', 6, NOW() AT TIME ZONE 'utc'),
+            ('Rome', 7, NOW() AT TIME ZONE 'utc'),
+            ('Shanghai', 8, NOW() AT TIME ZONE 'utc'),
+            ('Rio de Janeiro', 9, NOW() AT TIME ZONE 'utc'),
+            ('Mexico City', 10, NOW() AT TIME ZONE 'utc'),
+            ('Tokyo', 11, NOW() AT TIME ZONE 'utc'),
+            ('Toronto', 12, NOW() AT TIME ZONE 'utc'),
+            ('Sydney', 13, NOW() AT TIME ZONE 'utc'),
+            ('Mumbai', 14, NOW() AT TIME ZONE 'utc'),
+            ('Moscow', 15, NOW() AT TIME ZONE 'utc'),
+            ('London', 16, NOW() AT TIME ZONE 'utc'),
+            ('Cairo', 17, NOW() AT TIME ZONE 'utc'),
+            ('Istanbul', 18, NOW() AT TIME ZONE 'utc'),
+            ('Buenos Aires', 19, NOW() AT TIME ZONE 'utc'),
+            ('Seoul', 20, NOW() AT TIME ZONE 'utc');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

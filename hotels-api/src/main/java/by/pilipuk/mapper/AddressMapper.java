@@ -3,37 +3,23 @@ package by.pilipuk.mapper;
 import by.pilipuk.dto.AddressDto;
 import by.pilipuk.dto.AddressWriteDto;
 import by.pilipuk.entity.Address;
-import by.pilipuk.entity.DictCity;
-import by.pilipuk.entity.DictCountry;
-import by.pilipuk.repository.DictCityRepository;
-import by.pilipuk.repository.DictCountryRepository;
-
 import lombok.Setter;
-
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
+import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 
 @Mapper(
-    componentModel = SPRING,
-    injectionStrategy = InjectionStrategy.CONSTRUCTOR
+        componentModel = SPRING,
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+        uses = {CountryMapper.class, CityMapper.class}
 )
 @Setter(onMethod_ = @Autowired)
 public abstract class AddressMapper {
 
-
-    private DictCityRepository dictCityRepository;
-    private DictCountryRepository dictCountryRepository;
-
     @Mapping(target = "id", source = "id")
     @Mapping(target = "street", source = "street")
     @Mapping(target = "houseNumber", source = "houseNumber")
-    @Mapping(target = "country", source = "dictCountry.country")
-    @Mapping(target = "city", source = "dictCity.city")
+    @Mapping(target = "cityId", source = "city.id")
     public abstract AddressDto from(Address address);
 
     @Mapping(target = "id", ignore = true)
@@ -42,20 +28,7 @@ public abstract class AddressMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "street", source = "street")
     @Mapping(target = "houseNumber", source = "houseNumber")
-    @Mapping(target = "dictCountry", source = "country")
-    @Mapping(target = "dictCity", source = "city")
+    @Mapping(target = "city.id", source = "cityId")
     public abstract Address to(AddressWriteDto addressWriteDto);
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "active", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    public abstract DictCity toCity(String city);
-
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "active", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    public abstract DictCountry toCountry(String country);
 
 }

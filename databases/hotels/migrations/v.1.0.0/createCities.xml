@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="1" author="shurapilipuk@gmail.com">
+        <comment>Cities dictionary</comment>
+        <createTable tableName="dict_cities" schemaName="hotel">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_dict_city_id"/>
+            </column>
+            <column name="name" type="TEXT">
+                <constraints unique="true" nullable="false" uniqueConstraintName="uc_dict_city_name"/>
+            </column>
+            <column name="dict_country_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_dict_cities_dict_country_id" references="hotel.dict_countries(id)"/>
+            </column>
+            <column name="active" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIMEZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIMEZONE"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

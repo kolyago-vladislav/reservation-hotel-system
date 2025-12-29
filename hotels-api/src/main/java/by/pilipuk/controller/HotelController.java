@@ -1,27 +1,34 @@
 package by.pilipuk.controller;
 
-import by.pilipuk.dto.PageHotelDto;
+import by.pilipuk.api.HotelApi;
+import by.pilipuk.dto.HotelDto;
+import by.pilipuk.dto.HotelPageDto;
+import by.pilipuk.dto.HotelRequestDto;
+import by.pilipuk.dto.HotelWriteDto;
 import by.pilipuk.service.HotelService;
 import lombok.RequiredArgsConstructor;
-import by.pilipuk.api.HotelsApi;
-import by.pilipuk.dto.HotelDto;
-import by.pilipuk.dto.HotelWriteDto;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class HotelController implements HotelsApi {
+public class HotelController implements HotelApi {
 
     private final HotelService hotelService;
+
     @Override
-    public List<HotelDto> getHotels() {
-        return hotelService.getAllHotels();
+    public void createHotel(HotelWriteDto hotelWriteDto) {
+        hotelService.createHotel(hotelWriteDto);
     }
 
     @Override
-    public void addHotel(HotelWriteDto hotelWriteDto) {
-        hotelService.addHotel(hotelWriteDto);
+    public HotelPageDto getHotels(HotelRequestDto hotelRequestDto, Integer page, Integer size) {
+
+        return hotelService.getAllHotels(hotelRequestDto, page, size);
+    }
+
+    @Override
+    public HotelDto getHotelById(Long id) {
+        return hotelService.getHotelById(id);
     }
 
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="1" author="shurapilipuk@gmail.com">
+        <comment>Test data for hotels from hotel schema</comment>
+        <sql>
+            INSERT INTO hotel.hotels (name, rating, address_id, created_at)
+            SELECT
+                CONCAT('Hotel', gs) AS name,
+                CASE
+                    WHEN random() &lt; 0.5
+                    THEN 5
+                    ELSE 4
+                END AS rating,
+                gs AS address_id,
+                NOW() AT TIME ZONE 'utc'
+            FROM generate_series(1, 20) AS gs;
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="shurapilipuk@gmail.com">
+        <comment>Test data for tmp_hotel_room_counts from hotel schema</comment>
+        <sql>
+            CREATE TEMP TABLE tmp_hotel_room_counts AS
+            SELECT id AS hotel_id,
+                FLOOR(random() * 19 + 10)::int AS room_count
+            FROM hotel.hotels;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

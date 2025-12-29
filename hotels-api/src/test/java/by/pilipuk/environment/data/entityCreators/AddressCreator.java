@@ -1,8 +1,7 @@
 package by.pilipuk.environment.data.entityCreators;
 
 import by.pilipuk.entity.Address;
-import by.pilipuk.entity.DictCity;
-import by.pilipuk.entity.DictCountry;
+import by.pilipuk.entity.City;
 import by.pilipuk.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,14 +12,14 @@ public class AddressCreator {
 
     private final AddressRepository addressRepository;
 
-    public Address createAddress(DictCountry country, DictCity city) {
+    public Address createAddress(City city) {
 
         Address address = new Address()
-                .setDictCountry(country)
-                .setDictCity(city)
+                .setCity(city)
                 .setStreet("Lira")
                 .setHouseNumber("9a");
 
-        return addressRepository.save(address);
+//        return addressRepository.save(address);
+        return address;
     }
 }
