@@ -1,31 +1,47 @@
 package by.pilipuk.controller;
 
+import by.pilipuk.exeption.ProcessingException;
 import by.pilipuk.exeption.ValidationException;
+import by.pilipuk.exeption.base.BaseApplicationException;
+import by.pilipuk.model.dto.ExceptionDto;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import java.time.OffsetDateTime;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.time.Instant;
+import java.util.Objects;
 
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<Map<String, Object>> handleNotFoundException(ValidationException ex) {
-        String errorCode = ex.getContext().getCode();
+    @ExceptionHandler(BaseApplicationException.class)
+    public ResponseEntity<ExceptionDto> handleApplicationException(BaseApplicationException ex, HttpServletRequest request) {
 
-        log.debug("[Element Not Found] Code: {}, Id: {}", errorCode, ex.getContext().getParameters());
+        switch (ex.getLevel()) {
+            case ERROR -> log.error("[ERROR] {}", ex.getMessage(), ex);
+            case DEBUG -> log.debug("[DEBUG] {}", ex.getMessage());
+            default    -> log.info("[INFO] {}", ex.getMessage());
+        }
 
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", OffsetDateTime.now());
-        body.put("status", HttpStatus.NOT_FOUND.value());
-        body.put("errorCode", errorCode);
-        body.put("details", ex.getContext().getParameters());
+        HttpStatus status = null;
+        if (ex instanceof ValidationException) {
+            status = HttpStatus.NOT_FOUND;
+        }
+        if (ex instanceof ProcessingException) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+        }
 
-        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+        ExceptionDto dto = new ExceptionDto(
+                Objects.requireNonNull(status).value(),
+                ex.getContext().getCode(),
+                ex.getMessage(),
+                request.getRequestURI(),
+                Instant.now()
+        );
+
+        return new ResponseEntity<>(dto, status);
     }
 }

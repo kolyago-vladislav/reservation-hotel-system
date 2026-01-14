@@ -1,8 +1,8 @@
 package by.pilipuk.exeption;
 
 import by.pilipuk.exeption.base.BaseValidationException;
-import by.pilipuk.model.dto.ExceptionContext;
 import by.pilipuk.model.enums.ValidationCode;
+import by.pilipuk.model.dto.ExceptionContext;
 import org.slf4j.event.Level;
 import java.util.List;
 
