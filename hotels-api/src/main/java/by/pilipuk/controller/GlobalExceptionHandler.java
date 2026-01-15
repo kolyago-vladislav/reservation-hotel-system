@@ -1,24 +1,26 @@
 package by.pilipuk.controller;
 
-import by.pilipuk.exeption.ProcessingException;
-import by.pilipuk.exeption.ValidationException;
 import by.pilipuk.exeption.base.BaseApplicationException;
+import by.pilipuk.mapper.ExceptionMapper;
 import by.pilipuk.model.dto.ExceptionDto;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import java.time.Instant;
 import java.util.Objects;
 
 @Slf4j
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
 
+    private final ExceptionMapper exceptionMapper;
+
     @ExceptionHandler(BaseApplicationException.class)
-    public ResponseEntity<ExceptionDto> handleApplicationException(BaseApplicationException ex, HttpServletRequest request) {
+    public ResponseEntity<ExceptionDto> handleExpectedApplicationException(BaseApplicationException ex, HttpServletRequest request) {
 
         switch (ex.getLevel()) {
             case ERROR -> log.error("[ERROR] {}", ex.getMessage(), ex);
@@ -26,21 +28,19 @@ public class GlobalExceptionHandler {
             default    -> log.info("[INFO] {}", ex.getMessage());
         }
 
-        HttpStatus status = null;
-        if (ex instanceof ValidationException) {
-            status = HttpStatus.NOT_FOUND;
-        }
-        if (ex instanceof ProcessingException) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
+        HttpStatus status = HttpStatus.BAD_REQUEST;
 
-        ExceptionDto dto = new ExceptionDto(
-                Objects.requireNonNull(status).value(),
-                ex.getContext().getCode(),
-                ex.getMessage(),
-                request.getRequestURI(),
-                Instant.now()
-        );
+        ExceptionDto dto = exceptionMapper.toDto(ex, request, Objects.requireNonNull(status).value());
+
+        return new ResponseEntity<>(dto, status);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionDto> handleOtherApplicationException(Exception ex, HttpServletRequest request) {
+        log.error("[ERROR] {}", ex.getMessage(), ex);
+
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+        ExceptionDto dto = exceptionMapper.toDto(ex, request, status.value(), "INTERNAL_SERVER_ERROR");
 
         return new ResponseEntity<>(dto, status);
     }
