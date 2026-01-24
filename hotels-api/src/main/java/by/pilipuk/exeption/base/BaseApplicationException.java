@@ -1,11 +1,10 @@
 package by.pilipuk.exeption.base;
 
 import by.pilipuk.model.dto.ExceptionContext;
+import static java.util.Optional.ofNullable;
 
 import lombok.Getter;
-import org.apache.logging.log4j.spi.StandardLevel;
-
-import static java.util.Optional.ofNullable;
+import org.slf4j.event.Level;
 
 @Getter
 public class BaseApplicationException extends RuntimeException {
@@ -15,11 +14,11 @@ public class BaseApplicationException extends RuntimeException {
 
     private final String code;
     private final ExceptionContext context;
-    private final StandardLevel level;
+    private final Level level;
 
     public BaseApplicationException(
         String code,
-        StandardLevel level,
+        Level level,
         ExceptionContext context,
         Throwable cause
     ) {

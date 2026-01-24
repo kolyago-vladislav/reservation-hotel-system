@@ -1,7 +1,7 @@
 package by.pilipuk.exeption.base;
 
 import by.pilipuk.model.dto.ExceptionContext;
-import org.apache.logging.log4j.spi.StandardLevel;
+import org.slf4j.event.Level;
 
 /**
  * This exception serves as a wrapper used to rethrow exceptions in
@@ -13,7 +13,7 @@ public class BaseProcessingException extends BaseApplicationException {
     public static final String CODE = "APPLICATION_PROCESSING_EXCEPTION";
 
     public BaseProcessingException(
-        StandardLevel level,
+        Level level,
         ExceptionContext context,
         Throwable throwable
     ) {

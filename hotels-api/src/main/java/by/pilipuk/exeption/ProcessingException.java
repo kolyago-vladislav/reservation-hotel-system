@@ -3,13 +3,13 @@ package by.pilipuk.exeption;
 import by.pilipuk.exeption.base.BaseProcessingException;
 import by.pilipuk.model.dto.ExceptionContext;
 import by.pilipuk.model.enums.ProcessingCode;
-import org.apache.logging.log4j.spi.StandardLevel;
+import org.slf4j.event.Level;
 import static by.pilipuk.model.enums.ProcessingCode.FAILED_PROCESSING;
 
 public class ProcessingException extends BaseProcessingException {
 
     private ProcessingException(
-        StandardLevel level,
+        Level level,
         ExceptionContext context,
         Throwable throwable
     ) {
